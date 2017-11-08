@@ -1,12 +1,13 @@
 {
   "name": "the-little-cipher",
   "version": "1.0.0",
-  "description": "",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "format": "prettier-eslint --write '**/*.{js,scss}'"
+    "lint": "eslint .",
+    "format": "prettier-eslint --write '**/*.{js,scss}'",
+    "precommit": "lint-staged"
   },
   "author": "dgeibi",
   "license": "MIT",
@@ -31,5 +32,16 @@
     "husky": "^0.14.3",
     "jest": "^21.2.1",
     "lint-staged": "^4.3.0"
-  }
+  },
+  "main": "index.js",
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dgeibi/the-little-cipher.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dgeibi/the-little-cipher/issues"
+  },
+  "homepage": "https://github.com/dgeibi/the-little-cipher#readme",
+  "description": "实现一些加密算法"
 }
