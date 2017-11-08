@@ -1,0 +1,35 @@
+{
+  "name": "the-little-cipher",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "format": "prettier-eslint --write '**/*.{js,scss}'"
+  },
+  "author": "dgeibi",
+  "license": "MIT",
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "printWidth": 90
+  },
+  "lint-staged": {
+    "*.{scss,js}": [
+      "git-exec-and-restage prettier-eslint --write --"
+    ]
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.0.2",
+    "eslint": "^4.10.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-dgeibi": "^3.0.6",
+    "eslint-plugin-import": "^2.8.0",
+    "git-exec-and-restage": "^1.0.1",
+    "husky": "^0.14.3",
+    "jest": "^21.2.1",
+    "lint-staged": "^4.3.0"
+  }
+}
