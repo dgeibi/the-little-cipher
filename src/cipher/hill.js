@@ -17,10 +17,9 @@ const getGroup = (inputs) => {
   if (index < inputs.length) {
     const last = inputs.slice(index)
     let left = M - last.length
-    const x = 'x'.charCodeAt(0)
     while (left) {
       left -= 1
-      last.push(x)
+      last.push('X')
     }
     groups.push(last)
   }
