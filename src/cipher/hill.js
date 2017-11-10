@@ -13,11 +13,21 @@ const M = 3
 const ACode = codeOf('A')
 const XOffset = codeOf('X') - ACode
 
+/**
+ * @param {number} x
+ * @returns {number}
+ */
+const mod26 = x => mod(x, 26)
+
+/**
+ * @param {Lat} inputs
+ * @returns {Matrix}
+ */
 const getLats = (inputs) => {
-  const groups = []
+  const lats = []
   let index
   for (index = 0; index + M - 1 < inputs.length; index += M) {
-    groups.push(inputs.slice(index, index + M))
+    lats.push(inputs.slice(index, index + M))
   }
   if (index < inputs.length) {
     const last = inputs.slice(index)
@@ -26,27 +36,32 @@ const getLats = (inputs) => {
       left -= 1
       last.push(XOffset)
     }
-    groups.push(last)
+    lats.push(last)
   }
-  return groups
+  return lats
 }
 
 /**
- * @param {Matrix} key
- * @param {Lat} lat
- * @param {Lat}
+ * @param {string} x
+ * @returns {number}
  */
-const encode = (key, lat) => {
-  const m = transpose([lat])
-  const outLat = transpose(multiply(key, m))[0]
-  return outLat.map(x => mod(x, 26))
-}
-
 const char2Offset = x => codeOf(x) - ACode
-const offset2Char = c => String.fromCharCode(c + ACode)
+
+/**
+ * @param {number} x
+ * @returns {string}
+ */
+const offset2Char = x => String.fromCharCode(x + ACode)
+
+/**
+ * @param {number} x
+ * @returns {string}
+ */
+const num2char = x => offset2Char(mod26(x))
 
 /**
  * @param {Matrix} key
+ * @returns {Matrix}
  */
 function inverse(key) {
   const detK = mod(det(key), 26)
@@ -57,13 +72,14 @@ function inverse(key) {
 }
 
 /**
- * @param {Matrix} key
+ * @param {Matrix} K
  * @param {string} str
  */
-function hill(key, str) {
+function hill(K, str) {
   const inputs = String(str).toUpperCase().split('').filter(isUpperCase)
     .map(char2Offset)
-  return getLats(inputs).map(lat => encode(key, lat).map(offset2Char).join('')).join('')
+  const P = transpose(getLats(inputs))
+  return transpose(multiply(K, P)).map(lat => lat.map(num2char).join('')).join('')
 }
 
 hill.inverse = inverse
