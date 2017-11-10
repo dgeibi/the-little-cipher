@@ -1,5 +1,7 @@
 exports.isUpperCase = c => c >= 'A' && c <= 'Z'
 
+exports.codeOf = str => String(str).charCodeAt(0)
+
 /**
  * @param {number} x
  * @param {number} y

@@ -1,3 +1,5 @@
+const { codeOf, isUpperCase } = require('../util')
+
 const types = {
   SAME_ROW: 1,
   SAME_CLO: 2,
@@ -7,15 +9,14 @@ const types = {
 const FALLBACK1 = 'K'
 const FALLBACK2 = 'Z'
 const getFallback = c => (c === FALLBACK1 ? FALLBACK2 : FALLBACK1)
-const isAl = c => c >= 'A' && c <= 'Z'
 
 /**
  * @param {string} secret
  */
 const toChars = (secret) => {
-  const schars = secret.toUpperCase().split('').filter(isAl)
+  const schars = secret.toUpperCase().split('').filter(isUpperCase)
 
-  for (let i = 0, offset = 'A'.charCodeAt(0); i < 26; i += 1) {
+  for (let i = 0, offset = codeOf('A'); i < 26; i += 1) {
     const char = String.fromCharCode(offset + i)
     if (char !== 'J') schars.push(char)
   }
@@ -86,7 +87,7 @@ const toSquare = (chars) => {
 const playfair = (secret, input) => {
   const chars = toChars(secret)
   const square = toSquare(chars)
-  const inputs = input.toUpperCase().replace(/J/g, 'I').split('').filter(isAl)
+  const inputs = input.toUpperCase().replace(/J/g, 'I').split('').filter(isUpperCase)
   const pairs = getPairs(inputs)
   const diff = pairs.map((pair) => {
     const [a, b, type] = transform(pair, chars)

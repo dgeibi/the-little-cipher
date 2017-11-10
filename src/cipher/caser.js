@@ -1,13 +1,14 @@
-const alre = /[a-zA-Z]/
-const offset = 'A'.charCodeAt(0)
+const { codeOf, isUpperCase } = require('../util')
+
+const offset = codeOf('A')
 
 const caser = str =>
   String(str)
     .split('')
     .map((c) => {
-      if (!alre.test(c)) return c
       const C = c.toUpperCase()
-      const code = (C.charCodeAt(0) - offset + 3) % 26 + offset
+      if (!isUpperCase(C)) return c
+      const code = (codeOf(C) - offset + 3) % 26 + offset
       return String.fromCharCode(code)
     })
     .join('')
