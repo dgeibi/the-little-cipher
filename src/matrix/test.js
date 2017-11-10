@@ -1,5 +1,5 @@
 const {
-  multiply, transpose, map, fromLat, det, adjugate, inverse,
+  multiply, transpose, map, fromLat, det, adjugate, inverse, noob,
 } = require('./index')
 
 test('transpose', () => {
@@ -48,5 +48,5 @@ test('inverse', () => {
 
   expect(inverse([[5, 6], [7, 8]])).toEqual([[-4, 3], [3.5, -2.5]])
 
-  expect(inverse([[0, 0], [0, 0]])).toBe(null)
+  expect(inverse([[0, 0], [0, 0]])).toBe(noob)
 })

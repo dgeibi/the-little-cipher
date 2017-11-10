@@ -3,12 +3,15 @@
  * @typedef {number[]} Lat
  */
 const {
-  transpose, multiply, map, det, adjugate,
+  transpose, multiply, map, det, adjugate, noob,
 } = require('../matrix')
-const { isUpperCase } = require('../util')
+const { isUpperCase, mod, modInverse } = require('../util')
 
 const M = 3
-const getGroup = (inputs) => {
+const ACode = 'A'.charCodeAt(0)
+const XOffset = 'X'.charCodeAt(0) - ACode
+
+const getLats = (inputs) => {
   const groups = []
   let index
   for (index = 0; index + M - 1 < inputs.length; index += M) {
@@ -19,65 +22,48 @@ const getGroup = (inputs) => {
     let left = M - last.length
     while (left) {
       left -= 1
-      last.push('X')
+      last.push(XOffset)
     }
     groups.push(last)
   }
   return groups
 }
 
-function mod(x, y) {
-  const my = Math.abs(y)
-  if (my === 0) return null
-  if (x >= 0) return x % y
-  const px = -x
-  return Math.ceil(px / y) * y + x
-}
-
-function modInverse(num, m) {
-  let i = 1
-  while (mod(i * num, m) !== 1) {
-    i += 1
-  }
-  return i
-}
-
 /**
- *
- * @param {Matrix} key
- */
-function inverse(key) {
-  const detK = mod(det(key), 26)
-  const rev = modInverse(detK, 26)
-  const adj = adjugate(key)
-  return map(adj, x => mod(x * rev, 26))
-}
-
-/**
- *
  * @param {Matrix} key
  * @param {Lat} lat
+ * @param {Lat}
  */
-const enc = (key, lat) => {
+const encode = (key, lat) => {
   const m = transpose([lat])
   const outLat = transpose(multiply(key, m))[0]
   return outLat.map(x => mod(x, 26))
 }
 
-const ACode = 'A'.charCodeAt(0)
 const getOffset = x => x.charCodeAt(0) - ACode
+const offset2Char = c => String.fromCharCode(c + ACode)
+
+/**
+ * @param {Matrix} key
+ */
+function inverse(key) {
+  const detK = mod(det(key), 26)
+  const rev = modInverse(detK, 26)
+  if (Number.isNaN(rev)) return noob
+  const adj = adjugate(key)
+  return map(adj, x => mod(x * rev, 26))
+}
 
 /**
  * @param {Matrix} key
  * @param {string} str
  */
-const pill = (key, str) => {
-  const groups = getGroup(String(str).toUpperCase().split('').filter(isUpperCase)
-    .map(getOffset))
-  return groups.map(g => enc(key, g).map(c => String.fromCharCode(c + ACode)).join('')).join('')
+function hill(key, str) {
+  const inputs = String(str).toUpperCase().split('').filter(isUpperCase)
+    .map(getOffset)
+  return getLats(inputs).map(lat => encode(key, lat).map(offset2Char).join('')).join('')
 }
 
-module.exports = {
-  inverse,
-  pill,
-}
+hill.inverse = inverse
+
+module.exports = hill

@@ -3,6 +3,7 @@
  * @typedef {number[]} Lat
  */
 
+const noob = [[]]
 /**
  * @param {Lat} lat
  * @returns {Matrix}
@@ -79,7 +80,7 @@ function adjugate(matrix) {
  */
 function inverse(matrix) {
   const de = det(matrix)
-  if (Number(de.toFixed(7)) === 0) return null
+  if (Number(de.toFixed(7)) === 0) return noob
   const inv = map(adjugate(matrix), x => x / de)
   return inv
 }
@@ -139,4 +140,5 @@ module.exports = {
   det,
   adjugate,
   inverse,
+  noob,
 }
