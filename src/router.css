@@ -1,0 +1,17 @@
+.layout,
+.content-inner {
+  min-height: 100%;
+}
+
+.content {
+  padding: 0 50px;
+}
+
+.content-inner {
+  background: #fff;
+  padding: 24px;
+}
+
+.footer {
+  text-align: center;
+}

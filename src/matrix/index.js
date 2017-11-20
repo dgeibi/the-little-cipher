@@ -3,7 +3,6 @@
  * @typedef {number[]} Lat
  */
 
-const noob = [[]]
 /**
  * @param {Lat} lat
  * @returns {Matrix}
@@ -80,7 +79,7 @@ function adjugate(matrix) {
  */
 function inverse(matrix) {
   const de = det(matrix)
-  if (Number(de.toFixed(7)) === 0) return noob
+  if (Number(de.toFixed(7)) === 0) return null
   const inv = map(adjugate(matrix), x => x / de)
   return inv
 }
@@ -91,17 +90,20 @@ function inverse(matrix) {
  * @returns {Matrix}
  */
 function transpose(input) {
-  const cLength = input.length
-  const rLength = input[0].length
-  const output = []
-  for (let i = 0; i < rLength; i += 1) {
-    const row = []
-    output[i] = row
-    for (let j = 0; j < cLength; j += 1) {
-      row[j] = input[j][i]
+  const cLength = input && input.length
+  const rLength = input[0] && input[0].length
+  if (rLength > 0) {
+    const output = []
+    for (let i = 0; i < rLength; i += 1) {
+      const row = []
+      output[i] = row
+      for (let j = 0; j < cLength; j += 1) {
+        row[j] = input[j][i]
+      }
     }
+    return output
   }
-  return output
+  return null
 }
 
 /**
@@ -132,13 +134,4 @@ function map(matrix, fn) {
   return matrix.map(r => r.map(fn))
 }
 
-module.exports = {
-  multiply,
-  transpose,
-  map,
-  fromLat,
-  det,
-  adjugate,
-  inverse,
-  noob,
-}
+export { multiply, transpose, map, fromLat, det, adjugate, inverse }
