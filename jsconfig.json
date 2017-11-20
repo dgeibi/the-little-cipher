@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "experimentalDecorators": true,
+    "jsx": "react"
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
