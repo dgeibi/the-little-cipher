@@ -1,4 +1,4 @@
-const caser = require('./caser')
+import caser from './caser'
 
 test('works', () => {
   expect(caser('abC')).toBe('DEF')

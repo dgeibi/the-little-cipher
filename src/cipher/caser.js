@@ -1,4 +1,4 @@
-const { codeOf, isUpperCase } = require('../util')
+import { codeOf, isUpperCase } from '../util'
 
 const offset = codeOf('A')
 
@@ -13,4 +13,4 @@ const caser = str =>
     })
     .join('')
 
-module.exports = caser
+export default caser

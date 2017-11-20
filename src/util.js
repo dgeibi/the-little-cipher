@@ -1,13 +1,13 @@
-exports.isUpperCase = c => c >= 'A' && c <= 'Z'
+export const isUpperCase = c => c >= 'A' && c <= 'Z'
 
-exports.codeOf = str => String(str).charCodeAt(0)
+export const codeOf = str => String(str).charCodeAt(0)
 
 /**
  * @param {number} x
  * @param {number} y
  * @returns {number}
  */
-function mod(x, y) {
+export function mod(x, y) {
   if (y === 0) return NaN
   let m = x % y
   if (m < 0) {
@@ -16,22 +16,18 @@ function mod(x, y) {
   return m
 }
 
-exports.mod = mod
-
 /**
  * @param {number} a
  * @param {number} b
  * @returns {number}
  */
-const gcd = (a, b) => (b === 0 ? a : gcd(b, mod(a, b)))
-
-exports.gcd = gcd
+export const gcd = (a, b) => (b === 0 ? a : gcd(b, mod(a, b)))
 
 /**
  * @param {number} num
  * @param {number} m
  */
-function modInverse(num, m) {
+export function modInverse(num, m) {
   if (num === 0 || gcd(num, m) > 1) return NaN
   let i = 1
   while (mod(i * num, m) !== 1) {
@@ -40,4 +36,12 @@ function modInverse(num, m) {
   return i
 }
 
-exports.modInverse = modInverse
+export function repeat(time, fn) {
+  let cnt = 0
+  const rets = []
+  while (cnt < time) {
+    rets.push(fn())
+    cnt += 1
+  }
+  return rets
+}

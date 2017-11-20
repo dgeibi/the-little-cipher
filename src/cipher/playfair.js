@@ -1,4 +1,4 @@
-const { codeOf, isUpperCase } = require('../util')
+import { codeOf, isUpperCase } from '../util'
 
 const types = {
   SAME_ROW: 1,
@@ -106,8 +106,4 @@ const playfair = (secret, input) => {
 const cipherString = results => results.reduce((str, { result }) => str + result, '')
 const originalString = results => results.reduce((str, { origin }) => str + origin, '')
 
-module.exports = {
-  cipherString,
-  originalString,
-  playfair,
-}
+export { cipherString, originalString, playfair }

@@ -1,4 +1,4 @@
-const { playfair, originalString, cipherString } = require('./playfair')
+import { playfair, originalString, cipherString } from './playfair'
 
 test('repeat', () => {
   const { diff, square } = playfair('god', 'qq')

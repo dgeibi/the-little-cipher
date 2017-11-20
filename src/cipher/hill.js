@@ -2,12 +2,9 @@
  * @typedef {number[][]} Matrix
  * @typedef {number[]} Lat
  */
-const {
-  transpose, multiply, map, det, adjugate, noob,
-} = require('../matrix')
-const {
-  isUpperCase, mod, modInverse, codeOf,
-} = require('../util')
+
+import { transpose, multiply, map, det, adjugate } from '../matrix'
+import { isUpperCase, mod, modInverse, codeOf } from '../util'
 
 const M = 3
 const ACode = codeOf('A')
@@ -66,22 +63,22 @@ const num2char = x => offset2Char(mod26(x))
 function inverse(key) {
   const detK = mod(det(key), 26)
   const rev = modInverse(detK, 26)
-  if (Number.isNaN(rev)) return noob
+  if (Number.isNaN(rev)) return null
   const adj = adjugate(key)
   return map(adj, x => mod(x * rev, 26))
 }
 
 /**
  * @param {Matrix} K
- * @param {string} str
+ * @param {string} plaintext
  */
-function hill(K, str) {
-  const inputs = String(str).toUpperCase().split('').filter(isUpperCase)
+function hill(K, plaintext) {
+  const inputs = String(plaintext).toUpperCase().split('').filter(isUpperCase)
     .map(char2Offset)
   const P = transpose(getLats(inputs))
-  return transpose(multiply(K, P)).map(lat => lat.map(num2char).join('')).join('')
+  return P ? transpose(multiply(K, P)).map(lat => lat.map(num2char).join('')).join('') : ''
 }
 
 hill.inverse = inverse
 
-module.exports = hill
+export { hill as default, inverse }

@@ -1,4 +1,4 @@
-const { mod, gcd } = require('./util')
+import { mod, gcd } from './util'
 
 test('mod', () => {
   expect(mod(0, 1)).toBe(0)
