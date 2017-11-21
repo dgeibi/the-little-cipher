@@ -45,3 +45,7 @@ export function repeat(time, fn) {
   }
   return rets
 }
+
+export function isPlainFile(file) {
+  return /text|javascript|html|css|xml|json/.test(file.type)
+}
