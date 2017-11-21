@@ -1,4 +1,10 @@
 import express from 'express'
+import multer from 'multer'
+import { readFile } from 'fs'
+import { isPlainFile } from '../util'
+import playfair from './playfair'
+
+const upload = multer({ dest: 'uploads/' })
 
 const app = express()
 const DEV = process.env.NODE_ENV === 'development'
@@ -18,4 +24,23 @@ if (DEV) {
   app.use(express.static('public'))
 }
 
-const server = app.listen(3000, () => console.log(server.address()))
+app.post('/playfair', upload.single('plaintext'), (req, res) => {
+  if (req.file && isPlainFile(req.file)) {
+    readFile(req.file.path, (err, buffer) => {
+      if (err) {
+        console.log(err)
+        res.sendStatus(500)
+        return
+      }
+      res.status(200).json(playfair(req.body.secret, buffer.toString()))
+    })
+  } else if (req.body.plaintext) {
+    res.status(200).json(playfair(req.body.secret, req.body.plaintext))
+  } else {
+    res.sendStatus(400)
+  }
+})
+
+const server = app.listen(3000, () => {
+  console.log(`open http://localhost:${server.address().port}`)
+})

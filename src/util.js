@@ -47,5 +47,5 @@ export function repeat(time, fn) {
 }
 
 export function isPlainFile(file) {
-  return /text|javascript|html|css|xml|json/.test(file.type)
+  return /text|javascript|html|css|xml|json/.test(file.type || file.mimetype)
 }

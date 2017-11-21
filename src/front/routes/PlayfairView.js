@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import { Input } from 'antd'
+import { connect } from 'dva'
+import { Input, message } from 'antd'
 import Table from 'rc-table'
 
-import { playfair, cipherString, originalString, findType } from '../../cipher/playfair'
+import { findType } from '../../cipher/playfair'
 import Section from '../components/Section'
 import MatrixOutput from '../components/MatrixOutput'
 import Output from '../components/Output'
+import { isPlainFile } from '../../util'
 
 const { TextArea } = Input
 const columns = [
@@ -30,26 +32,60 @@ const columns = [
   },
 ]
 
+@connect(({ playfair }) => ({ ...playfair }))
 class PlayfairView extends Component {
-  state = {
-    secretInput: '',
-    plainInput: '',
-    plainText: '',
-    cipherText: '',
-  }
-
   handleInputChange = (e) => {
     const { name, value } = e.target
     if (name) {
-      this.setState({
+      this.fetch({
         [name]: value,
       })
     }
   }
 
+  fetch(payload) {
+    const { secretInput, plainInput, dispatch } = this.props
+    dispatch({
+      type: 'playfair/fetch',
+      payload: {
+        secretInput,
+        plainInput,
+        ...payload,
+      },
+    })
+  }
+
+  readfiles(files) {
+    const file = files && files[0]
+    if (file) {
+      if (isPlainFile(file)) {
+        this.fetch({
+          file,
+        })
+      } else if (file.type) {
+        message.error(`不支持 ${file.type}`)
+      } else {
+        message.error('文件格式未知')
+      }
+    }
+  }
+
+  handleDrop = (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+    if (e.dataTransfer.files.length > 0) {
+      this.readfiles(e.dataTransfer.files)
+    } else {
+      this.fetch({
+        plainInput: e.dataTransfer.getData('text'),
+      })
+    }
+  }
+
   render() {
-    const { plainInput, secretInput } = this.state
-    const { diff, square } = playfair(secretInput, plainInput)
+    const {
+      plainInput, secretInput, diff, square, plainText, cipherText,
+    } = this.props
 
     return (
       <div>
@@ -60,8 +96,15 @@ class PlayfairView extends Component {
           <Input value={secretInput} name="secretInput" onChange={this.handleInputChange} />
         </Section>
 
-        <Section desc="明文输入">
-          <TextArea value={plainInput} name="plainInput" onChange={this.handleInputChange} />
+        <Section desc="明文输入（文本/文件）">
+          <TextArea
+            value={plainInput}
+            name="plainInput"
+            placeholder="在此输入，拖拽至此"
+            rows={3}
+            onDrop={this.handleDrop}
+            onChange={this.handleInputChange}
+          />
         </Section>
 
         <Section desc="加密矩阵">
@@ -69,11 +112,11 @@ class PlayfairView extends Component {
         </Section>
 
         <Section desc="明文">
-          <Output value={originalString(diff)} />
+          <Output value={plainText} />
         </Section>
 
         <Section desc="密文">
-          <Output value={cipherString(diff)} />
+          <Output value={cipherText} />
         </Section>
 
         <Section desc="细节">
@@ -83,4 +126,5 @@ class PlayfairView extends Component {
     )
   }
 }
+
 export default PlayfairView

@@ -2,7 +2,7 @@ import 'babel-polyfill'
 import dva from 'dva'
 import './index.css'
 
-import exModal from './models/example'
+import playfair from './models/playfair'
 import router from './router'
 
 // 1. Initialize
@@ -13,7 +13,7 @@ const app = dva()
 
 // 3. Model
 
-app.model(exModal)
+app.model(playfair)
 
 // 4. Router
 app.router(router)
