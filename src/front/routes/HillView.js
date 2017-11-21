@@ -5,7 +5,7 @@ import MatrixInput from '../components/MatrixInput'
 import MatrixOutput from '../components/MatrixOutput'
 import Section from '../components/Section'
 
-import hill, { inverse } from '../cipher/hill'
+import hill, { inverse } from '../../cipher/hill'
 import Output from '../components/Output'
 
 const { TextArea } = Input

@@ -3,8 +3,8 @@ import { Input, message } from 'antd'
 
 import Output from '../components/Output'
 import Section from '../components/Section'
-import caser from '../cipher/caser'
-import { isPlainFile } from '../util'
+import caser from '../../cipher/caser'
+import { isPlainFile } from '../../util'
 import './CaserView.css'
 
 const { TextArea } = Input

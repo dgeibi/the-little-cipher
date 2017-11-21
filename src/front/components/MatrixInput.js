@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { Input } from 'antd'
 
-import { repeat } from '../util'
+import { repeat } from '../../util'
 
 const { TextArea } = Input
 

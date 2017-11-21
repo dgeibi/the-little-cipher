@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Input } from 'antd'
 import Table from 'rc-table'
 
-import { playfair, cipherString, originalString, findType } from '../cipher/playfair'
+import { playfair, cipherString, originalString, findType } from '../../cipher/playfair'
 import Section from '../components/Section'
 import MatrixOutput from '../components/MatrixOutput'
 import Output from '../components/Output'

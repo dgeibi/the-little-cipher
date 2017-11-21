@@ -6,7 +6,7 @@ const DIST_DIR = path.resolve(__dirname, pkg.dist_dir)
 
 module.exports = {
   entry: {
-    app: './src/index.js',
+    app: './src/front/index.js',
   },
   output: {
     path: DIST_DIR,
@@ -16,7 +16,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: pkg.name,
-      template: 'src/index.ejs',
+      template: 'src/front/index.ejs',
     }),
   ],
 }
