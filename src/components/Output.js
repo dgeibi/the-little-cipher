@@ -5,7 +5,12 @@ function Output({
   children, value, className, ...props
 }) {
   return (
-    <div {...props} className={className} styleName="output" children={children || value || '空'} />
+    <div
+      {...props}
+      className={className}
+      styleName="output"
+      children={children || value || '无数据'}
+    />
   )
 }
 

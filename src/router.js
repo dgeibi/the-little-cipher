@@ -3,6 +3,7 @@ import { Layout, Menu } from 'antd'
 import { Router, Route, Switch, Link } from 'dva/router'
 import IndexPage from './routes/IndexPage'
 import CaserView from './routes/CaserView'
+import PlayfairView from './routes/PlayfairView'
 import HillView from './routes/HillView'
 import './router.css'
 
@@ -11,6 +12,7 @@ const { Header, Content, Footer } = Layout
 const routes = [
   { title: '首页', address: '/', view: IndexPage },
   { title: '凯撒密码', address: '/caser/', view: CaserView },
+  { title: 'Playfair密码', address: '/playfair/', view: PlayfairView },
   { title: 'Hill密码', address: '/hill/', view: HillView },
 ]
 

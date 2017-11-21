@@ -6,6 +6,19 @@ const types = {
   CROSS: 3,
 }
 
+function findType(code) {
+  switch (code) {
+    case types.CROSS:
+      return '交叉'
+    case types.SAME_CLO:
+      return '同列'
+    case types.SAME_ROW:
+      return '同行'
+    default:
+      return '未知'
+  }
+}
+
 const FALLBACK1 = 'K'
 const FALLBACK2 = 'Z'
 const getFallback = c => (c === FALLBACK1 ? FALLBACK2 : FALLBACK1)
@@ -106,4 +119,4 @@ const playfair = (secret, input) => {
 const cipherString = results => results.reduce((str, { result }) => str + result, '')
 const originalString = results => results.reduce((str, { origin }) => str + origin, '')
 
-export { cipherString, originalString, playfair }
+export { cipherString, originalString, playfair, types, findType }
