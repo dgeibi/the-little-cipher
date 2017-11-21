@@ -41,6 +41,6 @@ app.post('/playfair', upload.single('plaintext'), (req, res) => {
   }
 })
 
-const server = app.listen(3000, () => {
-  console.log(`open http://localhost:${server.address().port}`)
+const server = app.listen(process.env.PORT || 3000, () => {
+  console.log(`Serving on http://localhost:${server.address().port}`)
 })
