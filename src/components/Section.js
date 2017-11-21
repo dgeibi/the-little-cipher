@@ -8,7 +8,7 @@ function Section({
     <section {...props} className={className} styleName="section">
       {desc &&
         <div styleName="header">
-          {desc}:
+          {desc}：
         </div>}
       {children}
     </section>

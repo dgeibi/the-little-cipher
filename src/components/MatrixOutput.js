@@ -1,7 +1,7 @@
 import React from 'react'
 
 function MatrixOutput({ value }) {
-  if (!value) return <div>空</div>
+  if (!value) return <div>无数据</div>
   return (
     <table>
       <tbody>
