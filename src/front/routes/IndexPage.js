@@ -6,5 +6,6 @@ function IndexPage() {
 
 IndexPage.title = '首页'
 IndexPage.address = '/'
+IndexPage.exact = true
 
 export default IndexPage

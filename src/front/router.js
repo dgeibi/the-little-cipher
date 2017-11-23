@@ -17,8 +17,13 @@ function RouterConfig({ history }) {
         <Content styleName="content">
           <div styleName="content-inner">
             <Switch>
-              {Object.values(routes).map(view =>
-                <Route path={view.address} key={view.address} exact component={view} />)}
+              {Object.values(routes).map(View =>
+                <Route
+                  path={View.address}
+                  key={View.address}
+                  exact={Boolean(View.exact)}
+                  component={View}
+                />)}
             </Switch>
           </div>
         </Content>

@@ -1,5 +1,6 @@
 import 'babel-polyfill'
 import dva from 'dva'
+import { createBrowserHistory } from 'history'
 import './index.css'
 
 import appModel from './models/app'
@@ -7,7 +8,9 @@ import playfair from './models/playfair'
 import router from './router'
 
 // 1. Initialize
-const app = dva()
+const app = dva({
+  history: createBrowserHistory(),
+})
 
 // 2. Plugins
 // app.use({});
