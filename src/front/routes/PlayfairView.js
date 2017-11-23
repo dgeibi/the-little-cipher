@@ -34,6 +34,9 @@ const columns = [
 
 @connect(({ playfair }) => ({ ...playfair }))
 class PlayfairView extends Component {
+  static address = '/playfair/'
+  static title = 'Playfair密码'
+
   handleInputChange = (e) => {
     const { name, value } = e.target
     if (name) {

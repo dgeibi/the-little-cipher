@@ -18,6 +18,9 @@ class HillView extends React.Component {
     iKey: null,
   }
 
+  static address = '/hill/'
+  static title = 'Hill密码'
+
   handleKeyChange = (key) => {
     this.setState({
       key,

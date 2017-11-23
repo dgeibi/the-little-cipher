@@ -15,7 +15,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: pkg.name,
+      title: pkg.product_name || pkg.name,
       template: 'src/front/index.ejs',
     }),
   ],

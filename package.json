@@ -2,6 +2,7 @@
   "name": "the-little-cipher",
   "version": "1.0.0",
   "dist_dir": "public",
+  "product_name": "The Little Cipher",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
@@ -9,7 +10,8 @@
     "lint": "eslint .",
     "format": "prettier-eslint --write '**/*.{js,css}'",
     "precommit": "lint-staged",
-    "dev": "nodemon --watch src/server src/server/index.js --exec \"cross-env NODE_ENV=development node -r babel-register\"",
+    "dev":
+      "nodemon --watch src/server src/server/index.js --exec \"cross-env NODE_ENV=development node -r babel-register\"",
     "prod": "npm run build && npm start",
     "start": "node dist/server/index.js",
     "build": "npm run clean && run-p build:*",
@@ -26,9 +28,7 @@
     "printWidth": 90
   },
   "lint-staged": {
-    "*.{css,js}": [
-      "git-exec-and-restage prettier-eslint --write --"
-    ]
+    "*.{css,js}": ["git-exec-and-restage prettier-eslint --write --"]
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -73,7 +73,7 @@
     "webpack-merge": "^4.1.1"
   },
   "dependencies": {
-    "antd": "^3.0.0-rc.1",
+    "antd": "^3.0.0-rc.3",
     "babel-polyfill": "^6.26.0",
     "dva": "^2.1.0",
     "express": "^4.16.2",
@@ -81,6 +81,7 @@
     "rc-table": "^6.1.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
+    "react-fns": "^1.2.0",
     "unfetch": "^3.0.0"
   },
   "repository": {

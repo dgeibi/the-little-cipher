@@ -10,6 +10,9 @@ import './CaserView.css'
 const { TextArea } = Input
 
 class CaserView extends React.Component {
+  static address = '/caser/'
+  static title = '凯撒密码'
+
   state = {
     msg: '',
   }
