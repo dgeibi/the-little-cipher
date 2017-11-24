@@ -4,6 +4,10 @@ var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
 
+var _compression = require('compression');
+
+var _compression2 = _interopRequireDefault(_compression);
+
 var _multer = require('multer');
 
 var _multer2 = _interopRequireDefault(_multer);
@@ -26,6 +30,7 @@ const app = (0, _express2.default)();
 const DEV = process.env.NODE_ENV === 'development';
 const STATIC_DIR = '../static';
 
+app.use((0, _compression2.default)());
 if (DEV) {
   app.use(require('./middleware/hot').default);
 } else {

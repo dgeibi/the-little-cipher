@@ -1,4 +1,5 @@
 import express from 'express'
+import compression from 'compression'
 import multer from 'multer'
 import { readFile } from 'fs'
 import { resolve } from 'path'
@@ -11,6 +12,7 @@ const app = express()
 const DEV = process.env.NODE_ENV === 'development'
 const STATIC_DIR = '../static'
 
+app.use(compression())
 if (DEV) {
   app.use(require('./middleware/hot').default)
 } else {
