@@ -9,7 +9,8 @@
         }
       }
     ],
-    "babel-preset-stage-2"
+    "babel-preset-stage-2",
+    "babel-preset-react"
   ],
   "plugins": [
     "babel-plugin-transform-decorators-legacy",
@@ -19,12 +20,5 @@
         "loose": true
       }
     ]
-  ],
-  "env": {
-    "test": {
-      "plugins": [
-        "babel-plugin-transform-es2015-modules-commonjs"
-      ]
-    }
-  }
+  ]
 }

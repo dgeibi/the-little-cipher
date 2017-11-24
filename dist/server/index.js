@@ -10,6 +10,8 @@ var _multer2 = _interopRequireDefault(_multer);
 
 var _fs = require('fs');
 
+var _path = require('path');
+
 var _util = require('../util');
 
 var _playfair = require('./playfair');
@@ -22,20 +24,33 @@ const upload = (0, _multer2.default)({ dest: 'uploads/' });
 
 const app = (0, _express2.default)();
 const DEV = process.env.NODE_ENV === 'development';
+const STATIC_DIR = '../static';
 
 if (DEV) {
-  const webpack = require('webpack');
-  const webpackConfig = require('../../webpack.config')();
-  const compiler = webpack(webpackConfig);
-
-  app.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true,
-    publicPath: webpackConfig.output.publicPath
-  }));
-
-  app.use(require('webpack-hot-middleware')(compiler));
+  app.use(require('./middleware/hot').default);
 } else {
-  app.use(_express2.default.static('public'));
+  const { render, titleMap } = require('./renderRoute');
+  app.use('/static', _express2.default.static((0, _path.resolve)(__dirname, STATIC_DIR)));
+  app.get('*', (req, res, next) => {
+    if (req.accepts('html')) {
+      const context = {};
+      const path = (0, _util.plainPath)(req.url);
+      const content = render({
+        dvaOpts: {
+          history: require('history').createMemoryHistory()
+        },
+        routerProps: { location: path, context },
+        routeProps: { currentPath: path },
+        templateOpts: { title: titleMap[path] }
+      });
+      if (context.status === 404) {
+        res.status(404);
+      }
+      res.send(content);
+    } else {
+      next();
+    }
+  });
 }
 
 app.post('/playfair', upload.single('plaintext'), (req, res) => {

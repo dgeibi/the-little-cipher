@@ -1,4 +1,7 @@
-module.exports = ({ rule, extractOptions, extract }) => {
+module.exports = ({
+  disable, rule, extractOptions, extract,
+}) => {
+  if (disable === true) return {}
   if (!rule || !rule.use) {
     throw Error('rule and rule.use required')
   }

@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'dva'
 import { Input, message } from 'antd'
 import Table from 'rc-table'
+import { findType } from 'Cipher/playfair'
+import { isPlainFile } from 'Util'
 
-import { findType } from '../../cipher/playfair'
 import Section from '../components/Section'
 import MatrixOutput from '../components/MatrixOutput'
 import Output from '../components/Output'
-import { isPlainFile } from '../../util'
 
 const { TextArea } = Input
 const columns = [
@@ -34,7 +34,6 @@ const columns = [
 
 @connect(({ playfair }) => ({ ...playfair }))
 class PlayfairView extends Component {
-  static address = '/playfair/'
   static title = 'Playfair密码'
 
   handleInputChange = (e) => {

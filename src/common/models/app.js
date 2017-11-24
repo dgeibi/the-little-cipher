@@ -1,5 +1,6 @@
+import { plainPath } from 'Util'
 import setTitle from '../utils/setTitle'
-import routes from '../routes'
+import { titleMap } from '../routes'
 
 export default {
   namespace: 'app',
@@ -7,9 +8,9 @@ export default {
   subscriptions: {
     setup({ history }) {
       return history.listen(({ pathname }) => {
-        const View = routes[pathname]
-        if (View) {
-          setTitle(View.title)
+        const title = titleMap[plainPath(pathname)]
+        if (title) {
+          setTitle(title)
         }
       })
     },

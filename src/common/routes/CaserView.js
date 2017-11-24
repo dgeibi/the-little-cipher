@@ -1,16 +1,15 @@
 import React from 'react'
 import { Input, message } from 'antd'
+import caser from 'Cipher/caser'
+import { isPlainFile } from 'Util'
 
 import Output from '../components/Output'
 import Section from '../components/Section'
-import caser from '../../cipher/caser'
-import { isPlainFile } from '../../util'
 import './CaserView.css'
 
 const { TextArea } = Input
 
 class CaserView extends React.Component {
-  static address = '/caser/'
   static title = '凯撒密码'
 
   state = {

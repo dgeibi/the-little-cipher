@@ -7,6 +7,7 @@ exports.mod = mod;
 exports.modInverse = modInverse;
 exports.repeat = repeat;
 exports.isPlainFile = isPlainFile;
+exports.plainPath = plainPath;
 const isUpperCase = exports.isUpperCase = c => c >= 'A' && c <= 'Z';
 
 const codeOf = exports.codeOf = str => String(str).charCodeAt(0);
@@ -58,5 +59,10 @@ function repeat(time, fn) {
 function isPlainFile(file) {
   return (/text|javascript|html|css|xml|json/.test(file.type || file.mimetype)
   );
+}
+
+function plainPath(str) {
+  const ret = str.replace(/\/*$/, '');
+  return ret === '' ? '/' : ret;
 }
 //# sourceMappingURL=util.js.map

@@ -1,27 +1,41 @@
 import express from 'express'
 import multer from 'multer'
 import { readFile } from 'fs'
-import { isPlainFile } from '../util'
+import { resolve } from 'path'
+import { isPlainFile, plainPath } from '../util'
 import playfair from './playfair'
 
 const upload = multer({ dest: 'uploads/' })
 
 const app = express()
 const DEV = process.env.NODE_ENV === 'development'
+const STATIC_DIR = '../static'
 
 if (DEV) {
-  const webpack = require('webpack')
-  const webpackConfig = require('../../webpack.config')()
-  const compiler = webpack(webpackConfig)
-
-  app.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true,
-    publicPath: webpackConfig.output.publicPath,
-  }))
-
-  app.use(require('webpack-hot-middleware')(compiler))
+  app.use(require('./middleware/hot').default)
 } else {
-  app.use(express.static('public'))
+  const { render, titleMap } = require('./renderRoute')
+  app.use('/static', express.static(resolve(__dirname, STATIC_DIR)))
+  app.get('*', (req, res, next) => {
+    if (req.accepts('html')) {
+      const context = {}
+      const path = plainPath(req.url)
+      const content = render({
+        dvaOpts: {
+          history: require('history').createMemoryHistory(),
+        },
+        routerProps: { location: path, context },
+        routeProps: { currentPath: path },
+        templateOpts: { title: titleMap[path] },
+      })
+      if (context.status === 404) {
+        res.status(404)
+      }
+      res.send(content)
+    } else {
+      next()
+    }
+  })
 }
 
 app.post('/playfair', upload.single('plaintext'), (req, res) => {

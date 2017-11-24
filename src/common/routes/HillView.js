@@ -1,11 +1,11 @@
 import React from 'react'
 import { Input, Button, message } from 'antd'
+import hill, { inverse } from 'Cipher/hill'
 
 import MatrixInput from '../components/MatrixInput'
 import MatrixOutput from '../components/MatrixOutput'
 import Section from '../components/Section'
 
-import hill, { inverse } from '../../cipher/hill'
 import Output from '../components/Output'
 
 const { TextArea } = Input
@@ -18,7 +18,6 @@ class HillView extends React.Component {
     iKey: null,
   }
 
-  static address = '/hill/'
   static title = 'Hill密码'
 
   handleKeyChange = (key) => {

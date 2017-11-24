@@ -2,17 +2,20 @@ import React, { Component } from 'react'
 import { Menu, Popover, Icon } from 'antd'
 import { Link } from 'dva/router'
 import { Media } from 'react-fns'
+import { plainPath } from 'Util'
 
 import './Header.css'
 
-const TheMenu = ({ mode, history, routes }) =>
-  <Menu mode={mode} defaultSelectedKeys={[history.location.pathname]} styleName="menu">
-    {Object.values(routes).map(({ title, address }) =>
-      <Menu.Item key={address}>
-        <Link to={address}>
-          {title}
-        </Link>
-      </Menu.Item>)}
+const TheMenu = ({ mode, currentPath, routes }) =>
+  <Menu mode={mode} defaultSelectedKeys={[plainPath(currentPath)]} styleName="menu">
+    {routes.map(({ component: { title, skipMenu }, path }) =>
+        (skipMenu
+          ? null
+          : <Menu.Item key={path}>
+            <Link to={path}>
+              {title}
+            </Link>
+          </Menu.Item>))}
   </Menu>
 
 class Header extends Component {
@@ -34,7 +37,7 @@ class Header extends Component {
 
   render() {
     const { menuVisible } = this.state
-    const { history, routes } = this.props
+    const { currentPath, routes } = this.props
 
     return (
       <header styleName="header">
@@ -45,7 +48,7 @@ class Header extends Component {
               return (
                 <Popover
                   placement="bottomLeft"
-                  content={<TheMenu history={history} mode={menuMode} routes={routes} />}
+                  content={<TheMenu currentPath={currentPath} mode={menuMode} routes={routes} />}
                   trigger="click"
                   visible={menuVisible}
                   arrowPointAtCenter
@@ -55,7 +58,7 @@ class Header extends Component {
                 </Popover>
               )
             }
-            return <TheMenu history={history} mode={menuMode} routes={routes} />
+            return <TheMenu currentPath={currentPath} mode={menuMode} routes={routes} />
           }}
         </Media>
       </header>

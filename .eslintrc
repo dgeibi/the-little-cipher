@@ -8,5 +8,12 @@
     "global-require": "off",
     "no-mixed-operators": "off",
     "react/prop-types": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack.config.base.js"
+      }
+    }
   }
 }
