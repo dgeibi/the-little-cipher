@@ -1,5 +1,5 @@
 const { NamedModulesPlugin, HotModuleReplacementPlugin } = require('webpack')
-const pkg = require('./package')
+const pkg = require('../package')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {

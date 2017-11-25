@@ -1,7 +1,6 @@
 {
   "name": "the-little-cipher",
   "version": "1.0.0",
-  "dist_dir": "dist/static",
   "product_name": "The Little Cipher",
   "scripts": {
     "test": "jest",
