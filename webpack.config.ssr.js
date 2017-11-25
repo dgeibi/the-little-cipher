@@ -8,7 +8,7 @@ const CipherRegex = /^Cipher/
 const main = {
   devtool: 'sourcemap',
   entry: {
-    'server/renderRoute': './src/server/renderRoute.js',
+    'render/index': './src/render/index.js',
   },
   target: 'node',
   externals: [
@@ -33,12 +33,4 @@ const main = {
   },
 }
 
-module.exports = (env = {}) => {
-  const isProduction = env.production === true
-  const common = base({ ...env, ssr: true })
-
-  if (isProduction) {
-    return merge(main, common, require('./webpack.config.prod'))
-  }
-  return merge(main, common)
-}
+module.exports = merge(main, base({ ssr: true }))

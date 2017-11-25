@@ -194,27 +194,27 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.titleMap = exports.innerRoutes = undefined;
 
-var _Root = __webpack_require__(20);
+var _Root = __webpack_require__(22);
 
 var _Root2 = _interopRequireDefault(_Root);
 
-var _IndexPage = __webpack_require__(27);
+var _IndexPage = __webpack_require__(29);
 
 var _IndexPage2 = _interopRequireDefault(_IndexPage);
 
-var _CaserView = __webpack_require__(28);
+var _CaserView = __webpack_require__(30);
 
 var _CaserView2 = _interopRequireDefault(_CaserView);
 
-var _PlayfairView = __webpack_require__(30);
+var _PlayfairView = __webpack_require__(32);
 
 var _PlayfairView2 = _interopRequireDefault(_PlayfairView);
 
-var _HillView = __webpack_require__(33);
+var _HillView = __webpack_require__(35);
 
 var _HillView2 = _interopRequireDefault(_HillView);
 
-var _NotFound = __webpack_require__(37);
+var _NotFound = __webpack_require__(39);
 
 var _NotFound2 = _interopRequireDefault(_NotFound);
 
@@ -301,7 +301,40 @@ exports.default = MatrixOutput;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.render = exports.titleMap = undefined;
+exports.default = render;
+
+var _history = __webpack_require__(12);
+
+var _renderRoute = __webpack_require__(13);
+
+function render(path, context) {
+  return (0, _renderRoute.renderRoute)({
+    dvaOpts: {
+      history: (0, _history.createMemoryHistory)()
+    },
+    routerProps: { location: path, context },
+    routeProps: { currentPath: path },
+    templateOpts: { title: _renderRoute.titleMap[path] }
+  });
+}
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = require("history");
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.renderRoute = exports.titleMap = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -317,11 +350,11 @@ var _reactRouterConfig = __webpack_require__(8);
 
 var _router = __webpack_require__(4);
 
-var _render = __webpack_require__(12);
+var _renderTemplate = __webpack_require__(14);
 
-var _render2 = _interopRequireDefault(_render);
+var _renderTemplate2 = _interopRequireDefault(_renderTemplate);
 
-var _playfair = __webpack_require__(15);
+var _playfair = __webpack_require__(17);
 
 var _playfair2 = _interopRequireDefault(_playfair);
 
@@ -344,14 +377,14 @@ const renderRoute = ({
     (0, _reactRouterConfig.renderRoutes)(_routes2.default, routeProps)
   ));
 
-  return (0, _render2.default)(app.start()(), templateOpts);
+  return (0, _renderTemplate2.default)(app.start()(), templateOpts);
 };
 
 exports.titleMap = _routes.titleMap;
-exports.render = renderRoute;
+exports.renderRoute = renderRoute;
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -361,9 +394,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _server = __webpack_require__(13);
+var _server = __webpack_require__(15);
 
-var _package = __webpack_require__(14);
+var _package = __webpack_require__(16);
 
 var _package2 = _interopRequireDefault(_package);
 
@@ -385,19 +418,19 @@ exports.default = (renderMe, { title } = {}) => `<!DOCTYPE html>
 </html>`;
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"the-little-cipher","version":"1.0.0","dist_dir":"dist/static","product_name":"The Little Cipher","scripts":{"test":"jest","test:watch":"jest --watch","test:coverage":"jest --coverage","lint":"eslint .","format":"prettier-eslint --write '**/*.{js,css}'","precommit":"lint-staged","dev":"nodemon --watch src/server src/server/index.js --exec \"cross-env NODE_ENV=development node -r babel-register\"","prod":"npm run build && npm start","start":"node dist/server/index.js","build":"npm run clean && run-p build:*","clean":"rimraf dist","build:static":"webpack --env.production","build:server":"babel src -s -D -d dist --ignore server/middleware/hot.js,server/renderRoute.js,common/,client/,*.test.js,test.js","build:ssr":"webpack --config webpack.config.ssr.js"},"author":"dgeibi","license":"MIT","prettier":{"semi":false,"singleQuote":true,"trailingComma":"es5","printWidth":90},"lint-staged":{"*.{css,js}":["git-exec-and-restage prettier-eslint --write --"]},"devDependencies":{"babel-cli":"^6.26.0","babel-core":"^6.26.0","babel-eslint":"^8.0.2","babel-loader":"^7.1.2","babel-minify-webpack-plugin":"^0.2.0","babel-plugin-dva-hmr":"^0.4.0","babel-plugin-import":"^1.6.2","babel-plugin-react-css-modules":"^3.3.2","babel-plugin-transform-decorators-legacy":"^1.3.4","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","babel-register":"^6.26.0","clean-webpack-plugin":"^0.1.17","copy-webpack-plugin":"^4.2.1","cross-env":"^5.1.1","css-loader":"^0.28.7","eslint":"^4.11.0","eslint-config-airbnb-base":"^12.1.0","eslint-config-dgeibi":"^3.0.6","eslint-config-standard-react":"^5.0.0","eslint-import-resolver-webpack":"^0.8.3","eslint-plugin-import":"^2.8.0","eslint-plugin-react":"^7.5.1","extract-text-webpack-plugin":"^3.0.2","git-exec-and-restage":"^1.0.1","html-webpack-plugin":"^2.30.1","husky":"^0.14.3","jest":"^21.2.1","lint-staged":"^4.3.0","nodemon":"^1.12.1","npm-run-all":"^4.1.2","postcss-cssnext":"^3.0.2","postcss-loader":"^2.0.8","redbox-react":"^1.5.0","rimraf":"^2.6.2","style-loader":"^0.19.0","webpack":"^3.8.1","webpack-dev-middleware":"^1.12.1","webpack-hot-middleware":"^2.20.0","webpack-merge":"^4.1.1","webpack-node-externals":"^1.6.0"},"dependencies":{"antd":"^3.0.0-rc.3","babel-polyfill":"^6.26.0","compression":"^1.7.1","dva":"^2.1.0","express":"^4.16.2","history":"^4.7.2","jsdom":"^11.4.0","jsdom-global":"^3.0.2","multer":"^1.3.0","rc-table":"^6.1.0","react":"^16.1.1","react-dom":"^16.1.1","react-fns":"^1.2.0","react-router-config":"^1.0.0-beta.4","unfetch":"^3.0.0"},"repository":{"type":"git","url":"git+https://github.com/dgeibi/the-little-cipher.git"},"bugs":{"url":"https://github.com/dgeibi/the-little-cipher/issues"},"homepage":"https://github.com/dgeibi/the-little-cipher#readme","description":"实现一些加密算法"}
+module.exports = {"name":"the-little-cipher","version":"1.0.0","dist_dir":"dist/static","product_name":"The Little Cipher","scripts":{"test":"jest","test:watch":"jest --watch","test:coverage":"jest --coverage","lint":"eslint .","format":"prettier-eslint --write '**/*.{js,css}'","precommit":"lint-staged","dev":"nodemon --watch src/server src/server/index.js --exec \"cross-env NODE_ENV=development node -r babel-register\"","prod":"npm run build && npm start","start":"node dist/server/index.js","build":"npm run clean && run-p build:*","clean":"rimraf dist","build:static":"webpack --env.production","build:server":"babel src -s -d dist --ignore webpack,render,common,client,*.test.js,test.js","build:ssr":"webpack --config webpack.config.ssr.js"},"author":"dgeibi","license":"MIT","prettier":{"semi":false,"singleQuote":true,"trailingComma":"es5","printWidth":90},"lint-staged":{"*.{css,js}":["git-exec-and-restage prettier-eslint --write --"]},"devDependencies":{"babel-cli":"^6.26.0","babel-core":"^6.26.0","babel-eslint":"^8.0.2","babel-loader":"^7.1.2","babel-minify-webpack-plugin":"^0.2.0","babel-plugin-dva-hmr":"^0.4.0","babel-plugin-import":"^1.6.2","babel-plugin-react-css-modules":"^3.3.2","babel-plugin-transform-decorators-legacy":"^1.3.4","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","babel-register":"^6.26.0","clean-webpack-plugin":"^0.1.17","copy-webpack-plugin":"^4.2.1","cross-env":"^5.1.1","css-loader":"^0.28.7","eslint":"^4.11.0","eslint-config-airbnb-base":"^12.1.0","eslint-config-dgeibi":"^3.0.6","eslint-config-standard-react":"^5.0.0","eslint-import-resolver-webpack":"^0.8.3","eslint-plugin-import":"^2.8.0","eslint-plugin-react":"^7.5.1","extract-text-webpack-plugin":"^3.0.2","git-exec-and-restage":"^1.0.1","html-webpack-plugin":"^2.30.1","husky":"^0.14.3","jest":"^21.2.1","lint-staged":"^4.3.0","nodemon":"^1.12.1","npm-run-all":"^4.1.2","postcss-cssnext":"^3.0.2","postcss-loader":"^2.0.8","redbox-react":"^1.5.0","rimraf":"^2.6.2","style-loader":"^0.19.0","webpack":"^3.8.1","webpack-dev-middleware":"^1.12.1","webpack-hot-middleware":"^2.20.0","webpack-merge":"^4.1.1","webpack-node-externals":"^1.6.0"},"dependencies":{"antd":"^3.0.0-rc.3","babel-polyfill":"^6.26.0","compression":"^1.7.1","dva":"^2.1.0","express":"^4.16.2","history":"^4.7.2","jsdom":"^11.4.0","jsdom-global":"^3.0.2","multer":"^1.3.0","rc-table":"^6.1.0","react":"^16.1.1","react-dom":"^16.1.1","react-fns":"^1.2.0","react-router-config":"^1.0.0-beta.4","unfetch":"^3.0.0"},"repository":{"type":"git","url":"git+https://github.com/dgeibi/the-little-cipher.git"},"bugs":{"url":"https://github.com/dgeibi/the-little-cipher/issues"},"homepage":"https://github.com/dgeibi/the-little-cipher#readme","description":"实现一些加密算法"}
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -409,9 +442,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _playfair = __webpack_require__(16);
+var _playfair = __webpack_require__(18);
 
-var _delay = __webpack_require__(19);
+var _delay = __webpack_require__(21);
 
 var _delay2 = _interopRequireDefault(_delay);
 
@@ -467,7 +500,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -482,11 +515,11 @@ var _message2 = __webpack_require__(1);
 
 var _message3 = _interopRequireDefault(_message2);
 
-var _unfetch = __webpack_require__(17);
+var _unfetch = __webpack_require__(19);
 
 var _unfetch2 = _interopRequireDefault(_unfetch);
 
-var _readAsText = __webpack_require__(18);
+var _readAsText = __webpack_require__(20);
 
 var _readAsText2 = _interopRequireDefault(_readAsText);
 
@@ -505,13 +538,13 @@ const postData = exports.postData = ({ secretInput, plainInput, file }) => {
 const readPlainText = exports.readPlainText = _readAsText2.default;
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("unfetch");
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -540,7 +573,7 @@ exports.default = file => new Promise((resolve, reject) => {
 });
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -554,7 +587,7 @@ const delay = timeout => new Promise(resolve => setTimeout(resolve, timeout));
 exports.default = delay;
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -564,7 +597,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _layout = __webpack_require__(21);
+var _layout = __webpack_require__(23);
 
 var _layout2 = _interopRequireDefault(_layout);
 
@@ -574,7 +607,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterConfig = __webpack_require__(8);
 
-var _Header = __webpack_require__(22);
+var _Header = __webpack_require__(24);
 
 var _Header2 = _interopRequireDefault(_Header);
 
@@ -609,13 +642,13 @@ function RouterConfig({ currentPath, route }) {
 exports.default = RouterConfig;
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("antd/lib/layout");
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -625,15 +658,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _popover = __webpack_require__(23);
+var _popover = __webpack_require__(25);
 
 var _popover2 = _interopRequireDefault(_popover);
 
-var _icon = __webpack_require__(24);
+var _icon = __webpack_require__(26);
 
 var _icon2 = _interopRequireDefault(_icon);
 
-var _menu = __webpack_require__(25);
+var _menu = __webpack_require__(27);
 
 var _menu2 = _interopRequireDefault(_menu);
 
@@ -643,7 +676,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _router = __webpack_require__(4);
 
-var _reactFns = __webpack_require__(26);
+var _reactFns = __webpack_require__(28);
 
 var _Util = __webpack_require__(2);
 
@@ -715,31 +748,31 @@ let Header = class Header extends _react.Component {
 exports.default = Header;
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("antd/lib/popover");
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("antd/lib/icon");
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("antd/lib/menu");
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-fns");
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -769,7 +802,7 @@ IndexPage.exact = true;
 exports.default = IndexPage;
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -793,7 +826,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _caser = __webpack_require__(29);
+var _caser = __webpack_require__(31);
 
 var _caser2 = _interopRequireDefault(_caser);
 
@@ -885,13 +918,13 @@ let CaserView = (_temp2 = _class = class CaserView extends _react2.default.Compo
 exports.default = CaserView;
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = require("../cipher/caser");
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -919,11 +952,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _dva = __webpack_require__(7);
 
-var _rcTable = __webpack_require__(31);
+var _rcTable = __webpack_require__(33);
 
 var _rcTable2 = _interopRequireDefault(_rcTable);
 
-var _playfair = __webpack_require__(32);
+var _playfair = __webpack_require__(34);
 
 var _Util = __webpack_require__(2);
 
@@ -1077,19 +1110,19 @@ let PlayfairView = (_dec = (0, _dva.connect)(({ playfair }) => _extends({}, play
 exports.default = PlayfairView;
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports) {
 
 module.exports = require("rc-table");
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports) {
 
 module.exports = require("../cipher/playfair");
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1099,7 +1132,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _button = __webpack_require__(34);
+var _button = __webpack_require__(36);
 
 var _button2 = _interopRequireDefault(_button);
 
@@ -1117,11 +1150,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _hill = __webpack_require__(35);
+var _hill = __webpack_require__(37);
 
 var _hill2 = _interopRequireDefault(_hill);
 
-var _MatrixInput = __webpack_require__(36);
+var _MatrixInput = __webpack_require__(38);
 
 var _MatrixInput2 = _interopRequireDefault(_MatrixInput);
 
@@ -1236,19 +1269,19 @@ let HillView = (_temp2 = _class = class HillView extends _react2.default.Compone
 exports.default = HillView;
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports) {
 
 module.exports = require("antd/lib/button");
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports) {
 
 module.exports = require("../cipher/hill");
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1343,7 +1376,7 @@ let MatrixInput = class MatrixInput extends _react.Component {
 exports.default = MatrixInput;
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1386,4 +1419,4 @@ exports.default = NotFound;
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=renderRoute.js.map
+//# sourceMappingURL=index.js.map

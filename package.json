@@ -16,7 +16,7 @@
     "build": "npm run clean && run-p build:*",
     "clean": "rimraf dist",
     "build:static": "webpack --env.production",
-    "build:server": "babel src -s -D -d dist --ignore server/middleware/hot.js,server/renderRoute.js,common/,client/,*.test.js,test.js",
+    "build:server": "babel src -s -d dist --ignore webpack,render,common,client,*.test.js,test.js",
     "build:ssr": "webpack --config webpack.config.ssr.js"
   },
   "author": "dgeibi",

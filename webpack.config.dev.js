@@ -1,9 +1,6 @@
 const { NamedModulesPlugin, HotModuleReplacementPlugin } = require('webpack')
-const path = require('path')
 const pkg = require('./package')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-
-const output = path.resolve(__dirname, pkg.dist_dir)
 
 module.exports = {
   entry: {
@@ -17,8 +14,4 @@ module.exports = {
       template: 'src/client/index.ejs',
     }),
   ],
-  devServer: {
-    hot: true,
-    contentBase: output,
-  },
 }

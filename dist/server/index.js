@@ -32,25 +32,19 @@ const STATIC_DIR = '../static';
 
 app.use((0, _compression2.default)());
 if (DEV) {
-  app.use(require('./middleware/hot').default);
+  app.use(require('../webpack/hotMiddleware').default);
 } else {
-  const { render, titleMap } = require('./renderRoute');
+  const render = require('../render').default;
   app.use('/static', _express2.default.static((0, _path.resolve)(__dirname, STATIC_DIR)));
   app.get('*', (req, res, next) => {
     if (req.accepts('html')) {
       const context = {};
       const path = (0, _util.plainPath)(req.url);
-      const content = render({
-        dvaOpts: {
-          history: require('history').createMemoryHistory()
-        },
-        routerProps: { location: path, context },
-        routeProps: { currentPath: path },
-        templateOpts: { title: titleMap[path] }
-      });
+      const content = render(path, context);
       if (context.status === 404) {
         res.status(404);
       }
+      res.type('html');
       res.send(content);
     } else {
       next();

@@ -2,7 +2,7 @@ import dva from 'dva'
 import React from 'react'
 import { renderRoutes } from 'react-router-config'
 import { StaticRouter } from 'dva/router'
-import render from './render'
+import render from './renderTemplate'
 
 import playfair from '../common/models/playfair'
 import routes, { titleMap } from '../common/routes'
@@ -22,4 +22,4 @@ const renderRoute = ({
   return render(app.start()(), templateOpts)
 }
 
-export { titleMap, renderRoute as render }
+export { titleMap, renderRoute }

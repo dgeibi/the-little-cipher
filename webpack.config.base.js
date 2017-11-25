@@ -12,14 +12,14 @@ const defaultInclude = [path.resolve(__dirname, 'src')]
 
 module.exports = (env = {}) => {
   const isProduction = env.production === true
-  const ssr = env.ssr === true
+  const isSSR = env.ssr === true
   const nodeEnv = !isProduction ? 'development' : 'production'
-  const babelEnv = ssr ? 'ssr' : nodeEnv
+  const babelEnv = isSSR ? 'ssr' : nodeEnv
 
   return merge([
     defineNodeEnv(nodeEnv),
     css({
-      disable: ssr,
+      disable: isSSR,
       rule: {
         test: /\.css$/,
         include: [path.resolve(__dirname, 'node_modules/antd/')],
