@@ -20,6 +20,7 @@ module.exports = (env) => {
       'babel-preset-react',
     ],
     plugins: [
+      'babel-macros',
       'babel-plugin-transform-decorators-legacy',
       [
         'babel-plugin-transform-class-properties',

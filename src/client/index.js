@@ -2,19 +2,24 @@ import 'babel-polyfill'
 import { createBrowserHistory } from 'history'
 import dva from 'dva'
 import ReactDOM from 'react-dom'
+import codegen from 'codegen.macro'
 
 import router from './router'
-import appModel from '../common/models/app'
-import playfair from '../common/models/playfair'
+
 import './index.css'
 
 const app = dva({
   history: createBrowserHistory(),
 })
 
-app.model(playfair)
-
-app.model(appModel)
+// use codegen to generate `app.model(require('...'))` and hmr code
+codegen(`
+  const modelPaths = require('../common/models').map(x => '../common/models/' + x)
+  module.exports = modelPaths.map(m => 'app.model(require("'+m+'").default)').join(';')
+  if (process.env.NODE_ENV === 'development') {
+    module.exports += require('../webpack/modelHMR')(modelPaths)
+  }
+`)
 
 app.router(router)
 
