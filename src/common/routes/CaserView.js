@@ -1,5 +1,7 @@
 import React from 'react'
 import { Input, message } from 'antd'
+import { connect } from 'dva'
+
 import caser from 'Cipher/caser'
 import { isPlainFile } from 'Util'
 
@@ -9,24 +11,20 @@ import './CaserView.css'
 
 const { TextArea } = Input
 
+@connect(({ caser: caserState }) => ({ ...caserState }))
 class CaserView extends React.Component {
   static title = '凯撒密码'
-
-  state = {
-    msg: '',
-  }
 
   readfiles(files) {
     const file = files && files[0]
     if (file) {
       if (isPlainFile(file)) {
-        const reader = new FileReader()
-        reader.onload = () => {
-          this.setState({
-            msg: reader.result,
-          })
-        }
-        reader.readAsText(file)
+        this.props.dispatch({
+          type: 'caser/loadFile',
+          payload: {
+            file,
+          },
+        })
       } else if (file.type) {
         message.error(`不支持 ${file.type}`)
       } else {
@@ -35,10 +33,17 @@ class CaserView extends React.Component {
     }
   }
 
-  handleInput = (e) => {
-    this.setState({
-      msg: e.target.value,
+  saveInput(input) {
+    this.props.dispatch({
+      type: 'caser/save',
+      payload: {
+        input,
+      },
     })
+  }
+
+  handleInput = (e) => {
+    this.saveInput(e.target.value)
   }
 
   handleDrop = (e) => {
@@ -47,14 +52,12 @@ class CaserView extends React.Component {
     if (e.dataTransfer.files.length > 0) {
       this.readfiles(e.dataTransfer.files)
     } else {
-      this.setState({
-        msg: e.dataTransfer.getData('text'),
-      })
+      this.saveInput(e.dataTransfer.getData('text'))
     }
   }
 
   render() {
-    const { msg } = this.state
+    const { input } = this.props
 
     return (
       <div>
@@ -63,13 +66,13 @@ class CaserView extends React.Component {
             styleName="text"
             placeholder="在此输入，拖拽至此"
             onDrop={this.handleDrop}
-            value={msg}
+            value={input}
             onChange={this.handleInput}
           />
         </Section>
         <Section desc="密文">
           <Output styleName="output">
-            {caser(msg)}
+            {caser(input)}
           </Output>
         </Section>
       </div>
