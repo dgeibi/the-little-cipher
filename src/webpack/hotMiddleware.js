@@ -9,6 +9,10 @@ const webpackConfig = getWebpackConfig()
 const compiler = webpack(webpackConfig)
 
 function historyApiFallback(req, res, next) {
+  if (req.method !== 'GET' && req.method !== 'HEAD') {
+    next()
+    return
+  }
   const filename = join(compiler.outputPath, 'index.html')
   compiler.outputFileSystem.readFile(filename, (err, result) => {
     if (err) {
