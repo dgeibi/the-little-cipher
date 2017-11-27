@@ -61,7 +61,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ 	return __webpack_require__(__webpack_require__.s = 19);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -86,31 +86,22 @@ module.exports = require("antd/lib/message");
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = require("antd/lib/input");
+module.exports = require("dva");
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-module.exports = ['app', 'caser', 'playfair'];
+module.exports = require("antd/lib/input");
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = require("dva");
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
 module.exports = require("dva/router");
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -121,27 +112,27 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.titleMap = exports.innerRoutes = undefined;
 
-var _Root = __webpack_require__(22);
+var _Root = __webpack_require__(25);
 
 var _Root2 = _interopRequireDefault(_Root);
 
-var _IndexPage = __webpack_require__(29);
+var _IndexPage = __webpack_require__(31);
 
 var _IndexPage2 = _interopRequireDefault(_IndexPage);
 
-var _CaserView = __webpack_require__(30);
+var _CaserView = __webpack_require__(32);
 
 var _CaserView2 = _interopRequireDefault(_CaserView);
 
-var _PlayfairView = __webpack_require__(32);
+var _PlayfairView = __webpack_require__(34);
 
 var _PlayfairView2 = _interopRequireDefault(_PlayfairView);
 
-var _HillView = __webpack_require__(35);
+var _HillView = __webpack_require__(37);
 
 var _HillView2 = _interopRequireDefault(_HillView);
 
-var _NotFound = __webpack_require__(39);
+var _NotFound = __webpack_require__(40);
 
 var _NotFound2 = _interopRequireDefault(_NotFound);
 
@@ -175,7 +166,7 @@ const titleMap = exports.titleMap = innerRoutes.reduce((rs, { component, path })
 }, {});
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -210,7 +201,7 @@ function Output(_ref) {
 exports.default = Output;
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -251,6 +242,12 @@ function Section(_ref) {
 exports.default = Section;
 
 /***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+module.exports = ["app","caser","playfair"]
+
+/***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
@@ -258,6 +255,73 @@ module.exports = require("react-router-config");
 
 /***/ }),
 /* 11 */
+/***/ (function(module, exports) {
+
+module.exports = require("antd/lib/icon");
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _button = __webpack_require__(13);
+
+var _button2 = _interopRequireDefault(_button);
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = FileInput;
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function FileInput(_ref) {
+  let {
+    className, btnProps, children } = _ref,
+      fileProps = _objectWithoutProperties(_ref, ['className', 'btnProps', 'children']);
+
+  let fileInput = null;
+  return _react2.default.createElement(
+    'span',
+    { className: (className ? className + ' ' : '') + 'components-FileInput_span' },
+    _react2.default.createElement('input', _extends({}, fileProps, {
+      style: Object.assign({ display: 'none' }, fileProps.style),
+      type: 'file',
+      ref: saveInput
+    })),
+    _react2.default.createElement(_button2.default, _extends({ children: children }, btnProps, { onClick: handleClick }))
+  );
+  function handleClick(e) {
+    if (btnProps && typeof btnProps.onClick === 'function') btnProps.onClick(e);
+    fileInput.click();
+  }
+  function saveInput(input) {
+    if (fileProps.ref && typeof fileProps.ref === 'function') {
+      fileProps.ref(input);
+    }
+    fileInput = input;
+  }
+}
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+module.exports = require("antd/lib/button");
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -301,7 +365,7 @@ function MatrixOutput({ value }) {
 exports.default = MatrixOutput;
 
 /***/ }),
-/* 12 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -313,11 +377,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _Util = __webpack_require__(1);
 
-var _setTitle = __webpack_require__(41);
+var _setTitle = __webpack_require__(42);
 
 var _setTitle2 = _interopRequireDefault(_setTitle);
 
-var _routes = __webpack_require__(7);
+var _routes = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -337,7 +401,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 13 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -349,7 +413,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _readAsText = __webpack_require__(14);
+var _readAsText = __webpack_require__(17);
 
 var _readAsText2 = _interopRequireDefault(_readAsText);
 
@@ -377,7 +441,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 14 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -406,7 +470,7 @@ exports.default = file => new Promise((resolve, reject) => {
 });
 
 /***/ }),
-/* 15 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -418,9 +482,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _playfair = __webpack_require__(42);
+var _playfair = __webpack_require__(43);
 
-var _delay = __webpack_require__(44);
+var _delay = __webpack_require__(45);
 
 var _delay2 = _interopRequireDefault(_delay);
 
@@ -476,95 +540,6 @@ exports.default = {
 };
 
 /***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = render;
-
-var _history = __webpack_require__(17);
-
-var _renderRoute = __webpack_require__(18);
-
-function render(path, context) {
-  return (0, _renderRoute.renderRoute)({
-    dvaOpts: {
-      history: (0, _history.createMemoryHistory)()
-    },
-    routerProps: { location: path, context },
-    routeProps: { currentPath: path },
-    templateOpts: { title: _renderRoute.titleMap[path] }
-  });
-}
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports) {
-
-module.exports = require("history");
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.renderRoute = exports.titleMap = undefined;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _dva = __webpack_require__(5);
-
-var _dva2 = _interopRequireDefault(_dva);
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterConfig = __webpack_require__(10);
-
-var _router = __webpack_require__(6);
-
-var _renderTemplate = __webpack_require__(19);
-
-var _renderTemplate2 = _interopRequireDefault(_renderTemplate);
-
-var _routes = __webpack_require__(7);
-
-var _routes2 = _interopRequireDefault(_routes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const models = __webpack_require__(4);
-
-const renderRoute = ({
-  dvaOpts, routerProps: { location, context }, routeProps, templateOpts
-}) => {
-  const app = (0, _dva2.default)(dvaOpts);
-  models.forEach(m => app.model(_extends({}, __webpack_require__(40)(`./${m}`).default)));
-
-  app.router(() => _react2.default.createElement(
-    _router.StaticRouter,
-    { location: location, context: context },
-    (0, _reactRouterConfig.renderRoutes)(_routes2.default, routeProps)
-  ));
-
-  return (0, _renderTemplate2.default)(app.start()(), templateOpts);
-};
-
-exports.titleMap = _routes.titleMap;
-exports.renderRoute = renderRoute;
-
-/***/ }),
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -575,9 +550,92 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _server = __webpack_require__(20);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _package = __webpack_require__(21);
+exports.default = render;
+
+var _dva = __webpack_require__(3);
+
+var _dva2 = _interopRequireDefault(_dva);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _history = __webpack_require__(20);
+
+var _reactRouterConfig = __webpack_require__(10);
+
+var _router = __webpack_require__(5);
+
+var _reactRouterRedux = __webpack_require__(21);
+
+var _renderTemplate = __webpack_require__(22);
+
+var _renderTemplate2 = _interopRequireDefault(_renderTemplate);
+
+var _routes = __webpack_require__(6);
+
+var _routes2 = _interopRequireDefault(_routes);
+
+var _paths = __webpack_require__(9);
+
+var _paths2 = _interopRequireDefault(_paths);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function render(path, staticContext) {
+  const history = (0, _history.createMemoryHistory)({
+    initialEntries: [path]
+  });
+
+  const app = (0, _dva2.default)({ history });
+
+  _paths2.default.forEach(m => app.model(_extends({}, __webpack_require__(41)(`./${m}`).default)));
+
+  app.router(() => _react2.default.createElement(
+    _router.StaticRouter,
+    { location: path, context: staticContext },
+    (0, _reactRouterConfig.renderRoutes)(_routes2.default)
+  ));
+
+  const App = app.start();
+
+  // 手动添加 state，因为 StaticRouter 不支持
+  app._store.dispatch({
+    type: _reactRouterRedux.LOCATION_CHANGE,
+    payload: history.location
+  });
+
+  return (0, _renderTemplate2.default)(_react2.default.createElement(App, null), { title: _routes.titleMap[path] });
+}
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+
+module.exports = require("history");
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-redux");
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _server = __webpack_require__(23);
+
+var _package = __webpack_require__(24);
 
 var _package2 = _interopRequireDefault(_package);
 
@@ -599,19 +657,19 @@ exports.default = (renderMe, { title } = {}) => `<!DOCTYPE html>
 </html>`;
 
 /***/ }),
-/* 20 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 21 */
+/* 24 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"the-little-cipher","version":"1.0.0","product_name":"The Little Cipher","scripts":{"test":"jest","test:watch":"jest --watch","test:coverage":"jest --coverage","lint":"eslint .","format":"prettier-eslint --write '**/*.{js,css}'","precommit":"lint-staged","dev":"nodemon --watch src/server src/server/index.js --exec \"cross-env NODE_ENV=development node -r babel-register\"","prod":"npm run build && npm start","start":"node dist/server/index.js","build":"npm run clean && run-p build:*","clean":"rimraf dist","build:static":"webpack --env.production","build:server":"babel src -s -d dist --ignore webpack,render,common,client,*.test.js,test.js","build:ssr":"webpack --config webpack.config.ssr.js"},"author":"dgeibi","license":"MIT","prettier":{"semi":false,"singleQuote":true,"trailingComma":"es5","printWidth":90},"lint-staged":{"*.{css,js}":["git-exec-and-restage prettier-eslint --write --"]},"devDependencies":{"babel-cli":"^6.26.0","babel-core":"^6.26.0","babel-eslint":"^8.0.2","babel-loader":"^7.1.2","babel-macros":"^1.2.0","babel-minify-webpack-plugin":"^0.2.0","babel-plugin-dva-hmr":"^0.4.0","babel-plugin-import":"^1.6.2","babel-plugin-react-css-modules":"^3.3.2","babel-plugin-transform-decorators-legacy":"^1.3.4","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","babel-register":"^6.26.0","clean-webpack-plugin":"^0.1.17","codegen.macro":"^1.0.0","copy-webpack-plugin":"^4.2.1","cross-env":"^5.1.1","css-loader":"^0.28.7","eslint":"^4.11.0","eslint-config-airbnb-base":"^12.1.0","eslint-config-dgeibi":"^3.0.6","eslint-config-standard-react":"^5.0.0","eslint-import-resolver-webpack":"^0.8.3","eslint-plugin-import":"^2.8.0","eslint-plugin-react":"^7.5.1","extract-text-webpack-plugin":"^3.0.2","git-exec-and-restage":"^1.0.1","html-webpack-plugin":"^2.30.1","husky":"^0.14.3","jest":"^21.2.1","lint-staged":"^4.3.0","nodemon":"^1.12.1","npm-run-all":"^4.1.2","postcss-cssnext":"^3.0.2","postcss-loader":"^2.0.8","redbox-react":"^1.5.0","rimraf":"^2.6.2","style-loader":"^0.19.0","webpack":"^3.8.1","webpack-dev-middleware":"^1.12.1","webpack-hot-middleware":"^2.20.0","webpack-merge":"^4.1.1","webpack-node-externals":"^1.6.0"},"dependencies":{"antd":"^3.0.0-rc.3","babel-polyfill":"^6.26.0","compression":"^1.7.1","dva":"^2.1.0","express":"^4.16.2","history":"^4.7.2","jsdom":"^11.4.0","jsdom-global":"^3.0.2","multer":"^1.3.0","rc-table":"^6.1.0","react":"^16.1.1","react-dom":"^16.1.1","react-fns":"^1.2.0","react-router-config":"^1.0.0-beta.4","unfetch":"^3.0.0"},"repository":{"type":"git","url":"git+https://github.com/dgeibi/the-little-cipher.git"},"bugs":{"url":"https://github.com/dgeibi/the-little-cipher/issues"},"homepage":"https://github.com/dgeibi/the-little-cipher#readme","description":"实现一些加密算法"}
+module.exports = {"name":"the-little-cipher","version":"1.0.0","product_name":"The Little Cipher","scripts":{"test":"jest","test:watch":"jest --watch","test:coverage":"jest --coverage","lint":"eslint .","format":"prettier-eslint --write '**/*.{js,css}'","precommit":"lint-staged","dev":"nodemon --watch src/server src/server/index.js --exec \"cross-env NODE_ENV=development node -r babel-register\"","prod":"npm run build && npm start","start":"node dist/server/index.js","build":"npm run clean && run-p build:*","clean":"rimraf dist","build:static":"webpack --env.production","build:server":"babel src -s -d dist --ignore webpack,render,common,client,*.test.js,test.js","build:ssr":"webpack --config webpack.config.ssr.js"},"author":"dgeibi","license":"MIT","prettier":{"semi":false,"singleQuote":true,"trailingComma":"es5","printWidth":90},"lint-staged":{"*.{css,js}":["git-exec-and-restage prettier-eslint --write --"]},"devDependencies":{"babel-cli":"^6.26.0","babel-core":"^6.26.0","babel-eslint":"^8.0.2","babel-loader":"^7.1.2","babel-macros":"^1.2.0","babel-minify-webpack-plugin":"^0.2.0","babel-plugin-dva-hmr":"^0.4.0","babel-plugin-import":"^1.6.2","babel-plugin-react-css-modules":"^3.3.2","babel-plugin-transform-decorators-legacy":"^1.3.4","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","babel-register":"^6.26.0","clean-webpack-plugin":"^0.1.17","codegen.macro":"^1.0.0","copy-webpack-plugin":"^4.2.1","cross-env":"^5.1.1","css-loader":"^0.28.7","eslint":"^4.11.0","eslint-config-airbnb-base":"^12.1.0","eslint-config-dgeibi":"^3.0.6","eslint-config-standard-react":"^5.0.0","eslint-import-resolver-webpack":"^0.8.3","eslint-plugin-import":"^2.8.0","eslint-plugin-react":"^7.5.1","extract-text-webpack-plugin":"^3.0.2","git-exec-and-restage":"^1.0.1","html-webpack-plugin":"^2.30.1","husky":"^0.14.3","jest":"^21.2.1","lint-staged":"^4.3.0","nodemon":"^1.12.1","npm-run-all":"^4.1.2","postcss-cssnext":"^3.0.2","postcss-loader":"^2.0.8","redbox-react":"^1.5.0","rimraf":"^2.6.2","style-loader":"^0.19.0","webpack":"^3.8.1","webpack-dev-middleware":"^1.12.1","webpack-hot-middleware":"^2.20.0","webpack-merge":"^4.1.1","webpack-node-externals":"^1.6.0"},"dependencies":{"antd":"^3.0.0-rc.3","babel-polyfill":"^6.26.0","compression":"^1.7.1","dva":"^2.1.0","dva-loading":"^1.0.4","express":"^4.16.2","history":"^4.7.2","jsdom":"^11.4.0","jsdom-global":"^3.0.2","multer":"^1.3.0","rc-table":"^6.1.0","react":"^16.1.1","react-dom":"^16.1.1","react-fns":"^1.2.0","react-router-config":"^1.0.0-beta.4","react-router-redux":"^5.0.0-alpha.8","unfetch":"^3.0.0"},"repository":{"type":"git","url":"git+https://github.com/dgeibi/the-little-cipher.git"},"bugs":{"url":"https://github.com/dgeibi/the-little-cipher/issues"},"homepage":"https://github.com/dgeibi/the-little-cipher#readme","description":"实现一些加密算法"}
 
 /***/ }),
-/* 22 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -621,7 +679,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _layout = __webpack_require__(23);
+var _icon = __webpack_require__(11);
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _layout = __webpack_require__(26);
 
 var _layout2 = _interopRequireDefault(_layout);
 
@@ -631,17 +693,19 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterConfig = __webpack_require__(10);
 
-var _Header = __webpack_require__(24);
+var _dva = __webpack_require__(3);
+
+var _Header = __webpack_require__(27);
 
 var _Header2 = _interopRequireDefault(_Header);
 
-var _routes = __webpack_require__(7);
+var _routes = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const { Content, Footer } = _layout2.default;
 
-function RouterConfig({ currentPath, route }) {
+function Root({ currentPath, route, loading }) {
   return _react2.default.createElement(
     _layout2.default,
     { className: 'routes-Root_layout' },
@@ -659,20 +723,25 @@ function RouterConfig({ currentPath, route }) {
       Footer,
       { className: 'routes-Root_footer' },
       '\xA92017 Created by dgeibi'
-    )
+    ),
+    loading && _react2.default.createElement(_icon2.default, { type: 'loading', className: 'routes-Root_loading' })
   );
 }
 
-exports.default = RouterConfig;
+exports.default = (0, _dva.connect)(state => {
+  const { pathname: currentPath } = state.routing.location;
+  const loading = state.loading && state.loading.global;
+  return { loading, currentPath };
+})(Root);
 
 /***/ }),
-/* 23 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("antd/lib/layout");
 
 /***/ }),
-/* 24 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -682,15 +751,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _popover = __webpack_require__(25);
+var _popover = __webpack_require__(28);
 
 var _popover2 = _interopRequireDefault(_popover);
 
-var _icon = __webpack_require__(26);
+var _icon = __webpack_require__(11);
 
 var _icon2 = _interopRequireDefault(_icon);
 
-var _menu = __webpack_require__(27);
+var _menu = __webpack_require__(29);
 
 var _menu2 = _interopRequireDefault(_menu);
 
@@ -698,9 +767,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _router = __webpack_require__(6);
+var _router = __webpack_require__(5);
 
-var _reactFns = __webpack_require__(28);
+var _reactFns = __webpack_require__(30);
 
 var _Util = __webpack_require__(1);
 
@@ -772,31 +841,25 @@ let Header = class Header extends _react.Component {
 exports.default = Header;
 
 /***/ }),
-/* 25 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("antd/lib/popover");
 
 /***/ }),
-/* 26 */
-/***/ (function(module, exports) {
-
-module.exports = require("antd/lib/icon");
-
-/***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("antd/lib/menu");
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-fns");
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -826,7 +889,7 @@ IndexPage.exact = true;
 exports.default = IndexPage;
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -840,11 +903,9 @@ var _message2 = __webpack_require__(2);
 
 var _message3 = _interopRequireDefault(_message2);
 
-var _input = __webpack_require__(3);
+var _input = __webpack_require__(4);
 
 var _input2 = _interopRequireDefault(_input);
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _dec, _class, _class2, _temp2;
 
@@ -852,27 +913,38 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _dva = __webpack_require__(5);
+var _dva = __webpack_require__(3);
 
-var _caser = __webpack_require__(31);
+var _caser = __webpack_require__(33);
 
 var _caser2 = _interopRequireDefault(_caser);
 
 var _Util = __webpack_require__(1);
 
-var _Output = __webpack_require__(8);
+var _Output = __webpack_require__(7);
 
 var _Output2 = _interopRequireDefault(_Output);
 
-var _Section = __webpack_require__(9);
+var _Section = __webpack_require__(8);
 
 var _Section2 = _interopRequireDefault(_Section);
+
+var _FileInput = __webpack_require__(12);
+
+var _FileInput2 = _interopRequireDefault(_FileInput);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const { TextArea } = _input2.default;
 
-let CaserView = (_dec = (0, _dva.connect)(({ caser: caserState }) => _extends({}, caserState)), _dec(_class = (_temp2 = _class2 = class CaserView extends _react2.default.Component {
+let CaserView = (_dec = (0, _dva.connect)(({ caser: { input } }) => {
+  const output = (0, _caser2.default)(input);
+  return { input, output };
+}, null, null, {
+  areStatesEqual(prev, next) {
+    return prev.caser.input === next.caser.input;
+  }
+}), _dec(_class = (_temp2 = _class2 = class CaserView extends _react2.default.Component {
   constructor(...args) {
     var _temp;
 
@@ -886,6 +958,9 @@ let CaserView = (_dec = (0, _dva.connect)(({ caser: caserState }) => _extends({}
       } else {
         this.saveInput(e.dataTransfer.getData('text'));
       }
+    }, this.handleFileInputChange = e => {
+      this.readfiles(e.target.files);
+      e.target.value = '';
     }, _temp;
   }
 
@@ -917,7 +992,7 @@ let CaserView = (_dec = (0, _dva.connect)(({ caser: caserState }) => _extends({}
   }
 
   render() {
-    const { input } = this.props;
+    const { input, output } = this.props;
 
     return _react2.default.createElement(
       'div',
@@ -925,6 +1000,7 @@ let CaserView = (_dec = (0, _dva.connect)(({ caser: caserState }) => _extends({}
       _react2.default.createElement(
         _Section2.default,
         { desc: '\u8F93\u5165\u660E\u6587 (\u652F\u6301\u62D6\u62FD\u6587\u5B57\u548C\u6587\u672C\u6587\u4EF6)' },
+        _react2.default.createElement(_FileInput2.default, { onChange: this.handleFileInputChange, children: '\u6253\u5F00\u6587\u4EF6' }),
         _react2.default.createElement(TextArea, {
           className: 'routes-CaserView_text',
           placeholder: '\u5728\u6B64\u8F93\u5165\uFF0C\u62D6\u62FD\u81F3\u6B64',
@@ -939,7 +1015,7 @@ let CaserView = (_dec = (0, _dva.connect)(({ caser: caserState }) => _extends({}
         _react2.default.createElement(
           _Output2.default,
           { className: 'routes-CaserView_output' },
-          (0, _caser2.default)(input)
+          output
         )
       )
     );
@@ -948,13 +1024,13 @@ let CaserView = (_dec = (0, _dva.connect)(({ caser: caserState }) => _extends({}
 exports.default = CaserView;
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports) {
 
 module.exports = require("../cipher/caser");
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -968,7 +1044,7 @@ var _message2 = __webpack_require__(2);
 
 var _message3 = _interopRequireDefault(_message2);
 
-var _input = __webpack_require__(3);
+var _input = __webpack_require__(4);
 
 var _input2 = _interopRequireDefault(_input);
 
@@ -980,27 +1056,31 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _dva = __webpack_require__(5);
+var _dva = __webpack_require__(3);
 
-var _rcTable = __webpack_require__(33);
+var _rcTable = __webpack_require__(35);
 
 var _rcTable2 = _interopRequireDefault(_rcTable);
 
-var _playfair = __webpack_require__(34);
+var _playfair = __webpack_require__(36);
 
 var _Util = __webpack_require__(1);
 
-var _Section = __webpack_require__(9);
+var _Section = __webpack_require__(8);
 
 var _Section2 = _interopRequireDefault(_Section);
 
-var _MatrixOutput = __webpack_require__(11);
+var _MatrixOutput = __webpack_require__(14);
 
 var _MatrixOutput2 = _interopRequireDefault(_MatrixOutput);
 
-var _Output = __webpack_require__(8);
+var _Output = __webpack_require__(7);
 
 var _Output2 = _interopRequireDefault(_Output);
+
+var _FileInput = __webpack_require__(12);
+
+var _FileInput2 = _interopRequireDefault(_FileInput);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1044,6 +1124,9 @@ let PlayfairView = (_dec = (0, _dva.connect)(({ playfair }) => _extends({}, play
           plainInput: e.dataTransfer.getData('text')
         });
       }
+    }, this.handleFileInputChange = e => {
+      this.readfiles(e.target.files);
+      e.target.value = '';
     }, _temp;
   }
 
@@ -1105,6 +1188,7 @@ let PlayfairView = (_dec = (0, _dva.connect)(({ playfair }) => _extends({}, play
       _react2.default.createElement(
         _Section2.default,
         { desc: '\u660E\u6587\u8F93\u5165\uFF08\u6587\u672C/\u6587\u4EF6\uFF09' },
+        _react2.default.createElement(_FileInput2.default, { onChange: this.handleFileInputChange, children: '\u6253\u5F00\u6587\u4EF6' }),
         _react2.default.createElement(TextArea, {
           value: plainInput,
           name: 'plainInput',
@@ -1140,19 +1224,19 @@ let PlayfairView = (_dec = (0, _dva.connect)(({ playfair }) => _extends({}, play
 exports.default = PlayfairView;
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports) {
 
 module.exports = require("rc-table");
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports) {
 
 module.exports = require("../cipher/playfair");
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1162,7 +1246,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _button = __webpack_require__(36);
+var _button = __webpack_require__(13);
 
 var _button2 = _interopRequireDefault(_button);
 
@@ -1170,7 +1254,7 @@ var _message2 = __webpack_require__(2);
 
 var _message3 = _interopRequireDefault(_message2);
 
-var _input = __webpack_require__(3);
+var _input = __webpack_require__(4);
 
 var _input2 = _interopRequireDefault(_input);
 
@@ -1180,23 +1264,23 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _hill = __webpack_require__(37);
+var _hill = __webpack_require__(38);
 
 var _hill2 = _interopRequireDefault(_hill);
 
-var _MatrixInput = __webpack_require__(38);
+var _MatrixInput = __webpack_require__(39);
 
 var _MatrixInput2 = _interopRequireDefault(_MatrixInput);
 
-var _MatrixOutput = __webpack_require__(11);
+var _MatrixOutput = __webpack_require__(14);
 
 var _MatrixOutput2 = _interopRequireDefault(_MatrixOutput);
 
-var _Section = __webpack_require__(9);
+var _Section = __webpack_require__(8);
 
 var _Section2 = _interopRequireDefault(_Section);
 
-var _Output = __webpack_require__(8);
+var _Output = __webpack_require__(7);
 
 var _Output2 = _interopRequireDefault(_Output);
 
@@ -1299,19 +1383,13 @@ let HillView = (_temp2 = _class = class HillView extends _react2.default.Compone
 exports.default = HillView;
 
 /***/ }),
-/* 36 */
-/***/ (function(module, exports) {
-
-module.exports = require("antd/lib/button");
-
-/***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports) {
 
 module.exports = require("../cipher/hill");
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1321,7 +1399,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _input = __webpack_require__(3);
+var _input = __webpack_require__(4);
 
 var _input2 = _interopRequireDefault(_input);
 
@@ -1406,7 +1484,7 @@ let MatrixInput = class MatrixInput extends _react.Component {
 exports.default = MatrixInput;
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1420,7 +1498,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _router = __webpack_require__(6);
+var _router = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1448,19 +1526,18 @@ NotFound.skipMenu = true;
 exports.default = NotFound;
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./": 4,
-	"./app": 12,
-	"./app.js": 12,
-	"./caser": 13,
-	"./caser.js": 13,
-	"./index": 4,
-	"./index.js": 4,
-	"./playfair": 15,
-	"./playfair.js": 15
+	"./app": 15,
+	"./app.js": 15,
+	"./caser": 16,
+	"./caser.js": 16,
+	"./paths": 9,
+	"./paths.json": 9,
+	"./playfair": 18,
+	"./playfair.js": 18
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -1476,10 +1553,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 40;
+webpackContext.id = 41;
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1496,7 +1573,7 @@ exports.default = title => {
 };
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1511,11 +1588,11 @@ var _message2 = __webpack_require__(2);
 
 var _message3 = _interopRequireDefault(_message2);
 
-var _unfetch = __webpack_require__(43);
+var _unfetch = __webpack_require__(44);
 
 var _unfetch2 = _interopRequireDefault(_unfetch);
 
-var _readAsText = __webpack_require__(14);
+var _readAsText = __webpack_require__(17);
 
 var _readAsText2 = _interopRequireDefault(_readAsText);
 
@@ -1528,19 +1605,25 @@ const postData = exports.postData = ({ secretInput, plainInput, file }) => {
   return (0, _unfetch2.default)('/playfair', {
     method: 'POST',
     body: formData
-  }).then(res => res.json(), () => _message3.default.error('发送失败')).catch(() => _message3.default.error('接收失败'));
+  }).then(res => res.json(), err => {
+    console.error(err);
+    _message3.default.error('发送失败');
+  }).catch(err => {
+    console.error(err);
+    _message3.default.error('接收失败');
+  });
 };
 
 const readPlainText = exports.readPlainText = _readAsText2.default;
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports) {
 
 module.exports = require("unfetch");
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
