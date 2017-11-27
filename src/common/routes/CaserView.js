@@ -11,7 +11,19 @@ import './CaserView.css'
 
 const { TextArea } = Input
 
-@connect(({ caser: caserState }) => ({ ...caserState }))
+@connect(
+  ({ caser: { input } }) => {
+    const output = caser(input)
+    return { input, output }
+  },
+  null,
+  null,
+  {
+    areStatesEqual(prev, next) {
+      return prev.caser.input === next.caser.input
+    },
+  }
+)
 class CaserView extends React.Component {
   static title = '凯撒密码'
 
@@ -57,7 +69,7 @@ class CaserView extends React.Component {
   }
 
   render() {
-    const { input } = this.props
+    const { input, output } = this.props
 
     return (
       <div>
@@ -72,7 +84,7 @@ class CaserView extends React.Component {
         </Section>
         <Section desc="密文">
           <Output styleName="output">
-            {caser(input)}
+            {output}
           </Output>
         </Section>
       </div>
