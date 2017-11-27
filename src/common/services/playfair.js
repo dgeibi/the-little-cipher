@@ -11,8 +11,17 @@ export const postData = ({ secretInput, plainInput, file }) => {
     method: 'POST',
     body: formData,
   })
-    .then(res => res.json(), () => message.error('发送失败'))
-    .catch(() => message.error('接收失败'))
+    .then(
+      res => res.json(),
+      (err) => {
+        console.error(err)
+        message.error('发送失败')
+      }
+    )
+    .catch((err) => {
+      console.error(err)
+      message.error('接收失败')
+    })
 }
 
 export const readPlainText = readAsText
