@@ -17,3 +17,11 @@
     padding: 0 50px;
   }
 }
+
+.loading {
+  position: fixed;
+  right: 12px;
+  top: 12px;
+  font-size: 20px;
+  color: #1890ff;
+}

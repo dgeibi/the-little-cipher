@@ -24,7 +24,7 @@ export default function render(path, staticContext) {
 
   app.router(() =>
     <StaticRouter location={path} context={staticContext}>
-      {renderRoutes(routes, { currentPath: path })}
+      {renderRoutes(routes)}
     </StaticRouter>)
 
   const App = app.start()

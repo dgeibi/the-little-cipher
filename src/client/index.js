@@ -3,12 +3,14 @@ import { createBrowserHistory } from 'history'
 import dva from 'dva'
 import ReactDOM from 'react-dom'
 import codegen from 'codegen.macro'
+import createLoading from 'dva-loading'
 
 import router from './router'
 
 import './index.css'
 
 const app = dva({
+  ...createLoading(),
   history: createBrowserHistory(),
 })
 

@@ -6,7 +6,7 @@ import routes from '../common/routes'
 function RouterConfig({ history }) {
   return (
     <ConnectedRouter history={history}>
-      {renderRoutes(routes, { currentPath: history.location.pathname })}
+      {renderRoutes(routes)}
     </ConnectedRouter>
   )
 }
