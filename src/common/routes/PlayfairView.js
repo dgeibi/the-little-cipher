@@ -8,6 +8,7 @@ import { isPlainFile } from 'Util'
 import Section from '../components/Section'
 import MatrixOutput from '../components/MatrixOutput'
 import Output from '../components/Output'
+import FileInput from '../components/FileInput'
 
 const { TextArea } = Input
 const columns = [
@@ -84,6 +85,11 @@ class PlayfairView extends Component {
     }
   }
 
+  handleFileInputChange = (e) => {
+    this.readfiles(e.target.files)
+    e.target.value = ''
+  }
+
   render() {
     const {
       plainInput, secretInput, diff, square, plainText, cipherText,
@@ -99,6 +105,7 @@ class PlayfairView extends Component {
         </Section>
 
         <Section desc="明文输入（文本/文件）">
+          <FileInput onChange={this.handleFileInputChange} children="打开文件" />
           <TextArea
             value={plainInput}
             name="plainInput"

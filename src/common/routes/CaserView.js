@@ -7,6 +7,7 @@ import { isPlainFile } from 'Util'
 
 import Output from '../components/Output'
 import Section from '../components/Section'
+import FileInput from '../components/FileInput'
 import './CaserView.css'
 
 const { TextArea } = Input
@@ -68,12 +69,18 @@ class CaserView extends React.Component {
     }
   }
 
+  handleFileInputChange = (e) => {
+    this.readfiles(e.target.files)
+    e.target.value = ''
+  }
+
   render() {
     const { input, output } = this.props
 
     return (
       <div>
         <Section desc="输入明文 (支持拖拽文字和文本文件)">
+          <FileInput onChange={this.handleFileInputChange} children="打开文件" />
           <TextArea
             styleName="text"
             placeholder="在此输入，拖拽至此"

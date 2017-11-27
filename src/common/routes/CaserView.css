@@ -1,7 +1,6 @@
 textarea.text,
 .output {
   height: 16em;
-  margin-top: 1em;
   overflow: auto;
 }
 
