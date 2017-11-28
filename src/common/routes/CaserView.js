@@ -1,9 +1,9 @@
 import React from 'react'
-import { Input, message } from 'antd'
+import { Input } from 'antd'
 import { connect } from 'dva'
+import { createSelector } from 'reselect'
 
 import caser from 'Cipher/caser'
-import { isPlainFile } from 'Util'
 
 import Output from '../components/Output'
 import Section from '../components/Section'
@@ -12,19 +12,10 @@ import './CaserView.css'
 
 const { TextArea } = Input
 
-@connect(
-  ({ caser: { input } }) => {
-    const output = caser(input)
-    return { input, output }
-  },
-  null,
-  null,
-  {
-    areStatesEqual(prev, next) {
-      return prev.caser.input === next.caser.input
-    },
-  }
-)
+const inputSelector = state => state.caser.input
+const outputSelector = createSelector(inputSelector, caser)
+
+@connect(state => ({ input: inputSelector(state), output: outputSelector(state) }))
 class CaserView extends React.Component {
   static title = '凯撒密码'
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import { createSelector } from 'reselect'
 import { Input, Button, message } from 'antd'
 import { connect } from 'dva'
 import hill, { inverse } from 'Cipher/hill'
@@ -12,26 +13,21 @@ import Output from '../components/Output'
 
 const { TextArea } = Input
 
-@connect(
-  (state) => {
-    const { matrix, plaintext } = state.hill
-    const inverseMatrix = inverse(matrix)
-    const cipherText = hill(matrix, plaintext)
-    console.log('calced')
-    return {
-      ...state.hill,
-      inverseMatrix,
-      cipherText,
-    }
-  },
-  null,
-  null,
-  {
-    areStatesEqual(prev, next) {
-      return prev.hill.str === next.hill.str && prev.hill.plaintext === next.hill.plaintext
-    },
+const matrixSelector = state => state.hill.matrix
+const plaintextSelector = state => state.hill.plaintext
+
+const inverseMatrixSelector = createSelector(matrixSelector, inverse)
+const cipherTextSelector = createSelector(matrixSelector, plaintextSelector, hill)
+
+@connect((state) => {
+  const inverseMatrix = inverseMatrixSelector(state)
+  const cipherText = cipherTextSelector(state)
+  return {
+    ...state.hill,
+    inverseMatrix,
+    cipherText,
   }
-)
+})
 class HillView extends React.Component {
   static title = 'Hill密码'
 
@@ -133,9 +129,10 @@ class HillView extends React.Component {
 
         <Section desc="密文">
           <Output
+            wrap
             value={cipherText}
             style={{
-              wordBreak: 'break-all',
+              height: '10em',
             }}
           />
         </Section>
