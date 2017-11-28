@@ -12,7 +12,7 @@ const { Content, Footer } = Layout
 
 function Root({ currentPath, route, loading }) {
   return (
-    <Layout styleName="layout">
+    <Layout>
       <Header currentPath={currentPath} routes={innerRoutes} />
       <Content styleName="content">
         <div styleName="content-inner">

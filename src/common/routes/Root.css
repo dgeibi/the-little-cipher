@@ -1,9 +1,5 @@
-.layout,
 .content-inner {
-  min-height: 100%;
-}
-
-.content-inner {
+  min-height: calc(100vh - 140.1px);
   background: #fff;
   padding: 24px;
 }
