@@ -1,4 +1,6 @@
 import { postData, readPlainText } from '../services/playfair'
+import save from '../utils/dva-reducer-save'
+
 import delay from '../utils/delay'
 
 const getInit = () => ({
@@ -43,9 +45,7 @@ export default {
   },
 
   reducers: {
-    save(state, action) {
-      return { ...state, ...action.payload }
-    },
+    save,
 
     reset(state, action) {
       return { ...getInit(), ...action.payload }

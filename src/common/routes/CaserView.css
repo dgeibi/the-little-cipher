@@ -1,9 +1,8 @@
-textarea.text,
 .output {
   height: 16em;
   overflow: auto;
 }
 
-.text {
+textarea.text {
   resize: none;
 }

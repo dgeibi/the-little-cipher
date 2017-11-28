@@ -14,7 +14,7 @@ export default function FileInput({
         type="file"
         ref={saveInput}
       />
-      <Button children={children} {...btnProps} onClick={handleClick} />
+      <Button children={children || '打开文件'} {...btnProps} onClick={handleClick} />
     </span>
   )
   function handleClick(e) {

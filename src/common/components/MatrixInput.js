@@ -8,11 +8,6 @@ const { TextArea } = Input
 
 const splitC = /\s*,\s*|\s+/
 class MatrixInput extends Component {
-  state = {
-    inputValue: '',
-    value: this.getNoob(),
-  }
-
   static getNoob(m, n) {
     return Array(m).fill(null).map(() => this.getRowNoob(n))
   }
@@ -31,45 +26,35 @@ class MatrixInput extends Component {
   }
 
   handleChange = (e) => {
-    if (this.props.onChange) {
-      this.props.onChange(e)
-    }
-    const { value: inputValue } = e.target
+    const { value: str } = e.target
     const { m, n } = this.props
-    let value
-    if (inputValue !== '') {
-      value = String(inputValue)
+    let matrix
+    if (str) {
+      matrix = String(str)
         .split('\n')
         .slice(0, m)
         .map(r => r.split(splitC).slice(0, n).map(v => Number(v) || 0))
-      value.forEach((r) => {
+      matrix.forEach((r) => {
         if (r.length < n) {
           repeat(n - r.length, () => r.push(0))
         }
       })
-      if (value.length < m) {
-        repeat(m - value.length, () => value.push(this.getRowNoob()))
+      if (matrix.length < m) {
+        repeat(m - matrix.length, () => matrix.push(this.getRowNoob()))
       }
     } else {
-      value = this.getNoob()
+      matrix = this.getNoob()
     }
-    this.setState(
-      {
-        inputValue,
-        value,
-      },
-      () => {
-        if (this.props.onMatrixChange) {
-          this.props.onMatrixChange(value)
-        }
-      }
-    )
+    if (this.props.onChange) {
+      this.props.onChange({
+        matrix,
+        str,
+      })
+    }
   }
 
   render() {
-    const {
-      m, n, onMatrixChange, ...props
-    } = this.props
+    const { m, n, ...props } = this.props
     return <TextArea {...props} onChange={this.handleChange} />
   }
 }

@@ -104,8 +104,8 @@ class PlayfairView extends Component {
           <Input value={secretInput} name="secretInput" onChange={this.handleInputChange} />
         </Section>
 
-        <Section desc="明文输入（文本/文件）">
-          <FileInput onChange={this.handleFileInputChange} children="打开文件" />
+        <Section desc="明文输入">
+          <FileInput onChange={this.handleFileInputChange} />
           <TextArea
             value={plainInput}
             name="plainInput"

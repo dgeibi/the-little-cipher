@@ -1,4 +1,5 @@
-import readAsText from '../utils/readAsText'
+import save from '../utils/dva-reducer-save'
+import file2Text from '../utils/dva-effect-file2Text'
 
 export default {
   namespace: 'caser',
@@ -8,15 +9,10 @@ export default {
   },
 
   effects: {
-    * loadFile({ payload: { file } }, { call, put }) {
-      const input = yield call(readAsText, file)
-      yield put({ type: 'save', payload: { input } })
-    },
+    loadFile: file2Text({ target: 'input', actionType: 'save' }),
   },
 
   reducers: {
-    save(state, action) {
-      return { ...state, ...action.payload }
-    },
+    save,
   },
 }

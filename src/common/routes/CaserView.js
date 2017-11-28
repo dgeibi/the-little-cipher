@@ -31,18 +31,10 @@ class CaserView extends React.Component {
   readfiles(files) {
     const file = files && files[0]
     if (file) {
-      if (isPlainFile(file)) {
-        this.props.dispatch({
-          type: 'caser/loadFile',
-          payload: {
-            file,
-          },
-        })
-      } else if (file.type) {
-        message.error(`不支持 ${file.type}`)
-      } else {
-        message.error('文件格式未知')
-      }
+      this.props.dispatch({
+        type: 'caser/loadFile',
+        file,
+      })
     }
   }
 
@@ -79,10 +71,11 @@ class CaserView extends React.Component {
 
     return (
       <div>
-        <Section desc="输入明文 (支持拖拽文字和文本文件)">
-          <FileInput onChange={this.handleFileInputChange} children="打开文件" />
+        <Section desc="输入明文">
+          <FileInput onChange={this.handleFileInputChange} />
           <TextArea
             styleName="text"
+            rows={8}
             placeholder="在此输入，拖拽至此"
             onDrop={this.handleDrop}
             value={input}
