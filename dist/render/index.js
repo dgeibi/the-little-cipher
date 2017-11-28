@@ -61,7 +61,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 19);
+/******/ 	return __webpack_require__(__webpack_require__.s = 24);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -74,19 +74,19 @@ module.exports = require("react");
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = require("../util");
+module.exports = require("dva");
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("antd/lib/message");
+module.exports = require("../util");
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = require("dva");
+module.exports = require("antd/lib/message");
 
 /***/ }),
 /* 4 */
@@ -112,27 +112,27 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.titleMap = exports.innerRoutes = undefined;
 
-var _Root = __webpack_require__(25);
+var _Root = __webpack_require__(30);
 
 var _Root2 = _interopRequireDefault(_Root);
 
-var _IndexPage = __webpack_require__(31);
+var _IndexPage = __webpack_require__(36);
 
 var _IndexPage2 = _interopRequireDefault(_IndexPage);
 
-var _CaserView = __webpack_require__(32);
+var _CaserView = __webpack_require__(37);
 
 var _CaserView2 = _interopRequireDefault(_CaserView);
 
-var _PlayfairView = __webpack_require__(34);
+var _PlayfairView = __webpack_require__(39);
 
 var _PlayfairView2 = _interopRequireDefault(_PlayfairView);
 
-var _HillView = __webpack_require__(37);
+var _HillView = __webpack_require__(42);
 
 var _HillView2 = _interopRequireDefault(_HillView);
 
-var _NotFound = __webpack_require__(40);
+var _NotFound = __webpack_require__(44);
 
 var _NotFound2 = _interopRequireDefault(_NotFound);
 
@@ -188,12 +188,18 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 function Output(_ref) {
   let {
-    children, value, className } = _ref,
-      props = _objectWithoutProperties(_ref, ['children', 'value', 'className']);
+    wrap = false, style, children, value, className } = _ref,
+      props = _objectWithoutProperties(_ref, ['wrap', 'style', 'children', 'value', 'className']);
 
   return _react2.default.createElement('div', _extends({}, props, {
     className: (className ? className + ' ' : '') + 'components-Output_output',
 
+    style: Object.assign(wrap ? {
+      wordWrap: 'break-word',
+      whiteSpace: 'pre-wrap'
+    } : {
+      whiteSpace: 'pre'
+    }, style),
     children: children || value || '无数据'
   }));
 }
@@ -243,24 +249,6 @@ exports.default = Section;
 
 /***/ }),
 /* 9 */
-/***/ (function(module, exports) {
-
-module.exports = ["app","caser","playfair"]
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-router-config");
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-module.exports = require("antd/lib/icon");
-
-/***/ }),
-/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -270,7 +258,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _button = __webpack_require__(13);
+var _button = __webpack_require__(15);
 
 var _button2 = _interopRequireDefault(_button);
 
@@ -300,7 +288,7 @@ function FileInput(_ref) {
       type: 'file',
       ref: saveInput
     })),
-    _react2.default.createElement(_button2.default, _extends({ children: children }, btnProps, { onClick: handleClick }))
+    _react2.default.createElement(_button2.default, _extends({ children: children || '打开文件' }, btnProps, { onClick: handleClick }))
   );
   function handleClick(e) {
     if (btnProps && typeof btnProps.onClick === 'function') btnProps.onClick(e);
@@ -315,13 +303,55 @@ function FileInput(_ref) {
 }
 
 /***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+module.exports = ["app","caser","playfair","hill"]
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = save;
+function save(state, action) {
+  return _extends({}, state, action.payload);
+}
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-config");
+
+/***/ }),
 /* 13 */
+/***/ (function(module, exports) {
+
+module.exports = require("antd/lib/icon");
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+module.exports = require("reselect");
+
+/***/ }),
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("antd/lib/button");
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -365,7 +395,7 @@ function MatrixOutput({ value }) {
 exports.default = MatrixOutput;
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -375,9 +405,95 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Util = __webpack_require__(1);
+var _input = __webpack_require__(4);
 
-var _setTitle = __webpack_require__(42);
+var _input2 = _interopRequireDefault(_input);
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Util = __webpack_require__(2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+const { TextArea } = _input2.default;
+
+const splitC = /\s*,\s*|\s+/;
+let MatrixInput = class MatrixInput extends _react.Component {
+  constructor(...args) {
+    var _temp;
+
+    return _temp = super(...args), this.handleChange = e => {
+      const { value: str } = e.target;
+      const { m, n } = this.props;
+      let matrix;
+      if (str) {
+        matrix = String(str).split('\n').slice(0, m).map(r => r.split(splitC).slice(0, n).map(v => Number(v) || 0));
+        matrix.forEach(r => {
+          if (r.length < n) {
+            (0, _Util.repeat)(n - r.length, () => r.push(0));
+          }
+        });
+        if (matrix.length < m) {
+          (0, _Util.repeat)(m - matrix.length, () => matrix.push(this.getRowNoob()));
+        }
+      } else {
+        matrix = this.getNoob();
+      }
+      if (this.props.onChange) {
+        this.props.onChange({
+          matrix,
+          str
+        });
+      }
+    }, _temp;
+  }
+
+  static getNoob(m, n) {
+    return Array(m).fill(null).map(() => this.getRowNoob(n));
+  }
+
+  static getRowNoob(n) {
+    return Array(n).fill(0);
+  }
+
+  getNoob() {
+    const { m, n } = this.props;
+    return MatrixInput.getNoob(m, n);
+  }
+
+  getRowNoob() {
+    return MatrixInput.getRowNoob(this.props.n);
+  }
+
+  render() {
+    const _props = this.props,
+          { m, n } = _props,
+          props = _objectWithoutProperties(_props, ['m', 'n']);
+    return _react2.default.createElement(TextArea, _extends({}, props, { onChange: this.handleChange }));
+  }
+};
+exports.default = MatrixInput;
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Util = __webpack_require__(2);
+
+var _setTitle = __webpack_require__(46);
 
 var _setTitle2 = _interopRequireDefault(_setTitle);
 
@@ -401,7 +517,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 16 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -411,11 +527,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _dvaReducerSave = __webpack_require__(11);
 
-var _readAsText = __webpack_require__(17);
+var _dvaReducerSave2 = _interopRequireDefault(_dvaReducerSave);
 
-var _readAsText2 = _interopRequireDefault(_readAsText);
+var _dvaEffectFile2Text = __webpack_require__(20);
+
+var _dvaEffectFile2Text2 = _interopRequireDefault(_dvaEffectFile2Text);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -427,21 +545,16 @@ exports.default = {
   },
 
   effects: {
-    *loadFile({ payload: { file } }, { call, put }) {
-      const input = yield call(_readAsText2.default, file);
-      yield put({ type: 'save', payload: { input } });
-    }
+    loadFile: (0, _dvaEffectFile2Text2.default)({ target: 'input', actionType: 'save' })
   },
 
   reducers: {
-    save(state, action) {
-      return _extends({}, state, action.payload);
-    }
+    save: _dvaReducerSave2.default
   }
 };
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -451,7 +564,42 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _message2 = __webpack_require__(2);
+var _message2 = __webpack_require__(3);
+
+var _message3 = _interopRequireDefault(_message2);
+
+var _Util = __webpack_require__(2);
+
+var _readAsText = __webpack_require__(21);
+
+var _readAsText2 = _interopRequireDefault(_readAsText);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = ({ target = 'text', actionType = 'save' } = {}) => function* file2Text({ file }, { call, put }) {
+  if (!file) return;
+  if ((0, _Util.isPlainFile)(file)) {
+    const plaintext = yield call(_readAsText2.default, file);
+    yield put({ type: actionType, payload: { [target]: plaintext } });
+  } else if (file.type) {
+    _message3.default.error(`不支持 ${file.type}`);
+  } else {
+    _message3.default.error('文件格式未知');
+  }
+};
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _message2 = __webpack_require__(3);
 
 var _message3 = _interopRequireDefault(_message2);
 
@@ -470,7 +618,50 @@ exports.default = file => new Promise((resolve, reject) => {
 });
 
 /***/ }),
-/* 18 */
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _MatrixInput = __webpack_require__(17);
+
+var _MatrixInput2 = _interopRequireDefault(_MatrixInput);
+
+var _dvaEffectFile2Text = __webpack_require__(20);
+
+var _dvaEffectFile2Text2 = _interopRequireDefault(_dvaEffectFile2Text);
+
+var _dvaReducerSave = __webpack_require__(11);
+
+var _dvaReducerSave2 = _interopRequireDefault(_dvaReducerSave);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  namespace: 'hill',
+
+  state: {
+    str: '',
+    matrix: _MatrixInput2.default.getNoob(3, 3),
+    plaintext: ''
+  },
+
+  effects: {
+    loadFile: (0, _dvaEffectFile2Text2.default)({ target: 'plaintext', actionType: 'save' })
+  },
+
+  reducers: {
+    save: _dvaReducerSave2.default
+  }
+};
+
+/***/ }),
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -482,9 +673,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _playfair = __webpack_require__(43);
+var _playfair = __webpack_require__(47);
 
-var _delay = __webpack_require__(45);
+var _dvaReducerSave = __webpack_require__(11);
+
+var _dvaReducerSave2 = _interopRequireDefault(_dvaReducerSave);
+
+var _delay = __webpack_require__(49);
 
 var _delay2 = _interopRequireDefault(_delay);
 
@@ -529,9 +724,7 @@ exports.default = {
   },
 
   reducers: {
-    save(state, action) {
-      return _extends({}, state, action.payload);
-    },
+    save: _dvaReducerSave2.default,
 
     reset(state, action) {
       return _extends({}, getInit(), action.payload);
@@ -540,7 +733,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 19 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -554,7 +747,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.default = render;
 
-var _dva = __webpack_require__(3);
+var _dva = __webpack_require__(1);
 
 var _dva2 = _interopRequireDefault(_dva);
 
@@ -562,15 +755,15 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _history = __webpack_require__(20);
+var _history = __webpack_require__(25);
 
-var _reactRouterConfig = __webpack_require__(10);
+var _reactRouterConfig = __webpack_require__(12);
 
 var _router = __webpack_require__(5);
 
-var _reactRouterRedux = __webpack_require__(21);
+var _reactRouterRedux = __webpack_require__(26);
 
-var _renderTemplate = __webpack_require__(22);
+var _renderTemplate = __webpack_require__(27);
 
 var _renderTemplate2 = _interopRequireDefault(_renderTemplate);
 
@@ -578,7 +771,7 @@ var _routes = __webpack_require__(6);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _paths = __webpack_require__(9);
+var _paths = __webpack_require__(10);
 
 var _paths2 = _interopRequireDefault(_paths);
 
@@ -591,7 +784,7 @@ function render(path, staticContext) {
 
   const app = (0, _dva2.default)({ history });
 
-  _paths2.default.forEach(m => app.model(_extends({}, __webpack_require__(41)(`./${m}`).default)));
+  _paths2.default.forEach(m => app.model(_extends({}, __webpack_require__(45)(`./${m}`).default)));
 
   app.router(() => _react2.default.createElement(
     _router.StaticRouter,
@@ -611,19 +804,19 @@ function render(path, staticContext) {
 }
 
 /***/ }),
-/* 20 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("history");
 
 /***/ }),
-/* 21 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router-redux");
 
 /***/ }),
-/* 22 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -633,9 +826,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _server = __webpack_require__(23);
+var _server = __webpack_require__(28);
 
-var _package = __webpack_require__(24);
+var _package = __webpack_require__(29);
 
 var _package2 = _interopRequireDefault(_package);
 
@@ -657,19 +850,19 @@ exports.default = (renderMe, { title } = {}) => `<!DOCTYPE html>
 </html>`;
 
 /***/ }),
-/* 23 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 24 */
+/* 29 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"the-little-cipher","version":"1.0.0","product_name":"The Little Cipher","scripts":{"test":"jest","test:watch":"jest --watch","test:coverage":"jest --coverage","lint":"eslint .","format":"prettier-eslint --write '**/*.{js,css}'","precommit":"lint-staged","dev":"nodemon --watch src/server src/server/index.js --exec \"cross-env NODE_ENV=development node -r babel-register\"","prod":"npm run build && npm start","start":"node dist/server/index.js","build":"npm run clean && run-p build:*","clean":"rimraf dist","build:static":"webpack --env.production","build:server":"babel src -s -d dist --ignore webpack,render,common,client,*.test.js,test.js","build:ssr":"webpack --config webpack.config.ssr.js"},"author":"dgeibi","license":"MIT","prettier":{"semi":false,"singleQuote":true,"trailingComma":"es5","printWidth":90},"lint-staged":{"*.{css,js}":["git-exec-and-restage prettier-eslint --write --"]},"devDependencies":{"babel-cli":"^6.26.0","babel-core":"^6.26.0","babel-eslint":"^8.0.2","babel-loader":"^7.1.2","babel-macros":"^1.2.0","babel-minify-webpack-plugin":"^0.2.0","babel-plugin-dva-hmr":"^0.4.0","babel-plugin-import":"^1.6.2","babel-plugin-react-css-modules":"^3.3.2","babel-plugin-transform-decorators-legacy":"^1.3.4","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","babel-register":"^6.26.0","clean-webpack-plugin":"^0.1.17","codegen.macro":"^1.0.0","copy-webpack-plugin":"^4.2.1","cross-env":"^5.1.1","css-loader":"^0.28.7","eslint":"^4.11.0","eslint-config-airbnb-base":"^12.1.0","eslint-config-dgeibi":"^3.0.6","eslint-config-standard-react":"^5.0.0","eslint-import-resolver-webpack":"^0.8.3","eslint-plugin-import":"^2.8.0","eslint-plugin-react":"^7.5.1","extract-text-webpack-plugin":"^3.0.2","git-exec-and-restage":"^1.0.1","html-webpack-plugin":"^2.30.1","husky":"^0.14.3","jest":"^21.2.1","lint-staged":"^4.3.0","nodemon":"^1.12.1","npm-run-all":"^4.1.2","postcss-cssnext":"^3.0.2","postcss-loader":"^2.0.8","redbox-react":"^1.5.0","rimraf":"^2.6.2","style-loader":"^0.19.0","webpack":"^3.8.1","webpack-dev-middleware":"^1.12.1","webpack-hot-middleware":"^2.20.0","webpack-merge":"^4.1.1","webpack-node-externals":"^1.6.0"},"dependencies":{"antd":"^3.0.0-rc.3","babel-polyfill":"^6.26.0","compression":"^1.7.1","dva":"^2.1.0","dva-loading":"^1.0.4","express":"^4.16.2","history":"^4.7.2","jsdom":"^11.4.0","jsdom-global":"^3.0.2","multer":"^1.3.0","rc-table":"^6.1.0","react":"^16.1.1","react-dom":"^16.1.1","react-fns":"^1.2.0","react-router-config":"^1.0.0-beta.4","react-router-redux":"^5.0.0-alpha.8","unfetch":"^3.0.0"},"repository":{"type":"git","url":"git+https://github.com/dgeibi/the-little-cipher.git"},"bugs":{"url":"https://github.com/dgeibi/the-little-cipher/issues"},"homepage":"https://github.com/dgeibi/the-little-cipher#readme","description":"实现一些加密算法"}
+module.exports = {"name":"the-little-cipher","version":"1.0.0","product_name":"The Little Cipher","scripts":{"test":"jest","test:watch":"jest --watch","test:coverage":"jest --coverage","lint":"eslint .","format":"prettier-eslint --write '**/*.{js,css}'","precommit":"lint-staged","dev":"nodemon --watch src/server src/server/index.js --exec \"cross-env NODE_ENV=development node -r babel-register\"","prod":"npm run build && npm start","start":"node dist/server/index.js","build":"npm run clean && run-p build:*","clean":"rimraf dist","build:static":"webpack --env.production","build:server":"babel src -s -d dist --ignore webpack,render,common,client,*.test.js,test.js","build:ssr":"webpack --config webpack.config.ssr.js"},"author":"dgeibi","license":"MIT","prettier":{"semi":false,"singleQuote":true,"trailingComma":"es5","printWidth":90},"lint-staged":{"*.{css,js}":["git-exec-and-restage prettier-eslint --write --"]},"devDependencies":{"babel-cli":"^6.26.0","babel-core":"^6.26.0","babel-eslint":"^8.0.2","babel-loader":"^7.1.2","babel-macros":"^1.2.0","babel-minify-webpack-plugin":"^0.2.0","babel-plugin-dva-hmr":"^0.4.0","babel-plugin-import":"^1.6.2","babel-plugin-react-css-modules":"^3.3.2","babel-plugin-transform-decorators-legacy":"^1.3.4","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","babel-register":"^6.26.0","clean-webpack-plugin":"^0.1.17","codegen.macro":"^1.0.0","copy-webpack-plugin":"^4.2.1","cross-env":"^5.1.1","css-loader":"^0.28.7","eslint":"^4.11.0","eslint-config-airbnb-base":"^12.1.0","eslint-config-dgeibi":"^3.0.6","eslint-config-standard-react":"^5.0.0","eslint-import-resolver-webpack":"^0.8.3","eslint-plugin-import":"^2.8.0","eslint-plugin-react":"^7.5.1","extract-text-webpack-plugin":"^3.0.2","git-exec-and-restage":"^1.0.1","html-webpack-plugin":"^2.30.1","husky":"^0.14.3","jest":"^21.2.1","lint-staged":"^4.3.0","nodemon":"^1.12.1","npm-run-all":"^4.1.2","postcss-cssnext":"^3.0.2","postcss-loader":"^2.0.8","redbox-react":"^1.5.0","rimraf":"^2.6.2","style-loader":"^0.19.0","webpack":"^3.8.1","webpack-dev-middleware":"^1.12.1","webpack-hot-middleware":"^2.20.0","webpack-merge":"^4.1.1","webpack-node-externals":"^1.6.0"},"dependencies":{"antd":"^3.0.0-rc.3","babel-polyfill":"^6.26.0","compression":"^1.7.1","dva":"^2.1.0","dva-loading":"^1.0.4","express":"^4.16.2","history":"^4.7.2","jsdom":"^11.4.0","jsdom-global":"^3.0.2","multer":"^1.3.0","rc-table":"^6.1.0","react":"^16.1.1","react-dom":"^16.1.1","react-fns":"^1.2.0","react-router-config":"^1.0.0-beta.4","react-router-redux":"^5.0.0-alpha.8","reselect":"^3.0.1","unfetch":"^3.0.0"},"repository":{"type":"git","url":"git+https://github.com/dgeibi/the-little-cipher.git"},"bugs":{"url":"https://github.com/dgeibi/the-little-cipher/issues"},"homepage":"https://github.com/dgeibi/the-little-cipher#readme","description":"实现一些加密算法"}
 
 /***/ }),
-/* 25 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -679,11 +872,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _icon = __webpack_require__(11);
+var _icon = __webpack_require__(13);
 
 var _icon2 = _interopRequireDefault(_icon);
 
-var _layout = __webpack_require__(26);
+var _layout = __webpack_require__(31);
 
 var _layout2 = _interopRequireDefault(_layout);
 
@@ -691,11 +884,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterConfig = __webpack_require__(10);
+var _reactRouterConfig = __webpack_require__(12);
 
-var _dva = __webpack_require__(3);
+var _dva = __webpack_require__(1);
 
-var _Header = __webpack_require__(27);
+var _Header = __webpack_require__(32);
 
 var _Header2 = _interopRequireDefault(_Header);
 
@@ -735,13 +928,13 @@ exports.default = (0, _dva.connect)(state => {
 })(Root);
 
 /***/ }),
-/* 26 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = require("antd/lib/layout");
 
 /***/ }),
-/* 27 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -751,15 +944,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _popover = __webpack_require__(28);
+var _popover = __webpack_require__(33);
 
 var _popover2 = _interopRequireDefault(_popover);
 
-var _icon = __webpack_require__(11);
+var _icon = __webpack_require__(13);
 
 var _icon2 = _interopRequireDefault(_icon);
 
-var _menu = __webpack_require__(29);
+var _menu = __webpack_require__(34);
 
 var _menu2 = _interopRequireDefault(_menu);
 
@@ -769,9 +962,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _router = __webpack_require__(5);
 
-var _reactFns = __webpack_require__(30);
+var _reactFns = __webpack_require__(35);
 
-var _Util = __webpack_require__(1);
+var _Util = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -841,25 +1034,25 @@ let Header = class Header extends _react.Component {
 exports.default = Header;
 
 /***/ }),
-/* 28 */
+/* 33 */
 /***/ (function(module, exports) {
 
 module.exports = require("antd/lib/popover");
 
 /***/ }),
-/* 29 */
+/* 34 */
 /***/ (function(module, exports) {
 
 module.exports = require("antd/lib/menu");
 
 /***/ }),
-/* 30 */
+/* 35 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-fns");
 
 /***/ }),
-/* 31 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -889,7 +1082,7 @@ IndexPage.exact = true;
 exports.default = IndexPage;
 
 /***/ }),
-/* 32 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -898,10 +1091,6 @@ exports.default = IndexPage;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _message2 = __webpack_require__(2);
-
-var _message3 = _interopRequireDefault(_message2);
 
 var _input = __webpack_require__(4);
 
@@ -913,13 +1102,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _dva = __webpack_require__(3);
+var _dva = __webpack_require__(1);
 
-var _caser = __webpack_require__(33);
+var _reselect = __webpack_require__(14);
+
+var _caser = __webpack_require__(38);
 
 var _caser2 = _interopRequireDefault(_caser);
-
-var _Util = __webpack_require__(1);
 
 var _Output = __webpack_require__(7);
 
@@ -929,7 +1118,7 @@ var _Section = __webpack_require__(8);
 
 var _Section2 = _interopRequireDefault(_Section);
 
-var _FileInput = __webpack_require__(12);
+var _FileInput = __webpack_require__(9);
 
 var _FileInput2 = _interopRequireDefault(_FileInput);
 
@@ -937,14 +1126,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const { TextArea } = _input2.default;
 
-let CaserView = (_dec = (0, _dva.connect)(({ caser: { input } }) => {
-  const output = (0, _caser2.default)(input);
-  return { input, output };
-}, null, null, {
-  areStatesEqual(prev, next) {
-    return prev.caser.input === next.caser.input;
-  }
-}), _dec(_class = (_temp2 = _class2 = class CaserView extends _react2.default.Component {
+const inputSelector = state => state.caser.input;
+const outputSelector = (0, _reselect.createSelector)(inputSelector, _caser2.default);
+
+let CaserView = (_dec = (0, _dva.connect)(state => ({ input: inputSelector(state), output: outputSelector(state) })), _dec(_class = (_temp2 = _class2 = class CaserView extends _react2.default.Component {
   constructor(...args) {
     var _temp;
 
@@ -967,18 +1152,10 @@ let CaserView = (_dec = (0, _dva.connect)(({ caser: { input } }) => {
   readfiles(files) {
     const file = files && files[0];
     if (file) {
-      if ((0, _Util.isPlainFile)(file)) {
-        this.props.dispatch({
-          type: 'caser/loadFile',
-          payload: {
-            file
-          }
-        });
-      } else if (file.type) {
-        _message3.default.error(`不支持 ${file.type}`);
-      } else {
-        _message3.default.error('文件格式未知');
-      }
+      this.props.dispatch({
+        type: 'caser/loadFile',
+        file
+      });
     }
   }
 
@@ -999,10 +1176,11 @@ let CaserView = (_dec = (0, _dva.connect)(({ caser: { input } }) => {
       null,
       _react2.default.createElement(
         _Section2.default,
-        { desc: '\u8F93\u5165\u660E\u6587 (\u652F\u6301\u62D6\u62FD\u6587\u5B57\u548C\u6587\u672C\u6587\u4EF6)' },
-        _react2.default.createElement(_FileInput2.default, { onChange: this.handleFileInputChange, children: '\u6253\u5F00\u6587\u4EF6' }),
+        { desc: '\u8F93\u5165\u660E\u6587' },
+        _react2.default.createElement(_FileInput2.default, { onChange: this.handleFileInputChange }),
         _react2.default.createElement(TextArea, {
           className: 'routes-CaserView_text',
+          rows: 8,
           placeholder: '\u5728\u6B64\u8F93\u5165\uFF0C\u62D6\u62FD\u81F3\u6B64',
           onDrop: this.handleDrop,
           value: input,
@@ -1024,13 +1202,13 @@ let CaserView = (_dec = (0, _dva.connect)(({ caser: { input } }) => {
 exports.default = CaserView;
 
 /***/ }),
-/* 33 */
+/* 38 */
 /***/ (function(module, exports) {
 
 module.exports = require("../cipher/caser");
 
 /***/ }),
-/* 34 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1040,7 +1218,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _message2 = __webpack_require__(2);
+var _message2 = __webpack_require__(3);
 
 var _message3 = _interopRequireDefault(_message2);
 
@@ -1056,21 +1234,21 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _dva = __webpack_require__(3);
+var _dva = __webpack_require__(1);
 
-var _rcTable = __webpack_require__(35);
+var _rcTable = __webpack_require__(40);
 
 var _rcTable2 = _interopRequireDefault(_rcTable);
 
-var _playfair = __webpack_require__(36);
+var _playfair = __webpack_require__(41);
 
-var _Util = __webpack_require__(1);
+var _Util = __webpack_require__(2);
 
 var _Section = __webpack_require__(8);
 
 var _Section2 = _interopRequireDefault(_Section);
 
-var _MatrixOutput = __webpack_require__(14);
+var _MatrixOutput = __webpack_require__(16);
 
 var _MatrixOutput2 = _interopRequireDefault(_MatrixOutput);
 
@@ -1078,7 +1256,7 @@ var _Output = __webpack_require__(7);
 
 var _Output2 = _interopRequireDefault(_Output);
 
-var _FileInput = __webpack_require__(12);
+var _FileInput = __webpack_require__(9);
 
 var _FileInput2 = _interopRequireDefault(_FileInput);
 
@@ -1187,8 +1365,8 @@ let PlayfairView = (_dec = (0, _dva.connect)(({ playfair }) => _extends({}, play
       ),
       _react2.default.createElement(
         _Section2.default,
-        { desc: '\u660E\u6587\u8F93\u5165\uFF08\u6587\u672C/\u6587\u4EF6\uFF09' },
-        _react2.default.createElement(_FileInput2.default, { onChange: this.handleFileInputChange, children: '\u6253\u5F00\u6587\u4EF6' }),
+        { desc: '\u660E\u6587\u8F93\u5165' },
+        _react2.default.createElement(_FileInput2.default, { onChange: this.handleFileInputChange }),
         _react2.default.createElement(TextArea, {
           value: plainInput,
           name: 'plainInput',
@@ -1224,19 +1402,19 @@ let PlayfairView = (_dec = (0, _dva.connect)(({ playfair }) => _extends({}, play
 exports.default = PlayfairView;
 
 /***/ }),
-/* 35 */
+/* 40 */
 /***/ (function(module, exports) {
 
 module.exports = require("rc-table");
 
 /***/ }),
-/* 36 */
+/* 41 */
 /***/ (function(module, exports) {
 
 module.exports = require("../cipher/playfair");
 
 /***/ }),
-/* 37 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1246,11 +1424,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _button = __webpack_require__(13);
+var _button = __webpack_require__(15);
 
 var _button2 = _interopRequireDefault(_button);
 
-var _message2 = __webpack_require__(2);
+var _message2 = __webpack_require__(3);
 
 var _message3 = _interopRequireDefault(_message2);
 
@@ -1258,27 +1436,37 @@ var _input = __webpack_require__(4);
 
 var _input2 = _interopRequireDefault(_input);
 
-var _class, _temp2;
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _dec, _class, _class2, _temp2;
 
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _hill = __webpack_require__(38);
+var _reselect = __webpack_require__(14);
+
+var _dva = __webpack_require__(1);
+
+var _hill = __webpack_require__(43);
 
 var _hill2 = _interopRequireDefault(_hill);
 
-var _MatrixInput = __webpack_require__(39);
+var _MatrixInput = __webpack_require__(17);
 
 var _MatrixInput2 = _interopRequireDefault(_MatrixInput);
 
-var _MatrixOutput = __webpack_require__(14);
+var _MatrixOutput = __webpack_require__(16);
 
 var _MatrixOutput2 = _interopRequireDefault(_MatrixOutput);
 
 var _Section = __webpack_require__(8);
 
 var _Section2 = _interopRequireDefault(_Section);
+
+var _FileInput = __webpack_require__(9);
+
+var _FileInput2 = _interopRequireDefault(_FileInput);
 
 var _Output = __webpack_require__(7);
 
@@ -1288,51 +1476,80 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const { TextArea } = _input2.default;
 
-let HillView = (_temp2 = _class = class HillView extends _react2.default.Component {
+const matrixSelector = state => state.hill.matrix;
+const plaintextSelector = state => state.hill.plaintext;
+
+const inverseMatrixSelector = (0, _reselect.createSelector)(matrixSelector, _hill.inverse);
+const cipherTextSelector = (0, _reselect.createSelector)(matrixSelector, plaintextSelector, _hill2.default);
+
+let HillView = (_dec = (0, _dva.connect)(state => {
+  const inverseMatrix = inverseMatrixSelector(state);
+  const cipherText = cipherTextSelector(state);
+  return _extends({}, state.hill, {
+    inverseMatrix,
+    cipherText
+  });
+}), _dec(_class = (_temp2 = _class2 = class HillView extends _react2.default.Component {
   constructor(...args) {
     var _temp;
 
-    return _temp = super(...args), this.state = {
-      key: _MatrixInput2.default.getNoob(3, 3),
-      plaintext: '',
-      cipherText: '',
-      iKey: null
-    }, this.handleKeyChange = key => {
-      this.setState({
-        key,
-        iKey: (0, _hill.inverse)(key)
+    return _temp = super(...args), this.handlePlainTextChange = e => {
+      this.saveState({
+        plaintext: e.target.value
       });
-    }, this.handlePlainTextChange = e => {
-      this.setState({
-        plaintext: e.target.value,
-        cipherText: (0, _hill2.default)(this.state.key, e.target.value)
-      });
+    }, this.handleFileInputChange = e => {
+      this.readfiles(e.target.files);
+      e.target.value = '';
     }, this.handleSwitch = () => {
-      const { iKey: key, cipherText: plaintext } = this.state;
-      if (key) {
-        const iKey = (0, _hill.inverse)(key);
-        const cipherText = (0, _hill2.default)(key, plaintext);
-        this.setState({
-          key,
-          keystr: key.map(r => r.join(' ')).join('\n'),
-          cipherText,
-          iKey,
+      const { inverseMatrix: matrix, cipherText: plaintext } = this.props;
+      if (matrix) {
+        this.saveState({
+          matrix,
+          str: matrix.map(r => r.join(' ')).join('\n'),
           plaintext
         });
       } else {
-        _message3.default.error('当前逆矩阵为空');
+        _message3.default.error('当前逆矩阵为空，无法切换');
       }
-    }, this.handleKeyStrChange = e => {
-      this.setState({
-        keystr: e.target.value
+    }, this.handleMatrixInputChange = ({ str, matrix }) => {
+      this.saveState({
+        str,
+        matrix
       });
+    }, this.handleDrop = e => {
+      e.stopPropagation();
+      e.preventDefault();
+      if (e.dataTransfer.files.length > 0) {
+        this.readfiles(e.dataTransfer.files);
+      } else {
+        this.saveState({
+          plaintext: e.dataTransfer.getData('text')
+        });
+      }
     }, _temp;
+  }
+
+  saveState(state) {
+    this.props.dispatch({
+      type: 'hill/save',
+      payload: state
+    });
+  }
+
+  readfiles(files) {
+    const file = files && files[0];
+    if (file) {
+      this.props.dispatch({
+        type: 'hill/loadFile',
+        file
+      });
+    }
   }
 
   render() {
     const {
-      key, plaintext, iKey, cipherText, keystr
-    } = this.state;
+      matrix, plaintext, inverseMatrix, cipherText, str
+    } = this.props;
     return _react2.default.createElement(
       'div',
       null,
@@ -1342,31 +1559,44 @@ let HillView = (_temp2 = _class = class HillView extends _react2.default.Compone
         _react2.default.createElement(_MatrixInput2.default, {
           m: 3,
           n: 3,
-          rows: 3,
-          onMatrixChange: this.handleKeyChange,
-          onChange: this.handleKeyStrChange,
-          value: keystr
+          rows: 4,
+          placeholder: '格式：\n1 7 3\n2 5 3\n1 2 1',
+          onChange: this.handleMatrixInputChange,
+          value: str
         })
       ),
       _react2.default.createElement(
         _Section2.default,
         { desc: '\u8F93\u5165\u660E\u6587' },
-        _react2.default.createElement(TextArea, { value: plaintext, onChange: this.handlePlainTextChange })
+        _react2.default.createElement(_FileInput2.default, { onChange: this.handleFileInputChange }),
+        _react2.default.createElement(TextArea, {
+          value: plaintext,
+          placeholder: '\u5728\u6B64\u8F93\u5165\uFF0C\u62D6\u62FD\u81F3\u6B64',
+          onChange: this.handlePlainTextChange,
+          onDrop: this.handleDrop,
+          rows: 5
+        })
       ),
       _react2.default.createElement(
         _Section2.default,
         { desc: '\u5BC6\u94A5\u77E9\u9635' },
-        _react2.default.createElement(_MatrixOutput2.default, { value: key })
+        _react2.default.createElement(_MatrixOutput2.default, { value: matrix })
       ),
       _react2.default.createElement(
         _Section2.default,
         { desc: '\u9006\u77E9\u9635' },
-        _react2.default.createElement(_MatrixOutput2.default, { value: iKey })
+        _react2.default.createElement(_MatrixOutput2.default, { value: inverseMatrix })
       ),
       _react2.default.createElement(
         _Section2.default,
         { desc: '\u5BC6\u6587' },
-        _react2.default.createElement(_Output2.default, { value: cipherText })
+        _react2.default.createElement(_Output2.default, {
+          wrap: true,
+          value: cipherText,
+          style: {
+            height: '10em'
+          }
+        })
       ),
       _react2.default.createElement(
         _Section2.default,
@@ -1379,112 +1609,17 @@ let HillView = (_temp2 = _class = class HillView extends _react2.default.Compone
       )
     );
   }
-}, _class.title = 'Hill密码', _temp2);
+}, _class2.title = 'Hill密码', _temp2)) || _class);
 exports.default = HillView;
 
 /***/ }),
-/* 38 */
+/* 43 */
 /***/ (function(module, exports) {
 
 module.exports = require("../cipher/hill");
 
 /***/ }),
-/* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _input = __webpack_require__(4);
-
-var _input2 = _interopRequireDefault(_input);
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Util = __webpack_require__(1);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-const { TextArea } = _input2.default;
-
-const splitC = /\s*,\s*|\s+/;
-let MatrixInput = class MatrixInput extends _react.Component {
-  constructor(...args) {
-    var _temp;
-
-    return _temp = super(...args), this.state = {
-      inputValue: '',
-      value: this.getNoob()
-    }, this.handleChange = e => {
-      if (this.props.onChange) {
-        this.props.onChange(e);
-      }
-      const { value: inputValue } = e.target;
-      const { m, n } = this.props;
-      let value;
-      if (inputValue !== '') {
-        value = String(inputValue).split('\n').slice(0, m).map(r => r.split(splitC).slice(0, n).map(v => Number(v) || 0));
-        value.forEach(r => {
-          if (r.length < n) {
-            (0, _Util.repeat)(n - r.length, () => r.push(0));
-          }
-        });
-        if (value.length < m) {
-          (0, _Util.repeat)(m - value.length, () => value.push(this.getRowNoob()));
-        }
-      } else {
-        value = this.getNoob();
-      }
-      this.setState({
-        inputValue,
-        value
-      }, () => {
-        if (this.props.onMatrixChange) {
-          this.props.onMatrixChange(value);
-        }
-      });
-    }, _temp;
-  }
-
-  static getNoob(m, n) {
-    return Array(m).fill(null).map(() => this.getRowNoob(n));
-  }
-
-  static getRowNoob(n) {
-    return Array(n).fill(0);
-  }
-
-  getNoob() {
-    const { m, n } = this.props;
-    return MatrixInput.getNoob(m, n);
-  }
-
-  getRowNoob() {
-    return MatrixInput.getRowNoob(this.props.n);
-  }
-
-  render() {
-    const _props = this.props,
-          {
-      m, n, onMatrixChange } = _props,
-          props = _objectWithoutProperties(_props, ['m', 'n', 'onMatrixChange']);
-    return _react2.default.createElement(TextArea, _extends({}, props, { onChange: this.handleChange }));
-  }
-};
-exports.default = MatrixInput;
-
-/***/ }),
-/* 40 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1526,18 +1661,20 @@ NotFound.skipMenu = true;
 exports.default = NotFound;
 
 /***/ }),
-/* 41 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./app": 15,
-	"./app.js": 15,
-	"./caser": 16,
-	"./caser.js": 16,
-	"./paths": 9,
-	"./paths.json": 9,
-	"./playfair": 18,
-	"./playfair.js": 18
+	"./app": 18,
+	"./app.js": 18,
+	"./caser": 19,
+	"./caser.js": 19,
+	"./hill": 22,
+	"./hill.js": 22,
+	"./paths": 10,
+	"./paths.json": 10,
+	"./playfair": 23,
+	"./playfair.js": 23
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -1553,10 +1690,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 41;
+webpackContext.id = 45;
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1573,7 +1710,7 @@ exports.default = title => {
 };
 
 /***/ }),
-/* 43 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1584,15 +1721,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.readPlainText = exports.postData = undefined;
 
-var _message2 = __webpack_require__(2);
+var _message2 = __webpack_require__(3);
 
 var _message3 = _interopRequireDefault(_message2);
 
-var _unfetch = __webpack_require__(44);
+var _unfetch = __webpack_require__(48);
 
 var _unfetch2 = _interopRequireDefault(_unfetch);
 
-var _readAsText = __webpack_require__(17);
+var _readAsText = __webpack_require__(21);
 
 var _readAsText2 = _interopRequireDefault(_readAsText);
 
@@ -1617,13 +1754,13 @@ const postData = exports.postData = ({ secretInput, plainInput, file }) => {
 const readPlainText = exports.readPlainText = _readAsText2.default;
 
 /***/ }),
-/* 44 */
+/* 48 */
 /***/ (function(module, exports) {
 
 module.exports = require("unfetch");
 
 /***/ }),
-/* 45 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
