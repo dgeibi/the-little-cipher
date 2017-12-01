@@ -4,12 +4,12 @@ import { createMemoryHistory } from 'history'
 import { renderRoutes } from 'react-router-config'
 import { StaticRouter } from 'dva/router'
 import { LOCATION_CHANGE } from 'react-router-redux'
+import { renderToString } from 'react-dom/server'
 
-import renderTemplate from './renderTemplate'
 import routes, { titleMap } from '../common/routes'
 import modelPaths from '../common/models/paths.json'
 
-export default function render(path, staticContext) {
+function render(path, staticContext) {
   const history = createMemoryHistory({
     initialEntries: [path],
   })
@@ -35,5 +35,7 @@ export default function render(path, staticContext) {
     payload: history.location,
   })
 
-  return renderTemplate(<App />, { title: titleMap[path] })
+  return renderToString(<App />)
 }
+
+export { titleMap, render }

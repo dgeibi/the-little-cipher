@@ -2,12 +2,11 @@ import React, { Component } from 'react'
 import { Menu, Popover, Icon } from 'antd'
 import { Link } from 'dva/router'
 import { Media } from 'react-fns'
-import { plainPath } from 'Util'
-
+import { getMatchKey } from '../routes'
 import './Header.css'
 
 const TheMenu = ({ mode, currentPath, routes }) =>
-  <Menu mode={mode} defaultSelectedKeys={[plainPath(currentPath)]} styleName="menu">
+  <Menu mode={mode} defaultSelectedKeys={[getMatchKey(currentPath)]} styleName="menu">
     {routes.map(({ component: { title, skipMenu }, path }) =>
         (skipMenu
           ? null

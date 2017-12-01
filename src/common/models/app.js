@@ -1,6 +1,5 @@
-import { plainPath } from 'Util'
 import setTitle from '../utils/setTitle'
-import { titleMap } from '../routes'
+import { getMatchKey, titleMap } from '../routes'
 
 export default {
   namespace: 'app',
@@ -8,7 +7,7 @@ export default {
   subscriptions: {
     setup({ history }) {
       return history.listen(({ pathname }) => {
-        const title = titleMap[plainPath(pathname)]
+        const title = titleMap[getMatchKey(pathname)]
         if (title) {
           setTitle(title)
         }

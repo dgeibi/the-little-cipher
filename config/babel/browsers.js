@@ -32,7 +32,7 @@ module.exports = (env) => {
         'babel-plugin-import',
         {
           libraryName: 'antd',
-          style: env !== 'ssr' && 'css',
+          style: 'css',
         },
       ],
     ],

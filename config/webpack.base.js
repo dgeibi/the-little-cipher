@@ -1,14 +1,14 @@
 const path = require('path')
 const merge = require('webpack-merge')
 
-const css = require('./config/css')
-const defineNodeEnv = require('./config/defineNodeEnv')
-const { getLocalIdent } = require('./config/getStyleName')
-const rule = require('./config/rule')
+const css = require('./css')
+const defineNodeEnv = require('./defineNodeEnv')
+const { getLocalIdent } = require('./getStyleName')
+const rule = require('./rule')
 
-const babelConfig = require('./config/babel/browsers')
+const babelConfig = require('./babel/browsers')
 
-const defaultInclude = [path.resolve(__dirname, 'src')]
+const defaultInclude = [path.resolve(__dirname, '../src')]
 
 module.exports = (env = {}) => {
   const isProduction = env.production === true
@@ -17,12 +17,17 @@ module.exports = (env = {}) => {
   const babelEnv = isSSR ? 'ssr' : nodeEnv
 
   return merge([
+    {
+      output: {
+        publicPath: '/',
+      },
+    },
     defineNodeEnv(nodeEnv),
     css({
-      disable: isSSR,
+      ssr: isSSR,
       rule: {
         test: /\.css$/,
-        include: [path.resolve(__dirname, 'node_modules/antd/')],
+        include: [path.resolve(__dirname, '../node_modules/antd/')],
         use: [
           {
             loader: 'css-loader',
@@ -36,6 +41,7 @@ module.exports = (env = {}) => {
       extractOptions: 'antd.css',
     }),
     css({
+      ssr: isSSR,
       rule: {
         test: /\.css$/,
         include: defaultInclude,
@@ -70,8 +76,8 @@ module.exports = (env = {}) => {
     {
       resolve: {
         alias: {
-          Cipher: path.resolve(__dirname, 'src/cipher'),
-          Util$: path.resolve(__dirname, 'src/util.js'),
+          Cipher: path.resolve(__dirname, '../src/cipher'),
+          Util$: path.resolve(__dirname, '../src/util.js'),
         },
       },
     },

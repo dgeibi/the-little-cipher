@@ -1,3 +1,4 @@
+import { matchPath } from 'dva/router'
 import Root from './Root'
 import IndexPage from './IndexPage'
 import CaserView from './CaserView'
@@ -12,15 +13,15 @@ export const innerRoutes = [
     component: IndexPage,
   },
   {
-    path: '/caser',
+    path: '/caser/',
     component: CaserView,
   },
   {
-    path: '/playfair',
+    path: '/playfair/',
     component: PlayfairView,
   },
   {
-    path: '/hill',
+    path: '/hill/',
     component: HillView,
   },
   {
@@ -37,6 +38,16 @@ export default [
 ]
 
 export const titleMap = innerRoutes.reduce((rs, { component, path }) => {
+  if (path === '*') return rs
   rs[path] = component.title // eslint-disable-line no-param-reassign
   return rs
 }, {})
+
+export const getMatchKey = (path) => {
+  for (let i = 0; i < innerRoutes.length; i += 1) {
+    if (matchPath(path, innerRoutes[i])) {
+      return innerRoutes[i].path
+    }
+  }
+  return null
+}
