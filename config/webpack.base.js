@@ -1,5 +1,5 @@
 const path = require('path')
-const merge = require('webpack-merge')
+const merge = require('./merge')
 
 const css = require('./css')
 const defineNodeEnv = require('./defineNodeEnv')
@@ -10,6 +10,20 @@ const babelConfig = require('./babel/browsers')
 
 const defaultInclude = [path.resolve(__dirname, '../src')]
 
+const main = {
+  output: {
+    publicPath: '/',
+    filename: '[name].js',
+    chunkFilename: '[name].bundle.js',
+  },
+  resolve: {
+    alias: {
+      Cipher: path.resolve(__dirname, '../src/cipher'),
+      Util$: path.resolve(__dirname, '../src/util.js'),
+    },
+  },
+}
+
 module.exports = (env = {}) => {
   const isProduction = env.production === true
   const isSSR = env.ssr === true
@@ -17,11 +31,7 @@ module.exports = (env = {}) => {
   const babelEnv = isSSR ? 'ssr' : nodeEnv
 
   return merge([
-    {
-      output: {
-        publicPath: '/',
-      },
-    },
+    main,
     defineNodeEnv(nodeEnv),
     css({
       ssr: isSSR,
@@ -73,13 +83,5 @@ module.exports = (env = {}) => {
       loader: 'babel-loader',
       options: babelConfig(babelEnv),
     }),
-    {
-      resolve: {
-        alias: {
-          Cipher: path.resolve(__dirname, '../src/cipher'),
-          Util$: path.resolve(__dirname, '../src/util.js'),
-        },
-      },
-    },
   ])
 }

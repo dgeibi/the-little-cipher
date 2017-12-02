@@ -1,14 +1,15 @@
 const MemoryFS = require('memory-fs')
 const webpack = require('webpack')
-const ssrConfig = require('../webpack.ssr')
+const ssrConfigPromise = require('../webpack.ssr')
 const { join } = require('path')
 const vm = require('vm')
 
-function requireRenderer() {
+async function requireRenderer() {
+  const fs = new MemoryFS()
+  const compiler = webpack(await ssrConfigPromise)
+  compiler.outputFileSystem = fs
+
   return new Promise((resolve, reject) => {
-    const fs = new MemoryFS()
-    const compiler = webpack(ssrConfig)
-    compiler.outputFileSystem = fs
     compiler.run((err, stats) => {
       if (err || stats.hasErrors()) {
         reject(err || stats)

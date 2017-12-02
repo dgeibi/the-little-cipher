@@ -1,10 +1,9 @@
-const merge = require('webpack-merge')
+const merge = require('./merge')
 const base = require('./webpack.base')
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
 
 const main = {
-  devtool: 'sourcemap',
   entry: {
     render: path.resolve(__dirname, '../src/render/index.js'),
   },
@@ -25,10 +24,8 @@ const main = {
   },
   output: {
     path: __dirname,
-    filename: '[name].js',
-    chunkFilename: '[name].bundle.js',
     libraryTarget: 'commonjs2',
   },
 }
 
-module.exports = merge(main, base({ ssr: true }))
+module.exports = merge(base({ ssr: true }), main)

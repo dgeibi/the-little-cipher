@@ -2,7 +2,7 @@ import webpack from 'webpack'
 import { join } from 'path'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import getWebpackConfig from '../../config/webpack.config'
+import getWebpackConfig from '../../config/webpack.client'
 
 export default async () => {
   const webpackConfig = await getWebpackConfig()
