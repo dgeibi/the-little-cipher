@@ -18,12 +18,12 @@ const main = async () => {
     app.use(hotMiddleware)
   } else {
     app.use(express.static(resolve(__dirname, STATIC_DIR)))
-    // handle Not Found Get
-    app.use(notFound)
   }
-
   // playfair api
   app.post('/playfair', upload.single('plaintext'), playfair)
+
+  // handle Not Found
+  app.use(notFound)
 
   const server = app.listen(process.env.PORT || 3000, () => {
     console.log(`Serving on http://localhost:${server.address().port}`)
