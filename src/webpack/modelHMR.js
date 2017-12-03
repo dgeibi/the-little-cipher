@@ -3,12 +3,11 @@ module.exports = modelPaths =>
   modelPaths
     .map(modelPath => `
 if (module.hot) {
-  const modelNamespaceMap = {};
   const model = require('${modelPath}').default;
-  modelNamespaceMap['${modelPath}'] = model.namespace;
+  const namespace = model.namespace;
   module.hot.accept('${modelPath}', () => {
     try {
-      app.unmodel(modelNamespaceMap['${modelPath}']);
+      app.unmodel(namespace);
       const model = require('${modelPath}').default;
       app.model(model);
     } catch(e) { console.error(e); }
