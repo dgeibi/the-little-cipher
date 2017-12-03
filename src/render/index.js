@@ -7,7 +7,6 @@ import { LOCATION_CHANGE } from 'react-router-redux'
 import { renderToString } from 'react-dom/server'
 
 import routes, { titleMap } from '../common/routes'
-import modelPaths from '../common/models/paths.json'
 
 function render(path, staticContext) {
   const history = createMemoryHistory({
@@ -16,11 +15,14 @@ function render(path, staticContext) {
 
   const app = dva({ history })
 
-  modelPaths.forEach(m =>
-    app.model({
-      // eslint-disable-next-line
-      ...require(`../common/models/${m}`).default,
-    }))
+  // use webpack's require.context
+  // see https://webpack.js.org/guides/dependency-management/#context-module-api
+  function importAllModel(r) {
+    r.keys().forEach((key) => {
+      app.model({ ...r(key).default })
+    })
+  }
+  importAllModel(require.context('../common/models/', false, /\.js$/))
 
   app.router(() =>
     <StaticRouter location={path} context={staticContext}>
