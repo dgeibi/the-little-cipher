@@ -8,6 +8,13 @@ import { renderToString } from 'react-dom/server'
 
 import routes, { titleMap } from '../common/routes'
 
+// use webpack's require.context
+// see https://webpack.js.org/guides/dependency-management/#context-module-api
+const models = importModels(require.context('../common/models/', false, /\.js$/))
+function importModels(r) {
+  return r.keys().map(key => r(key).default)
+}
+
 function render(path, staticContext) {
   const history = createMemoryHistory({
     initialEntries: [path],
@@ -15,14 +22,8 @@ function render(path, staticContext) {
 
   const app = dva({ history })
 
-  // use webpack's require.context
-  // see https://webpack.js.org/guides/dependency-management/#context-module-api
-  function importAllModel(r) {
-    r.keys().forEach((key) => {
-      app.model({ ...r(key).default })
-    })
-  }
-  importAllModel(require.context('../common/models/', false, /\.js$/))
+  // 注册 models
+  models.forEach(m => app.model({ ...m }))
 
   app.router(() =>
     <StaticRouter location={path} context={staticContext}>
