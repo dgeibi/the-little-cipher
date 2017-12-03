@@ -10,7 +10,7 @@ export default async () => {
   const compiler = webpack(webpackConfig)
 
   function historyApiFallback(req, res, next) {
-    if (req.method !== 'GET' && req.method !== 'HEAD') {
+    if (req.method !== 'GET' && req.method !== 'HEAD' && req.get('accept').indexOf('html') < 0) {
       next()
       return
     }
