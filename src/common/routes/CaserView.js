@@ -96,7 +96,7 @@ class CaserView extends Component {
             onChange={this.handleInput}
           />
         </Section>
-        <Section desc={decodeMode ? '解密结果' : '密文'}>
+        <Section desc={decodeMode ? '解密结果' : '加密结果'}>
           <Output styleName="output">
             {output}
           </Output>
