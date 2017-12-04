@@ -1,9 +1,9 @@
 import React, { Fragment, Component } from 'react'
-import { Input } from 'antd'
+import { Input, Switch } from 'antd'
 import { connect } from 'dva'
 import { createSelector } from 'reselect'
 
-import caser from 'Cipher/caser'
+import caser, { decode } from 'Cipher/caser'
 
 import Output from '../components/Output'
 import Section from '../components/Section'
@@ -12,10 +12,16 @@ import './CaserView.css'
 
 const { TextArea } = Input
 
+const decodeModeSelector = state => state.caser.decodeMode
 const inputSelector = state => state.caser.input
-const outputSelector = createSelector(inputSelector, caser)
+const getOutput = (decodeMode, input) => (decodeMode ? decode(input) : caser(input))
+const outputSelector = createSelector(decodeModeSelector, inputSelector, getOutput)
 
-@connect(state => ({ input: inputSelector(state), output: outputSelector(state) }))
+@connect(state => ({
+  decodeMode: decodeModeSelector(state),
+  input: inputSelector(state),
+  output: outputSelector(state),
+}))
 class CaserView extends Component {
   static title = '凯撒密码'
 
@@ -34,6 +40,15 @@ class CaserView extends Component {
       type: 'caser/save',
       payload: {
         input,
+      },
+    })
+  }
+
+  handleSwitch = (decodeMode) => {
+    this.props.dispatch({
+      type: 'caser/save',
+      payload: {
+        decodeMode,
       },
     })
   }
@@ -58,11 +73,19 @@ class CaserView extends Component {
   }
 
   render() {
-    const { input, output } = this.props
+    const { input, output, decodeMode } = this.props
 
     return (
       <Fragment>
-        <Section desc="输入明文">
+        <Section>
+          <Switch
+            checked={decodeMode}
+            onChange={this.handleSwitch}
+            checkedChildren="解密"
+            unCheckedChildren="加密"
+          />
+        </Section>
+        <Section desc={decodeMode ? '输入密文' : '输入明文'}>
           <FileInput onChange={this.handleFileInputChange} />
           <TextArea
             styleName="text"
@@ -73,7 +96,7 @@ class CaserView extends Component {
             onChange={this.handleInput}
           />
         </Section>
-        <Section desc="密文">
+        <Section desc={decodeMode ? '解密结果' : '密文'}>
           <Output styleName="output">
             {output}
           </Output>

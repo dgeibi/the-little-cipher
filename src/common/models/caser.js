@@ -6,6 +6,7 @@ export default {
 
   state: {
     input: '',
+    decodeMode: false,
   },
 
   effects: {
