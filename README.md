@@ -17,6 +17,9 @@ npm install
 # 启动服务器
 npm start
 
+# 单元测试
+npm test
+
 # 构建
 npm run build
 
