@@ -1,5 +1,5 @@
 const path = require('path')
-const merge = require('./merge')
+const merge = require('webpack-merge')
 
 const css = require('./css')
 const defineNodeEnv = require('./defineNodeEnv')
