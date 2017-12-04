@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment, Component } from 'react'
 import { createSelector } from 'reselect'
 import { Input, Button, message } from 'antd'
 import { connect } from 'dva'
@@ -28,7 +28,7 @@ const cipherTextSelector = createSelector(matrixSelector, plaintextSelector, hil
     cipherText,
   }
 })
-class HillView extends React.Component {
+class HillView extends Component {
   static title = 'Hill密码'
 
   saveState(state) {
@@ -96,7 +96,7 @@ class HillView extends React.Component {
       matrix, plaintext, inverseMatrix, cipherText, str,
     } = this.props
     return (
-      <div>
+      <Fragment>
         <Section desc="输入3*3密钥矩阵">
           <MatrixInput
             m={3}
@@ -140,7 +140,7 @@ class HillView extends React.Component {
         <Section>
           <Button onClick={this.handleSwitch}>切换输入和输出</Button>
         </Section>
-      </div>
+      </Fragment>
     )
   }
 }

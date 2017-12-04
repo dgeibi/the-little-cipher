@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'dva'
 import { Input, message } from 'antd'
 import Table from 'rc-table'
@@ -96,7 +96,7 @@ class PlayfairView extends Component {
     } = this.props
 
     return (
-      <div>
+      <Fragment>
         <p>
           默认填充字母：<code>K</code>，备用填充字母：<code>Z</code>
         </p>
@@ -131,7 +131,7 @@ class PlayfairView extends Component {
         <Section desc="细节">
           <Table columns={columns} data={diff} emptyText="无数据" />
         </Section>
-      </div>
+      </Fragment>
     )
   }
 }

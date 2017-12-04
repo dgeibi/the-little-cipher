@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment, Component } from 'react'
 import { Input } from 'antd'
 import { connect } from 'dva'
 import { createSelector } from 'reselect'
@@ -16,7 +16,7 @@ const inputSelector = state => state.caser.input
 const outputSelector = createSelector(inputSelector, caser)
 
 @connect(state => ({ input: inputSelector(state), output: outputSelector(state) }))
-class CaserView extends React.Component {
+class CaserView extends Component {
   static title = '凯撒密码'
 
   readfiles(files) {
@@ -61,7 +61,7 @@ class CaserView extends React.Component {
     const { input, output } = this.props
 
     return (
-      <div>
+      <Fragment>
         <Section desc="输入明文">
           <FileInput onChange={this.handleFileInputChange} />
           <TextArea
@@ -78,7 +78,7 @@ class CaserView extends React.Component {
             {output}
           </Output>
         </Section>
-      </div>
+      </Fragment>
     )
   }
 }
