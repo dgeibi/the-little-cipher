@@ -8,6 +8,7 @@ const getInit = () => ({
   plainInput: '',
   plainText: '',
   cipherText: '',
+  decodeMode: false,
   diff: [],
   square: null,
 })
@@ -20,12 +21,12 @@ export default {
   effects: {
     fetch: [
       function* fetch({ payload }, { call, put }) {
-        const { secretInput, file } = payload
+        const { secretInput, file, decodeMode } = payload
         let { plainInput } = payload
         if (file) {
           plainInput = yield call(readPlainText, file)
         }
-        yield put({ type: 'save', payload: { secretInput, plainInput } })
+        yield put({ type: 'save', payload: { secretInput, plainInput, decodeMode } })
 
         if (plainInput !== '') {
           yield call(delay, 100)
@@ -35,6 +36,7 @@ export default {
           yield put({
             type: 'reset',
             payload: {
+              decodeMode,
               secretInput,
             },
           })

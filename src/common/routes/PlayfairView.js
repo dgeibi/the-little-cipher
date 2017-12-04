@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'dva'
-import { Input, message } from 'antd'
+import { Input, message, Switch } from 'antd'
 import Table from 'rc-table'
 import { findType } from 'Cipher/playfair'
 import { isPlainFile } from 'Util'
@@ -13,13 +13,13 @@ import FileInput from '../components/FileInput'
 const { TextArea } = Input
 const columns = [
   {
-    title: '明文',
+    title: '输入',
     dataIndex: 'origin',
     key: 'origin',
     width: 100,
   },
   {
-    title: '密文',
+    title: '输出',
     dataIndex: 'result',
     key: 'result',
     width: 100,
@@ -47,10 +47,13 @@ class PlayfairView extends Component {
   }
 
   fetch(payload) {
-    const { secretInput, plainInput, dispatch } = this.props
+    const {
+      secretInput, plainInput, dispatch, decodeMode,
+    } = this.props
     dispatch({
       type: 'playfair/fetch',
       payload: {
+        decodeMode,
         secretInput,
         plainInput,
         ...payload,
@@ -85,6 +88,12 @@ class PlayfairView extends Component {
     }
   }
 
+  handleSwitch = (decodeMode) => {
+    this.fetch({
+      decodeMode,
+    })
+  }
+
   handleFileInputChange = (e) => {
     this.readfiles(e.target.files)
     e.target.value = ''
@@ -92,7 +101,7 @@ class PlayfairView extends Component {
 
   render() {
     const {
-      plainInput, secretInput, diff, square, plainText, cipherText,
+      plainInput, secretInput, diff, square, plainText, cipherText, decodeMode,
     } = this.props
 
     return (
@@ -100,11 +109,19 @@ class PlayfairView extends Component {
         <p>
           默认填充字母：<code>K</code>，备用填充字母：<code>Z</code>
         </p>
+        <Section>
+          <Switch
+            checked={decodeMode}
+            onChange={this.handleSwitch}
+            checkedChildren="解密"
+            unCheckedChildren="加密"
+          />
+        </Section>
         <Section desc="密码输入">
           <Input value={secretInput} name="secretInput" onChange={this.handleInputChange} />
         </Section>
 
-        <Section desc="明文输入">
+        <Section desc={decodeMode ? '密文输入' : '明文输入'}>
           <FileInput onChange={this.handleFileInputChange} />
           <TextArea
             value={plainInput}
@@ -116,15 +133,15 @@ class PlayfairView extends Component {
           />
         </Section>
 
-        <Section desc="加密矩阵">
+        <Section desc="矩阵">
           <MatrixOutput value={square} />
         </Section>
 
-        <Section desc="明文">
+        <Section desc={decodeMode ? '密文' : '明文'}>
           <Output value={plainText} />
         </Section>
 
-        <Section desc="密文">
+        <Section desc={decodeMode ? '解密结果' : '加密结果'}>
           <Output value={cipherText} />
         </Section>
 

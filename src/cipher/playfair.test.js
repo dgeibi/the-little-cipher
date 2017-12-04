@@ -34,3 +34,12 @@ test('fallback2', () => {
     { origin: 'KC', result: 'QK', type: 2 },
   ])
 })
+
+test('decode', () => {
+  const { diff } = playfair('god', 'PVQKNK', true)
+  expect(diff).toEqual([
+    { origin: 'PV', result: 'KZ', type: 3 },
+    { origin: 'QK', result: 'KC', type: 2 },
+    { origin: 'NK', result: 'MP', type: 1 },
+  ])
+})

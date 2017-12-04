@@ -2,8 +2,8 @@ import { readFile } from 'fs'
 import { playfair, cipherString, originalString } from '../cipher/playfair'
 import { isPlainFile } from '../util'
 
-const getResults = (secret, plaintext) => {
-  const { diff, square } = playfair(secret, plaintext)
+const getResults = (secret, plaintext, decodeMode) => {
+  const { diff, square } = playfair(secret, plaintext, decodeMode === 'true')
 
   const cipherText = cipherString(diff)
   const plainText = originalString(diff)
@@ -24,10 +24,10 @@ const playfairMiddleware = (req, res) => {
         res.sendStatus(500)
         return
       }
-      res.status(200).json(getResults(req.body.secret, buffer.toString()))
+      res.status(200).json(getResults(req.body.secret, buffer.toString(), req.body.decodeMode))
     })
   } else if (req.body.plaintext) {
-    res.status(200).json(getResults(req.body.secret, req.body.plaintext))
+    res.status(200).json(getResults(req.body.secret, req.body.plaintext, req.body.decodeMode))
   } else {
     res.sendStatus(400)
   }

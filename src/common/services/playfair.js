@@ -3,9 +3,12 @@ import { message } from 'antd'
 
 import readAsText from '../utils/readAsText'
 
-export const postData = ({ secretInput, plainInput, file }) => {
+export const postData = ({
+  secretInput, plainInput, file, decodeMode,
+}) => {
   const formData = new FormData()
   formData.append('plaintext', file || plainInput)
+  formData.append('decodeMode', JSON.stringify(decodeMode))
   formData.append('secret', secretInput)
   return fetch('/playfair', {
     method: 'POST',
