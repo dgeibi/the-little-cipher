@@ -5,18 +5,6 @@ import { Media } from 'react-fns'
 import { getMatchKey } from '../routes'
 import './Header.css'
 
-const TheMenu = ({ mode, currentPath, routes }) =>
-  <Menu mode={mode} defaultSelectedKeys={[getMatchKey(currentPath)]} styleName="menu">
-    {routes.map(({ component: { title, skipMenu }, path }) =>
-        (skipMenu
-          ? null
-          : <Menu.Item key={path}>
-            <Link to={path}>
-              {title}
-            </Link>
-          </Menu.Item>))}
-  </Menu>
-
 class Header extends Component {
   state = {
     menuVisible: false,
@@ -34,20 +22,47 @@ class Header extends Component {
     })
   }
 
+  onMenuClick = ({ key, domEvent }) => {
+    if (domEvent.target.nodeName === 'LI') {
+      const { push } = this.props
+      push(key)
+    }
+  }
+
+  renderMenu(mode) {
+    const { currentPath, routes } = this.props
+
+    return (
+      <Menu
+        onClick={this.onMenuClick}
+        mode={mode}
+        defaultSelectedKeys={[getMatchKey(currentPath)]}
+        styleName="menu"
+      >
+        {routes.map(({ component: { title, skipMenu }, path }) =>
+            (skipMenu
+              ? null
+              : <Menu.Item key={path}>
+                <Link to={path}>
+                  {title}
+                </Link>
+              </Menu.Item>))}
+      </Menu>
+    )
+  }
+
   render() {
     const { menuVisible } = this.state
-    const { currentPath, routes } = this.props
 
     return (
       <header styleName="header">
         <Media query="(max-width: 599px)">
           {(match) => {
-            const menuMode = match ? 'inline' : 'horizontal'
             if (match) {
               return (
                 <Popover
                   placement="bottomLeft"
-                  content={<TheMenu currentPath={currentPath} mode={menuMode} routes={routes} />}
+                  content={this.renderMenu('inline')}
                   trigger="click"
                   visible={menuVisible}
                   arrowPointAtCenter
@@ -57,7 +72,7 @@ class Header extends Component {
                 </Popover>
               )
             }
-            return <TheMenu currentPath={currentPath} mode={menuMode} routes={routes} />
+            return this.renderMenu('horizontal')
           }}
         </Media>
       </header>

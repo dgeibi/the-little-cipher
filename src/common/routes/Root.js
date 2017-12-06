@@ -1,6 +1,7 @@
 import React from 'react'
 import { Layout, Icon } from 'antd'
 import { renderRoutes } from 'react-router-config'
+import { push } from 'react-router-redux'
 
 import { connect } from 'dva'
 import Header from '../components/Header'
@@ -10,10 +11,12 @@ import './Root.css'
 
 const { Content, Footer } = Layout
 
-function Root({ currentPath, route, loading }) {
+function Root({
+  currentPath, route, loading, push: pushState,
+}) {
   return (
     <Layout>
-      <Header currentPath={currentPath} routes={innerRoutes} />
+      <Header push={pushState} currentPath={currentPath} routes={innerRoutes} />
       <Content styleName="content">
         <div styleName="content-inner">
           {renderRoutes(route.routes)}
@@ -25,8 +28,13 @@ function Root({ currentPath, route, loading }) {
   )
 }
 
-export default connect((state) => {
-  const { pathname: currentPath } = state.routing.location
-  const loading = state.loading && state.loading.global
-  return { loading, currentPath }
-})(Root)
+export default connect(
+  (state) => {
+    const { pathname: currentPath } = state.routing.location
+    const loading = state.loading && state.loading.global
+    return { loading, currentPath }
+  },
+  dispatch => ({
+    push: x => dispatch(push(x)),
+  })
+)(Root)
