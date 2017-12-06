@@ -1,4 +1,5 @@
 const BabelMinifyWebpackPlugin = require('babel-minify-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = {
   plugins: [
@@ -11,5 +12,6 @@ module.exports = {
         comments: false,
       }
     ),
+    new webpack.optimize.ModuleConcatenationPlugin(),
   ],
 }
