@@ -3,7 +3,7 @@ const base = require('./webpack.base')
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
 
-const main = {
+module.exports = merge(base({ ssr: true }), {
   entry: {
     render: path.resolve(__dirname, '../src/render/index.js'),
   },
@@ -26,6 +26,4 @@ const main = {
     path: __dirname,
     libraryTarget: 'commonjs2',
   },
-}
-
-module.exports = merge(base({ ssr: true }), main)
+})

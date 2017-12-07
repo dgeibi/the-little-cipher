@@ -2,11 +2,10 @@ import webpack from 'webpack'
 import { join } from 'path'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import getWebpackConfig from '../../config/webpack.client'
+import configPromise from '../../config/webpack.client.dev'
 
 export default async () => {
-  const webpackConfig = await getWebpackConfig()
-
+  const webpackConfig = await configPromise
   const compiler = webpack(webpackConfig)
 
   function historyApiFallback(req, res, next) {

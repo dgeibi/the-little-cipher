@@ -1,8 +1,10 @@
 const { NamedModulesPlugin, HotModuleReplacementPlugin } = require('webpack')
-const pkg = require('../package')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const pkg = require('../package')
+const merge = require('./merge')
+const client = require('./webpack.client')
 
-module.exports = {
+module.exports = merge(client(), {
   devtool: 'cheap-module-eval-source-map',
   entry: {
     app: ['webpack-hot-middleware/client?reload=true', './src/client/index.js'],
@@ -15,4 +17,4 @@ module.exports = {
       template: 'src/client/index.ejs',
     }),
   ],
-}
+})

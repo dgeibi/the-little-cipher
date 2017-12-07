@@ -1,7 +1,11 @@
 const BabelMinifyWebpackPlugin = require('babel-minify-webpack-plugin')
 const webpack = require('webpack')
 
-module.exports = {
+const merge = require('./merge')
+const client = require('./webpack.client')
+const prerender = require('./prerender-html-plugin')
+
+module.exports = merge(client({ production: true }), prerender, {
   plugins: [
     new BabelMinifyWebpackPlugin(
       {
@@ -14,4 +18,4 @@ module.exports = {
     ),
     new webpack.optimize.ModuleConcatenationPlugin(),
   ],
-}
+})

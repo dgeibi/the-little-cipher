@@ -15,7 +15,7 @@
     "start": "node dist/server/index.js",
     "build": "npm run clean && run-p build:*",
     "clean": "rimraf dist",
-    "build:static": "webpack --config config/webpack.client.js --env.production",
+    "build:static": "webpack --config config/webpack.client.prod.js",
     "build:server": "webpack --config config/webpack.server.js",
     "analyze": "webpack --config config/webpack.analyzer.js"
   },
