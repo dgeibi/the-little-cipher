@@ -2,11 +2,12 @@ import dva from 'dva'
 import React from 'react'
 import { createMemoryHistory } from 'history'
 import { renderRoutes } from 'react-router-config'
-import { StaticRouter } from 'dva/router'
-import { LOCATION_CHANGE } from 'react-router-redux'
+import { StaticRouter, routerRedux } from 'dva/router'
 import { renderToString } from 'react-dom/server'
 
 import routes, { titleMap } from '../common/routes'
+
+const { LOCATION_CHANGE } = routerRedux
 
 // use webpack's require.context
 // see https://webpack.js.org/guides/dependency-management/#context-module-api

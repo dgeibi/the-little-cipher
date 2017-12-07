@@ -1,5 +1,5 @@
 import 'babel-polyfill'
-import { createBrowserHistory } from 'history'
+import { createBrowserHistory, createHashHistory } from 'history'
 import dva from 'dva'
 import ReactDOM from 'react-dom'
 import codegen from 'codegen.macro'
@@ -9,9 +9,11 @@ import router from './router'
 
 import './index.css'
 
+const HISTORY_API = window.history && window.history.pushState
+
 const app = dva({
   ...createLoading(),
-  history: createBrowserHistory(),
+  history: (HISTORY_API ? createBrowserHistory : createHashHistory)(),
 })
 
 // use codegen to generate `app.model(require('...'))` and hmr code

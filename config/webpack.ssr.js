@@ -10,7 +10,7 @@ const main = {
   target: 'node',
   externals: [
     nodeExternals({
-      whitelist: [/^antd\/lib\/.*style/],
+      whitelist: [/^antd\/.*\/style/, /^(antd|rc-[^/]+)\/es/],
     }),
   ],
   node: {

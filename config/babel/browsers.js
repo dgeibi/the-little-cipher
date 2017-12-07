@@ -33,6 +33,7 @@ module.exports = (env) => {
         {
           libraryName: 'antd',
           style: 'css',
+          libraryDirectory: 'es',
         },
       ],
     ],

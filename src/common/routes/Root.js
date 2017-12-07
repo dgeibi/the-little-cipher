@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Icon } from 'antd'
 import { renderRoutes } from 'react-router-config'
-import { push } from 'react-router-redux'
+import { routerRedux } from 'dva/router'
 
 import { connect } from 'dva'
 import Header from '../components/Header'
@@ -10,6 +10,7 @@ import { innerRoutes } from '../routes'
 import './Root.css'
 
 const { Content, Footer } = Layout
+const { push } = routerRedux
 
 function Root({
   currentPath, route, loading, push: pushState,

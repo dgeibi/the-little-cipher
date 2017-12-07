@@ -8,8 +8,6 @@ const rule = require('./rule')
 
 const babelConfig = require('./babel/browsers')
 
-const defaultInclude = [path.resolve(__dirname, '../src')]
-
 const main = {
   output: {
     publicPath: '/',
@@ -24,6 +22,9 @@ const main = {
   },
 }
 
+const ANTD_DIR = path.resolve(__dirname, '../node_modules/antd/')
+const SRC_DIR = path.resolve(__dirname, '../src')
+
 module.exports = (env = {}) => {
   const isProduction = env.production === true
   const isSSR = env.ssr === true
@@ -37,7 +38,7 @@ module.exports = (env = {}) => {
       ssr: isSSR,
       rule: {
         test: /\.css$/,
-        include: [path.resolve(__dirname, '../node_modules/antd/')],
+        include: ANTD_DIR,
         use: [
           {
             loader: 'css-loader',
@@ -54,7 +55,7 @@ module.exports = (env = {}) => {
       ssr: isSSR,
       rule: {
         test: /\.css$/,
-        include: defaultInclude,
+        include: SRC_DIR,
         use: [
           {
             loader: 'css-loader',
@@ -79,7 +80,7 @@ module.exports = (env = {}) => {
     }),
     rule({
       test: /\.js$/,
-      include: defaultInclude,
+      include: [SRC_DIR, ANTD_DIR],
       loader: 'babel-loader',
       options: babelConfig(babelEnv),
     }),
