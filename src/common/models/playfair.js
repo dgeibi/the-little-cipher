@@ -22,15 +22,14 @@ export default {
     fetch: [
       function* fetch({ payload }, { call, put }) {
         const { secretInput, file, decodeMode } = payload
-        let { plainInput } = payload
-        if (file) {
-          plainInput = yield call(readPlainText, file)
-        }
-        yield put({ type: 'save', payload: { secretInput, plainInput, decodeMode } })
+        const plainInput = file ? yield call(readPlainText, file) : payload.plainInput
+
+        const load = { secretInput, plainInput, decodeMode }
+        yield put({ type: 'save', payload: load })
 
         if (plainInput !== '') {
           yield call(delay, 100)
-          const data = yield call(postData, payload)
+          const data = yield call(postData, load)
           yield put({ type: 'save', payload: data })
         } else {
           yield put({
