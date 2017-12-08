@@ -10,5 +10,5 @@ export default file =>
       message.error('读取失败')
       reject(error)
     }
-    reader.readAsText(file)
+    reader.readAsText(file.slice(0, 10000))
   })
