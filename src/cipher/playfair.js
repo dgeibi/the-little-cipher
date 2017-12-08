@@ -86,18 +86,20 @@ const transform = (pair, chars, decodeMode = false) => {
  * @return {[string, string][]}
  */
 const getPairs = (inputs) => {
-  if (inputs.length < 1) return []
-  if (inputs.length === 1) {
-    const c = inputs[0]
-    return [[c, getFallback(c)]]
+  const ret = []
+  let index = 0
+  while (index < inputs.length) {
+    const a = inputs[index]
+    let b = inputs[index + 1]
+    if (a === b || !b) {
+      b = getFallback(a)
+      index += 1
+    } else {
+      index += 2
+    }
+    ret.push([a, b])
   }
-  const a = inputs[0]
-  const b = inputs[1]
-  if (a === b) {
-    const fallback = getFallback(a)
-    return [[a, fallback]].concat(getPairs(inputs.slice(1)))
-  }
-  return [[a, b]].concat(getPairs(inputs.slice(2)))
+  return ret
 }
 
 /**
