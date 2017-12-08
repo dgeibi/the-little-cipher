@@ -1,10 +1,10 @@
 const path = require('path')
 const merge = require('webpack-merge')
 
-const css = require('./css')
-const defineNodeEnv = require('./defineNodeEnv')
-const { getLocalIdent } = require('./getStyleName')
-const rule = require('./rule')
+const css = require('./helper/css')
+const defineNodeEnv = require('./helper/defineNodeEnv')
+const { getLocalIdent } = require('./helper/getStyleName')
+const rule = require('./helper/rule')
 
 const babelConfig = require('./babel/browsers')
 

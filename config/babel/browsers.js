@@ -43,7 +43,7 @@ module.exports = (env) => {
     config.plugins.push('babel-plugin-dva-hmr')
   }
 
-  const { generateScopedName } = require('../getStyleName')
+  const { generateScopedName } = require('../helper/getStyleName')
   config.plugins.push([
     'react-css-modules',
     {
