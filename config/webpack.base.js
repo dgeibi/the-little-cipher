@@ -34,23 +34,23 @@ module.exports = (env = {}) => {
   return merge([
     main,
     defineNodeEnv(nodeEnv),
-    css({
-      ssr: isSSR,
-      rule: {
-        test: /\.css$/,
-        include: ANTD_DIR,
-        use: [
-          {
-            loader: 'css-loader',
-            options: {
-              minimize: true,
+    isSSR ||
+      css({
+        rule: {
+          test: /\.css$/,
+          include: ANTD_DIR,
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                minimize: true,
+              },
             },
-          },
-        ],
-      },
-      extract: true,
-      extractOptions: 'antd.css',
-    }),
+          ],
+        },
+        extract: true,
+        extractOptions: 'antd.css',
+      }),
     css({
       ssr: isSSR,
       rule: {
@@ -80,7 +80,7 @@ module.exports = (env = {}) => {
     }),
     rule({
       test: /\.js$/,
-      include: [SRC_DIR, ANTD_DIR],
+      include: SRC_DIR,
       loader: 'babel-loader',
       options: babelConfig(babelEnv),
     }),

@@ -8,11 +8,7 @@ module.exports = merge(base({ ssr: true }), {
     render: path.resolve(__dirname, '../src/render/index.js'),
   },
   target: 'node',
-  externals: [
-    nodeExternals({
-      whitelist: [/^antd\/.*\/style/, /^(antd|rc-[^/]+)\/es/],
-    }),
-  ],
+  externals: [nodeExternals()],
   node: {
     console: false,
     global: false,
