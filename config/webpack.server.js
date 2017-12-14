@@ -38,7 +38,6 @@ module.exports = {
   externals: [nodeExternals()],
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
-    new webpack.IgnorePlugin(/createHotMiddleware/),
     new webpack.BannerPlugin({
       banner: 'require("source-map-support").install();',
       raw: true,
