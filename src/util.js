@@ -24,13 +24,17 @@ export function mod(x, y) {
 export const gcd = (a, b) => (b === 0 ? a : gcd(b, mod(a, b)))
 
 /**
- * @param {number} num
- * @param {number} m
+ * 求 num 关于模 m 的逆元
+ * @param {number} a
+ * @param {number} n
  */
-export function modInverse(num, m) {
-  if (num === 0 || gcd(num, m) > 1) return NaN
+export function modInverse(a, n) {
+  // a == 0 或 a 和 n 不互质，无逆元
+  if (a === 0 || gcd(a, n) > 1) return NaN
+
+  // 硬算
   let i = 1
-  while (mod(i * num, m) !== 1) {
+  while (mod(i * a, n) !== 1) {
     i += 1
   }
   return i
