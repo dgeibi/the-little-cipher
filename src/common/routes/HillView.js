@@ -21,7 +21,7 @@ const cipherTextSelector = createSelector(matrixSelector, plaintextSelector, hil
 
 @connect((state) => {
   const inverseMatrix = inverseMatrixSelector(state)
-  const cipherText = cipherTextSelector(state)
+  const cipherText = inverseMatrix && cipherTextSelector(state)
   return {
     ...state.hill,
     inverseMatrix,
