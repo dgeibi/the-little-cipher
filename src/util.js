@@ -17,27 +17,39 @@ export function mod(x, y) {
 }
 
 /**
+ * 扩展欧几里得算法
+ * 参考 https://zh.wikipedia.org/wiki/扩展欧几里得算法
+ *
+ * 返回 [q, x, y]，q 为 a 和 b 的最大公约数
+ *
+ * a, b, x, y, q 满足 `a*x + b*y = q`
  * @param {number} a
  * @param {number} b
- * @returns {number}
+ * @returns {[number, number, number]}
  */
-export const gcd = (a, b) => (b === 0 ? a : gcd(b, mod(a, b)))
+function gcdEx(a, b) {
+  if (b === 0) {
+    return [a, 1, 0]
+  }
+  const [q, x, y] = gcdEx(b, mod(a, b))
+  return [q, y, x - Math.floor(a / b) * y]
+}
 
 /**
- * 求 num 关于模 m 的逆元
+ * 求 a 关于模 n 的逆元
  * @param {number} a
  * @param {number} n
  */
 export function modInverse(a, n) {
-  // a == 0 或 a 和 n 不互质，无逆元
-  if (a === 0 || gcd(a, n) > 1) return NaN
+  // a == 0 无逆元
+  if (a === 0) return NaN
 
-  // 硬算
-  let i = 1
-  while (mod(i * a, n) !== 1) {
-    i += 1
-  }
-  return i
+  const [q, x] = gcdEx(a, n)
+
+  // a 和 n 不互质 无逆元
+  if (q !== 1) return NaN
+
+  return x
 }
 
 export function repeat(time, fn) {
