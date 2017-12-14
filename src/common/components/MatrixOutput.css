@@ -1,0 +1,13 @@
+:root {
+  --width: 50px;
+}
+table.matrix {
+  border-collapse: collapse;
+  & td,
+  & th {
+    width: var(--width);
+    height: var(--width);
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+}

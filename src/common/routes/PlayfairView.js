@@ -9,6 +9,7 @@ import Section from '../components/Section'
 import MatrixOutput from '../components/MatrixOutput'
 import Output from '../components/Output'
 import FileInput from '../components/FileInput'
+import './PlayfairView.css'
 
 const { TextArea } = Input
 const columns = [
@@ -146,7 +147,7 @@ class PlayfairView extends Component {
         </Section>
 
         <Section desc="细节">
-          <Table columns={columns} data={diff} emptyText="无数据" />
+          <Table styleName="table" columns={columns} data={diff} emptyText="无数据" />
         </Section>
       </Fragment>
     )

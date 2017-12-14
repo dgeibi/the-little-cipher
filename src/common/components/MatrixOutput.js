@@ -1,9 +1,10 @@
 import React from 'react'
+import './MatrixOutput.css'
 
 function MatrixOutput({ value }) {
   if (!value) return <div>无数据</div>
   return (
-    <table>
+    <table styleName="matrix">
       <tbody>
         {value.map((r, i) =>
           <tr key={i}>
