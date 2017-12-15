@@ -1,8 +1,3 @@
-/**
- * @typedef {number[][]} Matrix
- * @typedef {number[]} Lat
- */
-
 import { transpose, multiply, map, det, adjugate } from '../matrix'
 import { isUpperCase, mod, modInverse, codeOf } from '../util'
 
@@ -17,17 +12,23 @@ const XOffset = codeOf('X') - ACode
 const mod26 = x => mod(x, 26)
 
 /**
- * @param {Lat} inputs
- * @returns {Matrix}
+ * 将偏移量数组按顺序每3个元素分为1组
+ * @typedef {number[]} Lat 长度为 3 的 number 数组
+ * @typedef {Lat[]} Lats
+ *
+ * @param {number[]} offsets 存放字母的偏移量
+ * @returns {Lats}
  */
-const getLats = (inputs) => {
+const getLats = (offsets) => {
   const lats = []
   let index
-  for (index = 0; index + M - 1 < inputs.length; index += M) {
-    lats.push(inputs.slice(index, index + M))
+  for (index = 0; index + M - 1 < offsets.length; index += M) {
+    lats.push(offsets.slice(index, index + M))
   }
-  if (index < inputs.length) {
-    const last = inputs.slice(index)
+
+  // 不够 M 个， 需要补 X
+  if (index < offsets.length) {
+    const last = offsets.slice(index)
     let left = M - last.length
     while (left) {
       left -= 1
@@ -57,6 +58,8 @@ const offset2Char = x => String.fromCharCode(x + ACode)
 const num2char = x => offset2Char(mod26(x))
 
 /**
+ * 求矩阵模 26 的逆
+ * @typedef {number[][]} Matrix
  * @param {Matrix} key
  * @returns {Matrix}
  */
@@ -69,13 +72,14 @@ function inverse(key) {
 }
 
 /**
- * @param {Matrix} K
- * @param {string} plaintext
+ * @param {Matrix} K 密钥矩阵
+ * @param {string} plaintext 原始字符串
+ * @return {string}
  */
 function hill(K, plaintext) {
-  const inputs = String(plaintext).toUpperCase().split('').filter(isUpperCase)
+  const offsets = String(plaintext).toUpperCase().split('').filter(isUpperCase)
     .map(char2Offset)
-  const P = transpose(getLats(inputs))
+  const P = transpose(getLats(offsets))
   return P ? transpose(multiply(K, P)).map(lat => lat.map(num2char).join('')).join('') : ''
 }
 
