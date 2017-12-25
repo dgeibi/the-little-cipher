@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Menu, Popover, Icon } from 'antd'
 import { Link } from 'dva/router'
 import { Media } from 'react-fns'
-import { getMatchKey } from '../routes'
+import { getMatchKey } from '..'
 import './Header.css'
 
 class Header extends Component {
@@ -24,8 +24,8 @@ class Header extends Component {
 
   onMenuClick = ({ key, domEvent }) => {
     if (domEvent.target.nodeName === 'LI') {
-      const { push } = this.props
-      push(key)
+      const { history } = this.props
+      history.push(key)
     }
   }
 

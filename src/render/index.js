@@ -2,13 +2,11 @@ import dva from 'dva'
 import React from 'react'
 import { createMemoryHistory } from 'history'
 import { renderRoutes } from 'react-router-config'
-import { StaticRouter, routerRedux } from 'dva/router'
+import { StaticRouter } from 'dva/router'
 import { renderToString } from 'react-dom/server'
 import Helmet from 'react-helmet'
 
 import routes, { renderPaths } from '../common/routes'
-
-const { LOCATION_CHANGE } = routerRedux
 
 // use webpack's require.context
 // see https://webpack.js.org/guides/dependency-management/#context-module-api
@@ -33,12 +31,6 @@ function render(path, staticContext) {
     </StaticRouter>)
 
   const App = app.start()
-
-  // 手动添加 state，因为 StaticRouter 不支持
-  app._store.dispatch({
-    type: LOCATION_CHANGE,
-    payload: history.location,
-  })
 
   const bodyContent = renderToString(<App />)
   const helmet = Helmet.renderStatic()
