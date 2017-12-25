@@ -2,9 +2,9 @@ module.exports = env => {
   const config = {
     presets: [
       [
-        'babel-preset-env',
+        '@babel/preset-env',
         {
-          useBuiltIns: true,
+          useBuiltIns: 'entry',
           modules: false,
           targets:
             env === 'ssr'
@@ -12,24 +12,23 @@ module.exports = env => {
                   node: 'current',
                 }
               : {
-                  browsers: 'last 2 versions, > 5%',
+                  browsers: 'last 2 versions',
                 },
         },
       ],
-      'babel-preset-stage-2',
-      'babel-preset-react',
+      '@babel/preset-stage-3',
+      '@babel/preset-react',
     ],
     plugins: [
-      'babel-macros',
-      'babel-plugin-transform-decorators-legacy',
+      'transform-decorators-legacy',
       [
-        'babel-plugin-transform-class-properties',
+        '@babel/plugin-proposal-class-properties',
         {
           loose: true,
         },
       ],
       [
-        'babel-plugin-import',
+        'import',
         env === 'ssr'
           ? {
               libraryName: 'antd',
@@ -44,7 +43,7 @@ module.exports = env => {
   }
 
   if (env === 'development') {
-    config.plugins.push('babel-plugin-dva-hmr')
+    config.plugins.push('dva-hmr')
   }
 
   const { generateScopedName } = require('../helper/getStyleName')

@@ -1,21 +1,21 @@
 {
   "presets": [
     [
-      "babel-preset-env",
+      "@babel/preset-env",
       {
-        "useBuiltIns": true,
+        "useBuiltIns": "entry",
         "targets": {
           "node": "current"
         }
       }
     ],
-    "babel-preset-stage-2",
-    "babel-preset-react"
+    "@babel/preset-stage-3",
+    "@babel/preset-react"
   ],
   "plugins": [
     "babel-plugin-transform-decorators-legacy",
     [
-      "babel-plugin-transform-class-properties",
+      "@babel/plugin-proposal-class-properties",
       {
         "loose": true
       }
