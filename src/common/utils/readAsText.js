@@ -6,7 +6,7 @@ export default file =>
     reader.onload = () => {
       resolve(reader.result)
     }
-    reader.onerror = (error) => {
+    reader.onerror = error => {
       message.error('读取失败')
       reject(error)
     }

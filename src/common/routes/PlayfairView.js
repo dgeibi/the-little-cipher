@@ -40,7 +40,7 @@ const columns = [
 class PlayfairView extends Component {
   static title = 'Playfair密码'
 
-  handleInputChange = (e) => {
+  handleInputChange = e => {
     const { name, value } = e.target
     if (name) {
       this.fetch({
@@ -50,9 +50,7 @@ class PlayfairView extends Component {
   }
 
   fetch(payload) {
-    const {
-      secretInput, plainInput, dispatch, decodeMode,
-    } = this.props
+    const { secretInput, plainInput, dispatch, decodeMode } = this.props
     dispatch({
       type: 'playfair/fetch',
       payload: {
@@ -79,7 +77,7 @@ class PlayfairView extends Component {
     }
   }
 
-  handleDrop = (e) => {
+  handleDrop = e => {
     e.stopPropagation()
     e.preventDefault()
     if (e.dataTransfer.files.length > 0) {
@@ -91,27 +89,31 @@ class PlayfairView extends Component {
     }
   }
 
-  handleSwitch = (decodeMode) => {
+  handleSwitch = decodeMode => {
     this.fetch({
       decodeMode,
     })
   }
 
-  handleFileInputChange = (e) => {
+  handleFileInputChange = e => {
     this.readfiles(e.target.files)
     e.target.value = ''
   }
 
   render() {
     const {
-      plainInput, secretInput, diff, square, plainText, cipherText, decodeMode,
+      plainInput,
+      secretInput,
+      diff,
+      square,
+      plainText,
+      cipherText,
+      decodeMode,
     } = this.props
 
     return (
       <Fragment>
-        <DocumentTitle>
-          {this.constructor.title}
-        </DocumentTitle>
+        <DocumentTitle>{this.constructor.title}</DocumentTitle>
         <p>
           默认填充字母：<code>K</code>，备用填充字母：<code>Z</code>
         </p>
@@ -124,7 +126,11 @@ class PlayfairView extends Component {
           />
         </Section>
         <Section desc="密码输入">
-          <Input value={secretInput} name="secretInput" onChange={this.handleInputChange} />
+          <Input
+            value={secretInput}
+            name="secretInput"
+            onChange={this.handleInputChange}
+          />
         </Section>
 
         <Section desc={decodeMode ? '密文输入' : '明文输入'}>

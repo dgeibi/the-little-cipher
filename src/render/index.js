@@ -25,10 +25,11 @@ function render(path, staticContext) {
   // 注册 models
   models.forEach(m => app.model({ ...m }))
 
-  app.router(() =>
+  app.router(() => (
     <StaticRouter location={path} context={staticContext}>
       {renderRoutes(routes)}
-    </StaticRouter>)
+    </StaticRouter>
+  ))
 
   const App = app.start()
 

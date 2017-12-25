@@ -14,12 +14,12 @@ export const postData = ({ secretInput, plainInput, decodeMode }) => {
   })
     .then(
       res => res.json(),
-      (err) => {
+      err => {
         console.error(err)
         message.error('发送失败')
       }
     )
-    .catch((err) => {
+    .catch(err => {
       console.error(err)
       message.error('接收失败')
     })

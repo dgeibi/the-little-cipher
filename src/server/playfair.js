@@ -24,10 +24,14 @@ const playfairMiddleware = (req, res) => {
         res.sendStatus(500)
         return
       }
-      res.status(200).json(getResults(req.body.secret, buffer.toString(), req.body.decodeMode))
+      res
+        .status(200)
+        .json(getResults(req.body.secret, buffer.toString(), req.body.decodeMode))
     })
   } else if (req.body.plaintext) {
-    res.status(200).json(getResults(req.body.secret, req.body.plaintext, req.body.decodeMode))
+    res
+      .status(200)
+      .json(getResults(req.body.secret, req.body.plaintext, req.body.decodeMode))
   } else {
     res.sendStatus(400)
   }

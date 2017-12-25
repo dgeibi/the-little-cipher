@@ -39,7 +39,7 @@ export default [
 
 export const renderPaths = ['/', '/caser/', '/playfair/', '/hill/']
 
-export const getMatchKey = (path) => {
+export const getMatchKey = path => {
   for (let i = 0; i < innerRoutes.length; i += 1) {
     if (matchPath(path, innerRoutes[i])) {
       return innerRoutes[i].path

@@ -35,8 +35,11 @@ const getFallback = c => (c === FALLBACK1 ? FALLBACK2 : FALLBACK1)
  * @param {string} secret
  * @returns {string[]}
  */
-const toChars = (secret) => {
-  const schars = secret.toUpperCase().split('').filter(isUpperCase)
+const toChars = secret => {
+  const schars = secret
+    .toUpperCase()
+    .split('')
+    .filter(isUpperCase)
 
   for (let i = 0, offset = codeOf('A'); i < 26; i += 1) {
     const char = String.fromCharCode(offset + i)
@@ -85,7 +88,7 @@ const transform = (pair, chars, decodeMode = false) => {
  * @param {string[]} inputs
  * @return {[string, string][]}
  */
-const getPairs = (inputs) => {
+const getPairs = inputs => {
   const ret = []
   let index = 0
   while (index < inputs.length) {
@@ -107,7 +110,7 @@ const getPairs = (inputs) => {
  * @param {string[]} chars
  * @return {string[][]}
  */
-const toSquare = (chars) => {
+const toSquare = chars => {
   let count = 0
   const square = []
   while (count < 5) {
@@ -134,9 +137,13 @@ const toSquare = (chars) => {
 const playfair = (secret, input, decodeMode = false) => {
   const chars = toChars(secret)
   const square = toSquare(chars)
-  const inputs = input.toUpperCase().replace(/J/g, 'I').split('').filter(isUpperCase)
+  const inputs = input
+    .toUpperCase()
+    .replace(/J/g, 'I')
+    .split('')
+    .filter(isUpperCase)
   const pairs = getPairs(inputs)
-  const diff = pairs.map((pair) => {
+  const diff = pairs.map(pair => {
     const [a, b, type] = transform(pair, chars, decodeMode)
     return {
       origin: pair.join(''),

@@ -13,10 +13,12 @@ async function requireRenderer() {
     compiler.run((err, stats) => {
       if (err || stats.hasErrors()) {
         reject(err || stats)
-        console.log(stats.toString({
-          chunks: false, // Makes the build much quieter
-          colors: true, // Shows colors in the console
-        }))
+        console.log(
+          stats.toString({
+            chunks: false, // Makes the build much quieter
+            colors: true, // Shows colors in the console
+          })
+        )
         return
       }
       const src = fs.readFileSync(join(__dirname, '../render.js'), 'utf8')

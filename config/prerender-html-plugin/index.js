@@ -10,7 +10,7 @@ async function getHtmlPlugins() {
   // clean up caches to receive new config
   delete require.cache[require.resolve('babel-plugin-import')]
 
-  const plugins = renderPaths.map((path) => {
+  const plugins = renderPaths.map(path => {
     const { bodyContent, helmet } = render(path, {})
     const filename = getFilename(path)
 

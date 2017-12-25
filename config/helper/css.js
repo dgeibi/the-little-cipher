@@ -1,6 +1,4 @@
-module.exports = ({
-  ssr, rule, extractOptions, extract,
-}) => {
+module.exports = ({ ssr, rule, extractOptions, extract }) => {
   if (!rule || !rule.use) {
     throw Error('rule and rule.use required')
   }
@@ -17,7 +15,8 @@ module.exports = ({
     throw Error('can not find rule use')
   }
   if (ssr === true) {
-    if (use[0].loader && !/css-loader/.test(use[0].loader)) throw Error('You may write wrong!')
+    if (use[0].loader && !/css-loader/.test(use[0].loader))
+      throw Error('You may write wrong!')
     use[0].loader = 'css-loader/locals'
     return {
       module: { rules: [Object.assign(mRule, { use })] },

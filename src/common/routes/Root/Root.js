@@ -11,17 +11,13 @@ import './Root.css'
 
 const { Content, Footer } = Layout
 
-function Root({
-  route, loading, history, location: { pathname },
-}) {
+function Root({ route, loading, history, location: { pathname } }) {
   return (
     <Layout>
       <DocumentTitle />
       <Header history={history} currentPath={pathname} routes={innerRoutes} />
       <Content styleName="content">
-        <div styleName="content-inner">
-          {renderRoutes(route.routes)}
-        </div>
+        <div styleName="content-inner">{renderRoutes(route.routes)}</div>
       </Content>
       <Footer styleName="footer">©2017 Created by dgeibi</Footer>
       {loading && <Icon type="loading" styleName="loading" />}
@@ -29,7 +25,7 @@ function Root({
   )
 }
 
-export default connect((state) => {
+export default connect(state => {
   const loading = state.loading && state.loading.global
   return { loading }
 })(Root)

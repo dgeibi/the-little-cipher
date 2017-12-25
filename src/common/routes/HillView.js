@@ -20,7 +20,7 @@ const plaintextSelector = state => state.hill.plaintext
 const inverseMatrixSelector = createSelector(matrixSelector, inverse)
 const cipherTextSelector = createSelector(matrixSelector, plaintextSelector, hill)
 
-@connect((state) => {
+@connect(state => {
   const inverseMatrix = inverseMatrixSelector(state)
   const cipherText = inverseMatrix && cipherTextSelector(state)
   return {
@@ -39,7 +39,7 @@ class HillView extends Component {
     })
   }
 
-  handlePlainTextChange = (e) => {
+  handlePlainTextChange = e => {
     this.saveState({
       plaintext: e.target.value,
     })
@@ -55,7 +55,7 @@ class HillView extends Component {
     }
   }
 
-  handleFileInputChange = (e) => {
+  handleFileInputChange = e => {
     this.readfiles(e.target.files)
     e.target.value = ''
   }
@@ -80,7 +80,7 @@ class HillView extends Component {
     })
   }
 
-  handleDrop = (e) => {
+  handleDrop = e => {
     e.stopPropagation()
     e.preventDefault()
     if (e.dataTransfer.files.length > 0) {
@@ -93,14 +93,10 @@ class HillView extends Component {
   }
 
   render() {
-    const {
-      matrix, plaintext, inverseMatrix, cipherText, str,
-    } = this.props
+    const { matrix, plaintext, inverseMatrix, cipherText, str } = this.props
     return (
       <Fragment>
-        <DocumentTitle>
-          {this.constructor.title}
-        </DocumentTitle>
+        <DocumentTitle>{this.constructor.title}</DocumentTitle>
         <Section desc="输入3*3密钥矩阵">
           <MatrixInput
             m={3}

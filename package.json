@@ -7,7 +7,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "lint": "eslint .",
-    "format": "prettier-eslint --write '**/*.{js,css}'",
+    "format": "prettier --write \"**/*.{js,css}\" --ignore-path .gitignore",
     "precommit": "lint-staged",
     "dev": "nodemon --watch src/server src/server/dev.js --exec \"node -r babel-register\"",
     "prod": "npm run build && npm start",
@@ -21,25 +21,19 @@
   },
   "author": "dgeibi",
   "license": "MIT",
-  "prettier": {
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "es5",
-    "printWidth": 90
-  },
   "lint-staged": {
     "*.{css,js}": [
-      "git-exec-and-restage prettier-eslint --write --"
+      "git-exec-and-restage prettier --write --"
     ]
   },
   "devDependencies": {
-    "babel-eslint": "^8.0.3",
+    "babel-eslint": "^8.1.1",
     "babel-plugin-dva-hmr": "^0.4.0",
     "babel-register": "^6.26.0",
-    "eslint": "^4.12.1",
+    "eslint": "^4.14.0",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-config-dgeibi": "^3.0.6",
-    "eslint-config-standard-react": "^5.0.0",
+    "eslint-config-dgeibi": "^4.0.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-react": "^7.5.1",
@@ -48,6 +42,7 @@
     "jest": "^21.2.1",
     "lint-staged": "^6.0.0",
     "nodemon": "^1.12.5",
+    "prettier": "^1.9.2",
     "redbox-react": "^1.5.0",
     "webpack-bundle-analyzer": "^2.9.1",
     "webpack-dev-middleware": "^1.12.2",

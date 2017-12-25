@@ -43,7 +43,7 @@ class CaserView extends Component {
     })
   }
 
-  handleSwitch = (decodeMode) => {
+  handleSwitch = decodeMode => {
     this.props.dispatch({
       type: 'caser/save',
       payload: {
@@ -52,11 +52,11 @@ class CaserView extends Component {
     })
   }
 
-  handleInput = (e) => {
+  handleInput = e => {
     this.saveInput(e.target.value)
   }
 
-  handleDrop = (e) => {
+  handleDrop = e => {
     e.stopPropagation()
     e.preventDefault()
     if (e.dataTransfer.files.length > 0) {
@@ -66,7 +66,7 @@ class CaserView extends Component {
     }
   }
 
-  handleFileInputChange = (e) => {
+  handleFileInputChange = e => {
     this.readfiles(e.target.files)
     e.target.value = ''
   }
@@ -76,9 +76,7 @@ class CaserView extends Component {
 
     return (
       <Fragment>
-        <DocumentTitle>
-          {this.constructor.title}
-        </DocumentTitle>
+        <DocumentTitle>{this.constructor.title}</DocumentTitle>
         <Section>
           <Switch
             checked={decodeMode}
@@ -99,9 +97,7 @@ class CaserView extends Component {
           />
         </Section>
         <Section desc={decodeMode ? '解密结果' : '加密结果'}>
-          <Output styleName="output">
-            {output}
-          </Output>
+          <Output styleName="output">{output}</Output>
         </Section>
       </Fragment>
     )

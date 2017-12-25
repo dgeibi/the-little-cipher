@@ -10,7 +10,7 @@ class Header extends Component {
     menuVisible: false,
   }
 
-  onMenuVisibleChange = (visible) => {
+  onMenuVisibleChange = visible => {
     this.setState({
       menuVisible: visible,
     })
@@ -39,14 +39,14 @@ class Header extends Component {
         defaultSelectedKeys={[getMatchKey(currentPath)]}
         styleName="menu"
       >
-        {routes.map(({ component: { title, skipMenu }, path }) =>
-            (skipMenu
-              ? null
-              : <Menu.Item key={path}>
-                <Link to={path}>
-                  {title}
-                </Link>
-              </Menu.Item>))}
+        {routes.map(
+          ({ component: { title, skipMenu }, path }) =>
+            skipMenu ? null : (
+              <Menu.Item key={path}>
+                <Link to={path}>{title}</Link>
+              </Menu.Item>
+            )
+        )}
       </Menu>
     )
   }
@@ -57,7 +57,7 @@ class Header extends Component {
     return (
       <header styleName="header">
         <Media query="(max-width: 599px)">
-          {(match) => {
+          {match => {
             if (match) {
               return (
                 <Popover

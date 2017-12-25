@@ -2,9 +2,7 @@ import React from 'react'
 import { Button } from 'antd'
 import './FileInput.css'
 
-export default function FileInput({
-  className, btnProps, children, ...fileProps
-}) {
+export default function FileInput({ className, btnProps, children, ...fileProps }) {
   let fileInput = null
   return (
     <span className={className} styleName="span">

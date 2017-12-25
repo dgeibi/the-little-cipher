@@ -1,7 +1,8 @@
 // copy from https://github.com/dvajs/babel-plugin-dva-hmr/blob/master/src/index.js
 module.exports = modelPaths =>
   modelPaths
-    .map(modelPath => `
+    .map(
+      modelPath => `
 if (module.hot) {
   const model = require('${modelPath}').default;
   const namespace = model.namespace;
@@ -13,5 +14,6 @@ if (module.hot) {
     } catch(e) { console.error(e); }
   });
 }
-`)
+`
+    )
     .join('\n')

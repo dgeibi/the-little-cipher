@@ -19,7 +19,7 @@ const mod26 = x => mod(x, 26)
  * @param {number[]} offsets 存放字母的偏移量
  * @returns {Lats}
  */
-const getLats = (offsets) => {
+const getLats = offsets => {
   const lats = []
   let index
   for (index = 0; index + M - 1 < offsets.length; index += M) {
@@ -77,10 +77,17 @@ function inverse(key) {
  * @return {string}
  */
 function hill(K, plaintext) {
-  const offsets = String(plaintext).toUpperCase().split('').filter(isUpperCase)
+  const offsets = String(plaintext)
+    .toUpperCase()
+    .split('')
+    .filter(isUpperCase)
     .map(char2Offset)
   const P = transpose(getLats(offsets))
-  return P ? transpose(multiply(K, P)).map(lat => lat.map(num2char).join('')).join('') : ''
+  return P
+    ? transpose(multiply(K, P))
+        .map(lat => lat.map(num2char).join(''))
+        .join('')
+    : ''
 }
 
 hill.inverse = inverse

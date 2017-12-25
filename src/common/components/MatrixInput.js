@@ -9,7 +9,9 @@ const { TextArea } = Input
 const splitC = /\s*,\s*|\s+/
 class MatrixInput extends Component {
   static getNoob(m, n) {
-    return Array(m).fill(null).map(() => this.getRowNoob(n))
+    return Array(m)
+      .fill(null)
+      .map(() => this.getRowNoob(n))
   }
 
   static getRowNoob(n) {
@@ -25,7 +27,7 @@ class MatrixInput extends Component {
     return MatrixInput.getRowNoob(this.props.n)
   }
 
-  handleChange = (e) => {
+  handleChange = e => {
     const { value: str } = e.target
     const { m, n } = this.props
     let matrix
@@ -33,8 +35,13 @@ class MatrixInput extends Component {
       matrix = String(str)
         .split('\n')
         .slice(0, m)
-        .map(r => r.split(splitC).slice(0, n).map(v => Number(v) || 0))
-      matrix.forEach((r) => {
+        .map(r =>
+          r
+            .split(splitC)
+            .slice(0, n)
+            .map(v => Number(v) || 0)
+        )
+      matrix.forEach(r => {
         if (r.length < n) {
           repeat(n - r.length, () => r.push(0))
         }

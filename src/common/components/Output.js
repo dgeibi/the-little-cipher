@@ -1,9 +1,7 @@
 import React from 'react'
 import './Output.css'
 
-function Output({
-  wrap = false, style, children, value, className, ...props
-}) {
+function Output({ wrap = false, style, children, value, className, ...props }) {
   return (
     <div
       {...props}

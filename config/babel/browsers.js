@@ -1,4 +1,4 @@
-module.exports = (env) => {
+module.exports = env => {
   const config = {
     presets: [
       [
@@ -9,11 +9,11 @@ module.exports = (env) => {
           targets:
             env === 'ssr'
               ? {
-                node: 'current',
-              }
+                  node: 'current',
+                }
               : {
-                browsers: 'last 2 versions, > 5%',
-              },
+                  browsers: 'last 2 versions, > 5%',
+                },
         },
       ],
       'babel-preset-stage-2',
@@ -32,13 +32,13 @@ module.exports = (env) => {
         'babel-plugin-import',
         env === 'ssr'
           ? {
-            libraryName: 'antd',
-          }
+              libraryName: 'antd',
+            }
           : {
-            libraryName: 'antd',
-            style: 'css',
-            libraryDirectory: 'es',
-          },
+              libraryName: 'antd',
+              style: 'css',
+              libraryDirectory: 'es',
+            },
       ],
     ],
   }
