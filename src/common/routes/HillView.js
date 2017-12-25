@@ -8,6 +8,7 @@ import MatrixInput from '../components/MatrixInput'
 import MatrixOutput from '../components/MatrixOutput'
 import Section from '../components/Section'
 import FileInput from '../components/FileInput'
+import DocumentTitle from '../components/DocumentTitle'
 
 import Output from '../components/Output'
 
@@ -97,6 +98,9 @@ class HillView extends Component {
     } = this.props
     return (
       <Fragment>
+        <DocumentTitle>
+          {this.constructor.title}
+        </DocumentTitle>
         <Section desc="输入3*3密钥矩阵">
           <MatrixInput
             m={3}

@@ -2,8 +2,8 @@ import React, { Fragment, Component } from 'react'
 import { Input, Switch } from 'antd'
 import { connect } from 'dva'
 import { createSelector } from 'reselect'
-
 import caser, { decode } from 'Cipher/caser'
+import DocumentTitle from '../components/DocumentTitle'
 
 import Output from '../components/Output'
 import Section from '../components/Section'
@@ -24,7 +24,6 @@ const outputSelector = createSelector(decodeModeSelector, inputSelector, getOutp
 }))
 class CaserView extends Component {
   static title = '凯撒密码'
-
   readfiles(files) {
     const file = files && files[0]
     if (file) {
@@ -77,6 +76,9 @@ class CaserView extends Component {
 
     return (
       <Fragment>
+        <DocumentTitle>
+          {this.constructor.title}
+        </DocumentTitle>
         <Section>
           <Switch
             checked={decodeMode}

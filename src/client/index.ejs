@@ -3,10 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <% if (htmlWebpackPlugin.options.helmet) { %><%=
+    htmlWebpackPlugin.options.helmet.title.toString()
+  %><% } else { %>
   <title><%= htmlWebpackPlugin.options.title %></title>
+  <% } %>
 </head>
-<body><div id="root"><% if (htmlWebpackPlugin.options.render) { %><%=
-  htmlWebpackPlugin.options.render(htmlWebpackPlugin.options.renderPath, {})
+<body><div id="root"><% if (htmlWebpackPlugin.options.bodyContent) { %><%=
+  htmlWebpackPlugin.options.bodyContent
 %><% } %></div>
 </body>
 </html>

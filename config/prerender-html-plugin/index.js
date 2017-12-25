@@ -4,20 +4,23 @@ const requireRenderer = require('./requireRenderer')
 const getFilename = require('./getFilename')
 
 async function getHtmlPlugins() {
-  const { render, titleMap } = await requireRenderer()
+  const { render, renderPaths } = await requireRenderer()
   const template = join(__dirname, '../../src/client/index.ejs')
 
   // clean up caches to receive new config
   delete require.cache[require.resolve('babel-plugin-import')]
 
-  const plugins = Object.entries(titleMap).map(([path, title]) =>
-    new HtmlWebpackPlugin({
-      title: `${title} - The Little Cipher`,
-      render,
-      renderPath: path,
+  const plugins = renderPaths.map((path) => {
+    const { bodyContent, helmet } = render(path, {})
+    const filename = getFilename(path)
+
+    return new HtmlWebpackPlugin({
       template,
-      filename: getFilename(path),
-    }))
+      filename,
+      bodyContent,
+      helmet,
+    })
+  })
   return { plugins }
 }
 

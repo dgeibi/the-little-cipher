@@ -6,6 +6,7 @@ import { routerRedux } from 'dva/router'
 import { connect } from 'dva'
 import Header from '../components/Header'
 import { innerRoutes } from '../routes'
+import DocumentTitle from '../components/DocumentTitle'
 
 import './Root.css'
 
@@ -17,6 +18,7 @@ function Root({
 }) {
   return (
     <Layout>
+      <DocumentTitle />
       <Header push={pushState} currentPath={currentPath} routes={innerRoutes} />
       <Content styleName="content">
         <div styleName="content-inner">

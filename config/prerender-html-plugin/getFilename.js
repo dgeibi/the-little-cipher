@@ -1,5 +1,4 @@
 function getFilename(path) {
-  if (path === '*') return '404.html'
   let filename = path.replace(/^\/+/, '')
   if (/\.html?$/.test(filename)) {
     return filename

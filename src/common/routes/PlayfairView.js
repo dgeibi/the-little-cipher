@@ -9,6 +9,8 @@ import Section from '../components/Section'
 import MatrixOutput from '../components/MatrixOutput'
 import Output from '../components/Output'
 import FileInput from '../components/FileInput'
+import DocumentTitle from '../components/DocumentTitle'
+
 import './PlayfairView.css'
 
 const { TextArea } = Input
@@ -107,6 +109,9 @@ class PlayfairView extends Component {
 
     return (
       <Fragment>
+        <DocumentTitle>
+          {this.constructor.title}
+        </DocumentTitle>
         <p>
           默认填充字母：<code>K</code>，备用填充字母：<code>Z</code>
         </p>

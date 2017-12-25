@@ -4,8 +4,9 @@ import { createMemoryHistory } from 'history'
 import { renderRoutes } from 'react-router-config'
 import { StaticRouter, routerRedux } from 'dva/router'
 import { renderToString } from 'react-dom/server'
+import Helmet from 'react-helmet'
 
-import routes, { titleMap } from '../common/routes'
+import routes, { renderPaths } from '../common/routes'
 
 const { LOCATION_CHANGE } = routerRedux
 
@@ -39,7 +40,9 @@ function render(path, staticContext) {
     payload: history.location,
   })
 
-  return renderToString(<App />)
+  const bodyContent = renderToString(<App />)
+  const helmet = Helmet.renderStatic()
+  return { bodyContent, helmet }
 }
 
-export { titleMap, render }
+export { renderPaths, render }

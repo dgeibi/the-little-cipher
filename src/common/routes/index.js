@@ -37,11 +37,7 @@ export default [
   },
 ]
 
-export const titleMap = innerRoutes.reduce((rs, { component, path }) => {
-  if (path === '*') return rs
-  rs[path] = component.title // eslint-disable-line no-param-reassign
-  return rs
-}, {})
+export const renderPaths = ['/', '/caser/', '/playfair/', '/hill/']
 
 export const getMatchKey = (path) => {
   for (let i = 0; i < innerRoutes.length; i += 1) {
