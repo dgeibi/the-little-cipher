@@ -1,14 +1,20 @@
 const MemoryFS = require('memory-fs')
 const webpack = require('webpack')
-const ssrConfigPromise = require('../webpack.ssr')
+const getConfig = require('./getConfig')
 const { join } = require('path')
+
 const vm = require('vm')
 
-async function requireRenderer() {
+async function requireRenderer({ src }) {
   const fs = new MemoryFS()
-  const compiler = webpack(await ssrConfigPromise)
+  const dist = join(__dirname, 'render.js')
+  const compiler = webpack(
+    await getConfig({
+      src,
+      dist,
+    })
+  )
   compiler.outputFileSystem = fs
-
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
       if (err || stats.hasErrors()) {
@@ -21,9 +27,9 @@ async function requireRenderer() {
         )
         return
       }
-      const src = fs.readFileSync(join(__dirname, '../render.js'), 'utf8')
+      const srcCode = fs.readFileSync(dist, 'utf8')
       const vmModule = { exports: {} }
-      const script = new vm.Script(require('module').wrap(src))
+      const script = new vm.Script(require('module').wrap(srcCode))
       script.runInThisContext()(vmModule.exports, require, vmModule)
       console.log('renderer builted')
       resolve(vmModule.exports)

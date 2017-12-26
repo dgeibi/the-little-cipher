@@ -11,8 +11,6 @@ const babelConfig = require('./babel/browsers')
 const main = {
   output: {
     publicPath: '/',
-    filename: '[name].js',
-    chunkFilename: '[name].bundle.js',
   },
   resolve: {
     alias: {
@@ -49,7 +47,7 @@ module.exports = (env = {}) => {
           ],
         },
         extract: true,
-        extractOptions: 'antd.css',
+        extractOptions: 'antd-[contenthash:8].css',
       }),
     css({
       ssr: isSSR,
@@ -76,7 +74,7 @@ module.exports = (env = {}) => {
         ],
       },
       extract: isProduction,
-      extractOptions: 'main.css',
+      extractOptions: 'main-[contenthash:8].css',
     }),
     rule({
       test: /\.js$/,

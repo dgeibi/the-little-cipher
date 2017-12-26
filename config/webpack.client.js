@@ -9,6 +9,9 @@ module.exports = env =>
       app: path.resolve(__dirname, '../src/client/index.js'),
     },
     output: {
+      publicPath: '/',
+      filename: '[name].[chunkhash].js',
+      chunkFilename: '[chunkhash].js',
       path: path.resolve(__dirname, '../dist/static'),
     },
   })

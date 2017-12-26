@@ -3,8 +3,8 @@ const { join } = require('path')
 const requireRenderer = require('./requireRenderer')
 const getFilename = require('./getFilename')
 
-async function getHtmlPlugins() {
-  const { render, renderPaths } = await requireRenderer()
+async function getHtmlPlugins({ src }) {
+  const { render, renderPaths } = await requireRenderer({ src })
   const template = join(__dirname, '../../src/client/index.ejs')
 
   // clean up caches to receive new config
