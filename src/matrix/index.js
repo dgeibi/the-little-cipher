@@ -46,6 +46,7 @@ function restOf(matrix, mi, mj) {
 /**
  * 求行列式
  * @param {Matrix} matrix
+ * @returns {number}
  */
 function det(matrix) {
   if (matrix.length === 1) return matrix[0][0]
@@ -60,6 +61,12 @@ function det(matrix) {
   return sum
 }
 
+/**
+ * 求伴随矩阵
+ * https://en.wikipedia.org/wiki/Adjugate_matrix
+ * @param {Matrix} matrix
+ * @returns {Matrix}
+ */
 function adjugate(matrix) {
   const c = new Array(matrix.length)
   for (let i = 0; i < matrix.length; i += 1) {
@@ -129,6 +136,7 @@ function multiply(a, b) {
 /**
  * @param {Matrix} matrix
  * @param {function} fn
+ * @returns {any[][]}
  */
 function map(matrix, fn) {
   return matrix.map(r => r.map(fn))

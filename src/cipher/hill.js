@@ -1,6 +1,7 @@
-import { transpose, multiply, map, det, adjugate } from '../matrix'
+import { transpose, multiply, map, det, adjugate } from '../matrix/index'
 import { isUpperCase, mod, modInverse, codeOf } from '../util'
 
+/** 密钥为 3x3 方阵 */
 const M = 3
 const ACode = codeOf('A')
 const XOffset = codeOf('X') - ACode
@@ -49,13 +50,7 @@ const char2Offset = x => codeOf(x) - ACode
  * @param {number} x
  * @returns {string}
  */
-const offset2Char = x => String.fromCharCode(x + ACode)
-
-/**
- * @param {number} x
- * @returns {string}
- */
-const num2char = x => offset2Char(mod26(x))
+const offset2char = x => String.fromCharCode(mod26(x) + ACode)
 
 /**
  * 求矩阵模 26 的逆
@@ -64,11 +59,10 @@ const num2char = x => offset2Char(mod26(x))
  * @returns {Matrix}
  */
 function inverse(key) {
-  const detK = mod(det(key), 26)
-  const rev = modInverse(detK, 26)
+  const rev = modInverse(mod26(det(key)), 26)
   if (Number.isNaN(rev)) return null
   const adj = adjugate(key)
-  return map(adj, x => mod(x * rev, 26))
+  return map(adj, x => mod26(x * rev))
 }
 
 /**
@@ -85,7 +79,7 @@ function hill(K, plaintext) {
   const P = transpose(getLats(offsets))
   return P
     ? transpose(multiply(K, P))
-        .map(lat => lat.map(num2char).join(''))
+        .map(lat => lat.map(offset2char).join(''))
         .join('')
     : ''
 }
