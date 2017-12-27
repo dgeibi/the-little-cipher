@@ -3,9 +3,9 @@ const base = require('../webpack.base')
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
 
-module.exports = ({ src, dist }) =>
+module.exports = ({ entry, dist }) =>
   merge(base({ ssr: true }), {
-    entry: src,
+    entry,
     target: 'node',
     externals: [nodeExternals()],
     node: {

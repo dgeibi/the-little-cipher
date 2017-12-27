@@ -3,10 +3,7 @@ import React from 'react'
 import { createMemoryHistory } from 'history'
 import { renderRoutes } from 'react-router-config'
 import { StaticRouter } from 'dva/router'
-import { renderToString } from 'react-dom/server'
-import Helmet from 'react-helmet'
-
-import routes, { renderPaths } from '../common/routes'
+import routes from '../common/routes'
 
 // use webpack's require.context
 // see https://webpack.js.org/guides/dependency-management/#context-module-api
@@ -15,7 +12,7 @@ function importModels(r) {
   return r.keys().map(key => r(key).default)
 }
 
-function render(path, staticContext) {
+function createApp(path, staticContext) {
   const history = createMemoryHistory({
     initialEntries: [path],
   })
@@ -26,16 +23,12 @@ function render(path, staticContext) {
   models.forEach(m => app.model({ ...m }))
 
   app.router(() => (
-    <StaticRouter location={path} context={staticContext}>
+    <StaticRouter location={path} context={staticContext || {}}>
       {renderRoutes(routes)}
     </StaticRouter>
   ))
 
-  const App = app.start()
-
-  const bodyContent = renderToString(<App />)
-  const helmet = Helmet.renderStatic()
-  return { bodyContent, helmet }
+  return app.start()
 }
 
-export { renderPaths, render }
+export default createApp

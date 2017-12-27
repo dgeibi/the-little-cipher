@@ -1,16 +1,15 @@
 const MemoryFS = require('memory-fs')
 const webpack = require('webpack')
-const getConfig = require('./getConfig')
 const { join } = require('path')
 
 const vm = require('vm')
 
-async function requireRenderer({ src }) {
+async function requireWithWebpack({ entry, getConfig }) {
   const fs = new MemoryFS()
-  const dist = join(__dirname, 'render.js')
+  const dist = join(__dirname, 'anything.js')
   const compiler = webpack(
     await getConfig({
-      src,
+      entry,
       dist,
     })
   )
@@ -30,11 +29,12 @@ async function requireRenderer({ src }) {
       const srcCode = fs.readFileSync(dist, 'utf8')
       const vmModule = { exports: {} }
       const script = new vm.Script(require('module').wrap(srcCode))
-      script.runInThisContext()(vmModule.exports, require, vmModule)
-      console.log('renderer builted')
+
+      // exports, require, module, __filename, __dirname
+      script.runInThisContext()(vmModule.exports, require, vmModule, dist, __dirname)
       resolve(vmModule.exports)
     })
   })
 }
 
-module.exports = requireRenderer
+module.exports = requireWithWebpack

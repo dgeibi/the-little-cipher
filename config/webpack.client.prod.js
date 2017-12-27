@@ -9,7 +9,11 @@ const prerender = require('./prerender-html-plugin')
 module.exports = merge(
   client({ production: true }),
   prerender({
-    src: join(__dirname, '../src/render/index.js'),
+    entry: join(__dirname, '../src/render/createApp.js'),
+    template: join(__dirname, '../src/client/index.ejs'),
+    renderPaths: ['/', '/caser/', '/playfair/', '/hill/'],
+    render: require('../src/render/render'),
+    getExtraOpts: ({ bodyContent, helmet }) => ({ bodyContent, helmet }),
   }),
   {
     plugins: [

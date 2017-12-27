@@ -1,24 +1,18 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { join } = require('path')
-const requireRenderer = require('./requireRenderer')
+const requireWithWebpack = require('./requireWithWebpack')
+const getConfig = require('./getConfig')
 const getFilename = require('./getFilename')
 
-async function getHtmlPlugins({ src }) {
-  const { render, renderPaths } = await requireRenderer({ src })
-  const template = join(__dirname, '../../src/client/index.ejs')
-
-  // clean up caches to receive new config
-  delete require.cache[require.resolve('babel-plugin-import')]
-
+async function getHtmlPlugins({ entry, template, getExtraOpts, render, renderPaths }) {
+  let createApp = await requireWithWebpack({ entry, getConfig })
+  createApp = createApp.default || createApp
   const plugins = renderPaths.map(path => {
-    const { bodyContent, helmet } = render(path, {})
+    const rendered = render(createApp(path))
     const filename = getFilename(path)
-
     return new HtmlWebpackPlugin({
       template,
       filename,
-      bodyContent,
-      helmet,
+      ...getExtraOpts(rendered),
     })
   })
   return { plugins }
