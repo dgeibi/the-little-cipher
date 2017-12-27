@@ -16,6 +16,10 @@ module.exports = merge(
     getExtraOpts: ({ bodyContent, helmet }) => ({ bodyContent, helmet }),
   }),
   {
+    output: {
+      filename: '[name].[chunkhash].js',
+      chunkFilename: '[chunkhash].js',
+    },
     plugins: [
       new webpack.HashedModuleIdsPlugin(),
       new webpack.optimize.CommonsChunkPlugin({

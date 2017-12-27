@@ -9,6 +9,10 @@ module.exports = merge(client(), {
   entry: {
     app: ['webpack-hot-middleware/client?reload=true', './src/client/index.js'],
   },
+  output: {
+    filename: '[name].js',
+    chunkFilename: '[name].js',
+  },
   plugins: [
     new NamedModulesPlugin(),
     new HotModuleReplacementPlugin(),

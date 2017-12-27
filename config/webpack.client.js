@@ -10,8 +10,6 @@ module.exports = env =>
     },
     output: {
       publicPath: '/',
-      filename: '[name].[chunkhash].js',
-      chunkFilename: '[chunkhash].js',
       path: path.resolve(__dirname, '../dist/static'),
     },
   })
