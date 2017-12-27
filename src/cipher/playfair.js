@@ -1,4 +1,4 @@
-import { codeOf, isUpperCase } from '../util'
+import { isUpperCase } from '../util'
 
 /**
  * @typedef {number} transformType
@@ -41,11 +41,14 @@ const toChars = secret => {
     .split('')
     .filter(isUpperCase)
 
-  for (let i = 0, offset = codeOf('A'); i < 26; i += 1) {
-    const char = String.fromCharCode(offset + i)
-    if (char !== 'J') schars.push(char)
-  }
-  return [...new Set(schars)]
+  // prettier-ignore
+  return [...new Set([...schars,
+    'A', 'B', 'C', 'D', 'E',
+    'F', 'G', 'H', 'I', 'K',
+    'L', 'M', 'N', 'O', 'P',
+    'Q', 'R', 'S', 'T', 'U',
+    'V', 'W', 'X', 'Y', 'Z',
+  ])]
 }
 
 const add1 = a => (a + 1) % 5
