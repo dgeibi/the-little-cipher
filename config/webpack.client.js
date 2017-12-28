@@ -6,7 +6,10 @@ const base = require('./webpack.base')
 module.exports = env =>
   merge(base(env), {
     entry: {
-      app: path.resolve(__dirname, '../src/client/index.js'),
+      app: [
+        path.resolve(__dirname, '../src/client/polyfill.js'),
+        path.resolve(__dirname, '../src/client/index.js'),
+      ],
     },
     output: {
       publicPath: '/',

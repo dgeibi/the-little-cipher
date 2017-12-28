@@ -1,4 +1,3 @@
-import '@babel/polyfill'
 import { createBrowserHistory, createHashHistory } from 'history'
 import dva from 'dva'
 import ReactDOM from 'react-dom'

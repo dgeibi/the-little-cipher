@@ -4,10 +4,13 @@ const pkg = require('../package')
 const merge = require('./merge')
 const client = require('./webpack.client')
 
-module.exports = merge(client(), {
+const clientConfig = client()
+module.exports = merge(clientConfig, {
   devtool: 'cheap-module-eval-source-map',
   entry: {
-    app: ['webpack-hot-middleware/client?reload=true', './src/client/index.js'],
+    app: Array.isArray(clientConfig.entry.app)
+      ? ['webpack-hot-middleware/client?reload=true', ...clientConfig.entry.app]
+      : ['webpack-hot-middleware/client?reload=true', clientConfig.entry.app],
   },
   output: {
     filename: '[name].js',

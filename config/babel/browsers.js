@@ -4,7 +4,6 @@ module.exports = env => {
       [
         '@babel/preset-env',
         {
-          useBuiltIns: 'entry',
           modules: false,
           targets:
             env === 'ssr'
