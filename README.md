@@ -14,17 +14,17 @@
 # 安装依赖
 npm install
 
-# 启动服务器
-npm start
-
-# 单元测试
-npm test
-
 # 构建
 npm run build
 
+# 启动服务器
+npm start
+
 # 启动开发专用服务器
 npm run dev
+
+# 单元测试
+npm test
 ```
 
 ## LICENSE
