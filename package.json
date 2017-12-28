@@ -11,7 +11,6 @@
     "precommit": "lint-staged",
     "dev": "nodemon --watch src/server src/server/dev.js --exec \"node -r @babel/register\"",
     "prod": "npm run build && npm start",
-    "postinstall": "npm run build",
     "start": "node dist/server/index.js",
     "build": "npm run clean && run-p build:*",
     "clean": "rimraf dist",
@@ -22,9 +21,7 @@
   "author": "dgeibi",
   "license": "MIT",
   "lint-staged": {
-    "*.{css,js}": [
-      "git-exec-and-restage prettier --write --"
-    ]
+    "*.{css,js}": ["git-exec-and-restage prettier --write --"]
   },
   "devDependencies": {
     "@babel/register": "^7.0.0-beta.35",
@@ -88,6 +85,9 @@
     "webpack": "^3.10.0",
     "webpack-merge": "^4.1.1",
     "webpack-node-externals": "^1.6.0"
+  },
+  "env": {
+    "NODE_ENV": "production"
   },
   "repository": {
     "type": "git",
