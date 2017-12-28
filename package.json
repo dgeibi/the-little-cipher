@@ -13,6 +13,7 @@
     "prod": "npm run build && npm start",
     "start": "node dist/server/index.js",
     "build": "npm run clean && run-p build:*",
+    "heroku-postbuild": "npm run build",
     "clean": "rimraf dist",
     "build:static": "webpack --config config/webpack.client.prod.js",
     "build:server": "webpack --config config/webpack.server.js",
