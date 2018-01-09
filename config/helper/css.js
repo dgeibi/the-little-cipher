@@ -4,13 +4,18 @@ module.exports = ({ ssr, rule, extractOptions, extract }) => {
   }
   const mRule = Object.assign({}, rule)
   let use
-  if (rule.use && rule.use[0]) {
+  if (Array.isArray(rule.use) && rule.use[0]) {
     use = mRule.use.slice()
-  } else if (rule.loader) {
+  } else if (rule.loader || rule.use) {
     const { loader, options } = rule
     delete mRule.loader
+    delete mRule.use
     delete mRule.options
-    use = [{ loader, options }]
+    if (loader) {
+      use = [{ loader, options }]
+    } else {
+      use = [{ loader: rule.use, options }]
+    }
   } else {
     throw Error('can not find rule use')
   }

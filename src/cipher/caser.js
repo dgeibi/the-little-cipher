@@ -1,4 +1,4 @@
-import { codeOf, isUpperCase } from '../util'
+import { codeOf, isUpperCase } from '@/util'
 
 const offset = codeOf('A')
 

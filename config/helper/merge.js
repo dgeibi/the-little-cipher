@@ -1,6 +1,6 @@
 const webpackMerge = require('webpack-merge')
 
-async function merge(...args) {
+async function merge(opts) {
   const configs = []
 
   async function push(x) {
@@ -26,14 +26,8 @@ async function merge(...args) {
   }
 
   /* eslint-disable no-restricted-syntax, no-await-in-loop */
-  for (const x of args) {
-    if (Array.isArray(x)) {
-      for (const config of x) {
-        if (config) await pushConfig(config)
-      }
-    } else if (x) {
-      await pushConfig(x)
-    }
+  for (const x of opts) {
+    await pushConfig(x)
   }
 
   return webpackMerge(configs)

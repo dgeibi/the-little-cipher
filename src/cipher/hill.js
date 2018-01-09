@@ -1,5 +1,5 @@
-import { transpose, multiply, map, det, adjugate } from '../matrix/index'
-import { isUpperCase, mod, modInverse, codeOf } from '../util'
+import { transpose, multiply, map, det, adjugate } from '@/matrix/index'
+import { isUpperCase, mod, modInverse, codeOf } from '@/util'
 
 /** 密钥为 3x3 方阵 */
 const M = 3

@@ -1,5 +1,5 @@
 import { message } from 'antd'
-import { isPlainFile } from 'Util'
+import { isPlainFile } from '@/util'
 import readAsText from './readAsText'
 
 export default ({ target = 'text', actionType = 'save' } = {}) =>

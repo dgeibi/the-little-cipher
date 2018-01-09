@@ -1,5 +1,6 @@
 module.exports = env => {
   const config = {
+    babelrc: false,
     presets: [
       [
         '@babel/preset-env',

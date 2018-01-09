@@ -1,42 +1,22 @@
 const path = require('path')
 const merge = require('webpack-merge')
-
 const css = require('./helper/css')
-const defineNodeEnv = require('./helper/defineNodeEnv')
-const { getLocalIdent } = require('./helper/getStyleName')
-const rule = require('./helper/rule')
+const env = require('./env')
 
-const babelConfig = require('./babel/browsers')
-
-const main = {
-  output: {
-    publicPath: '/',
-  },
-  resolve: {
-    alias: {
-      Cipher: path.resolve(__dirname, '../src/cipher'),
-      Util$: path.resolve(__dirname, '../src/util.js'),
-    },
-  },
-}
-
-const ANTD_DIR = path.resolve(__dirname, '../node_modules/antd/')
-const SRC_DIR = path.resolve(__dirname, '../src')
-
-module.exports = (env = {}) => {
-  const isProduction = env.production === true
-  const isSSR = env.ssr === true
-  const nodeEnv = !isProduction ? 'development' : 'production'
+module.exports = (webpackEnv = {}) => {
+  const isProduction = webpackEnv.production === true
+  const isSSR = webpackEnv.ssr === true
+  const nodeEnv = isProduction ? 'production' : 'development'
   const babelEnv = isSSR ? 'ssr' : nodeEnv
 
   return merge([
-    main,
-    defineNodeEnv(nodeEnv),
+    require('./helper/alias')(env.alias),
+    require('./helper/defineNodeEnv')(nodeEnv),
     isSSR ||
       css({
         rule: {
           test: /\.css$/,
-          include: ANTD_DIR,
+          include: path.resolve('node_modules/antd/'),
           use: [
             {
               loader: 'css-loader',
@@ -47,13 +27,13 @@ module.exports = (env = {}) => {
           ],
         },
         extract: true,
-        extractOptions: 'antd-[contenthash:8].css',
+        extractOptions: 'antd.[contenthash:8].css',
       }),
     css({
       ssr: isSSR,
       rule: {
         test: /\.css$/,
-        include: SRC_DIR,
+        include: env.srcDir,
         use: [
           {
             loader: 'css-loader',
@@ -61,7 +41,7 @@ module.exports = (env = {}) => {
               minimize: true,
               importLoaders: 1,
               modules: true,
-              getLocalIdent,
+              getLocalIdent: require('./helper/getStyleName').getLocalIdent,
               sourceMap: !isProduction,
             },
           },
@@ -74,13 +54,11 @@ module.exports = (env = {}) => {
         ],
       },
       extract: isProduction,
-      extractOptions: 'main-[contenthash:8].css',
+      extractOptions: 'main.[contenthash:8].css',
     }),
-    rule({
-      test: /\.js$/,
-      include: SRC_DIR,
-      loader: 'babel-loader',
-      options: babelConfig(babelEnv),
+    require('./helper/babelRule')({
+      include: env.srcDir,
+      options: require('./babel/browsers')(babelEnv),
     }),
   ])
 }

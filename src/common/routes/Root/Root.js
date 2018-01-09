@@ -1,11 +1,11 @@
 import React from 'react'
 import { Layout, Icon } from 'antd'
 import { renderRoutes } from 'react-router-config'
-
 import { connect } from 'dva'
+import { innerRoutes } from '@/common/routes/index'
+import DocumentTitle from '@/common/components/DocumentTitle'
+
 import Header from './Header'
-import { innerRoutes } from '..'
-import DocumentTitle from '../../components/DocumentTitle'
 
 import './Root.css'
 

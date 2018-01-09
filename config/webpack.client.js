@@ -1,18 +1,16 @@
 const merge = require('webpack-merge')
-const path = require('path')
 
-const base = require('./webpack.base')
+const env = require('./env')
 
-module.exports = env =>
-  merge(base(env), {
-    entry: {
-      app: [
-        path.resolve(__dirname, '../src/client/polyfill.js'),
-        path.resolve(__dirname, '../src/client/index.js'),
-      ],
+module.exports = webpackEnv =>
+  merge([
+    require('./webpack.base')(webpackEnv),
+    {
+      entry: {
+        client: env.client.entry,
+      },
+      output: {
+        path: env.client.outputPath,
+      },
     },
-    output: {
-      publicPath: '/',
-      path: path.resolve(__dirname, '../dist/static'),
-    },
-  })
+  ])

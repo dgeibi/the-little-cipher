@@ -1,16 +1,23 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const requireWithWebpack = require('./requireWithWebpack')
-const getConfig = require('./getConfig')
 const getFilename = require('./getFilename')
+const rerequire = require('../helper/rerequire')
+const interopDefault = require('../helper/interopDefault')
 
-async function getHtmlPlugins({ entry, template, getExtraOpts, render, renderPaths }) {
-  let createApp = await requireWithWebpack({ entry, getConfig })
-  createApp = createApp.default || createApp
+async function getHtmlPlugins({ baseConfig, entry, getExtraOpts, render, renderPaths }) {
+  const createApp = interopDefault(
+    await requireWithWebpack({ baseConfig: rerequire(baseConfig), entry })
+  )
+
+  const renderApp = rerequire(render)
+  if (typeof renderApp !== 'function') {
+    throw Error('opt render should be function')
+  }
+
   const plugins = renderPaths.map(path => {
-    const rendered = render(createApp(path))
+    const rendered = renderApp(createApp(path))
     const filename = getFilename(path)
     return new HtmlWebpackPlugin({
-      template,
       filename,
       ...getExtraOpts(rendered),
     })

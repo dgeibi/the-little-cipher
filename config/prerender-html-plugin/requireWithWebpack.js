@@ -1,27 +1,42 @@
 const MemoryFS = require('memory-fs')
 const webpack = require('webpack')
-const { join } = require('path')
-
+const path = require('path')
 const vm = require('vm')
+const node = require('../helper/node')
+const merge = require('../helper/merge')
+const validateBaseConfig = require('./validateBaseConfig')
 
-async function requireWithWebpack({ entry, getConfig }) {
+async function requireWithWebpack({ entry, baseConfig }) {
   const fs = new MemoryFS()
-  const dist = join(__dirname, 'anything.js')
-  const compiler = webpack(
-    await getConfig({
+  const dist = path.join(__dirname, 'anything.js')
+
+  validateBaseConfig(baseConfig)
+
+  const webpackConfig = await merge([
+    baseConfig,
+    node(),
+    {
       entry,
-      dist,
-    })
-  )
+      output: {
+        path: path.dirname(dist),
+        filename: path.basename(dist),
+        libraryTarget: 'commonjs2',
+      },
+    },
+  ])
+
+  const compiler = webpack(webpackConfig)
   compiler.outputFileSystem = fs
+
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
       if (err || stats.hasErrors()) {
         reject(err || stats)
+        // eslint-disable-next-line
         console.log(
           stats.toString({
-            chunks: false, // Makes the build much quieter
-            colors: true, // Shows colors in the console
+            chunks: false,
+            colors: true,
           })
         )
         return

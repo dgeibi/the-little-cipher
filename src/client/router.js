@@ -1,7 +1,7 @@
 import React from 'react'
 import { routerRedux } from 'dva/router'
 import { renderRoutes } from 'react-router-config'
-import routes from '../common/routes'
+import routes from '@/common/routes/index'
 
 const { ConnectedRouter } = routerRedux
 
