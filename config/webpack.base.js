@@ -11,7 +11,10 @@ module.exports = (webpackEnv = {}) => {
 
   return merge([
     require('./helper/alias')(env.alias),
-    require('./helper/defineNodeEnv')(nodeEnv),
+    require('./helper/define')({
+      'process.env.NODE_ENV': nodeEnv,
+      'process.env.SSR': isSSR,
+    }),
     isSSR ||
       css({
         rule: {

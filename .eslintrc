@@ -9,12 +9,5 @@
     "no-mixed-operators": "off",
     "react/prop-types": "off",
     "no-underscore-dangle": "off"
-  },
-  "settings": {
-    "import/resolver": {
-      "webpack": {
-        "config": "config/webpack.base.js"
-      }
-    }
   }
 }

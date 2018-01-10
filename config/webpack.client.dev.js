@@ -10,7 +10,7 @@ module.exports = merge([
     devtool: 'cheap-module-eval-source-map',
     entry: {
       client: require('./helper/prependEntry')(
-        env.entries.client,
+        env.client.entry,
         'webpack-hot-middleware/client?reload=true'
       ),
     },

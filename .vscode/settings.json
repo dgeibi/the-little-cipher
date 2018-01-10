@@ -1,6 +1,0 @@
-{
-  "path-intellisense.extensionOnImport": true,
-  "path-intellisense.mappings": {
-    "@": "${workspaceRoot}/src",
-  }
-}

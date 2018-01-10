@@ -22,18 +22,19 @@
   "author": "dgeibi",
   "license": "MIT",
   "lint-staged": {
-    "*.{css,js}": ["git-exec-and-restage prettier --write --"]
+    "*.{css,js}": [
+      "git-exec-and-restage prettier --write --"
+    ]
   },
   "devDependencies": {
     "@babel/register": "^7.0.0-beta.35",
     "babel-eslint": "^8.1.1",
     "babel-jest": "^22.0.4",
-    "babel-plugin-dva-hmr": "^0.4.0",
+    "babel-plugin-dva-hmr": "^0.4.1",
     "eslint": "^4.14.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-dgeibi": "^4.0.0",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-react": "^7.5.1",
     "git-exec-and-restage": "^1.0.1",

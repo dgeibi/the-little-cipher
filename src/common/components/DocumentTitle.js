@@ -1,6 +1,6 @@
 import React from 'react'
 import Helmet from 'react-helmet'
-import getTitle from '@/common/utils/getTitle'
+import getTitle from '../../common/utils/getTitle'
 
 function DocumentTitle({ title, children }) {
   return (

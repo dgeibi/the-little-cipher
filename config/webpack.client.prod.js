@@ -8,6 +8,9 @@ module.exports = merge([
   require('./helper/outputName')({ chunkhash: true }),
   require('./helper/uglifyJS')(),
   {
+    entry: {
+      client: env.client.entry,
+    },
     plugins: [
       new webpack.HashedModuleIdsPlugin(),
       new webpack.optimize.ModuleConcatenationPlugin(),

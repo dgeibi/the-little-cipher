@@ -4,10 +4,6 @@
     "experimentalDecorators": true,
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-    "baseUrl": ".",
   },
   "include": [
     "src/**/*"

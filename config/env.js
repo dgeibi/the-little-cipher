@@ -4,9 +4,6 @@ const srcDir = resolve('src')
 
 const env = {
   srcDir,
-  alias: {
-    '@': srcDir,
-  },
   server: {
     entry: './src/server/index.js',
     outputPath: resolve('dist/server'),

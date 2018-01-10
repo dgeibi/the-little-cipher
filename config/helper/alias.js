@@ -1,5 +1,6 @@
-module.exports = alias => ({
-  resolve: {
-    alias,
-  },
-})
+module.exports = alias =>
+  alias && {
+    resolve: {
+      alias,
+    },
+  }

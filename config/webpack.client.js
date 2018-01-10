@@ -6,9 +6,6 @@ module.exports = webpackEnv =>
   merge([
     require('./webpack.base')(webpackEnv),
     {
-      entry: {
-        client: env.client.entry,
-      },
       output: {
         path: env.client.outputPath,
       },
