@@ -19,7 +19,7 @@ const hot = {
       }
       app = inst
       defaultContainer = container
-      console.log('[HMR] inited with dva-hot') // eslint-disable-line
+      console.log('[HMR] inited with dva-hot')
       app.use({
         onHmr(render) {
           hmrRender = render
@@ -38,7 +38,7 @@ const hot = {
           try {
             app.model(model)
           } catch (e) {
-            console.error('error', e) // eslint-disable-line
+            console.error('error', e)
           }
         }
         sourceModule.hot.dispose(() => {
@@ -70,7 +70,7 @@ const hot = {
             try {
               hmrRender(x)
             } catch (error) {
-              console.error('error', error) // eslint-disable-line
+              console.error('error', error)
               renderException(error)
             }
           }

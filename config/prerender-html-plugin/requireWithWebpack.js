@@ -14,7 +14,9 @@ async function requireWithWebpack({ entry, baseConfig }) {
 
   const webpackConfig = await merge([
     baseConfig,
-    node(),
+    node({
+      sourcemap: true,
+    }),
     {
       entry,
       output: {
@@ -32,7 +34,6 @@ async function requireWithWebpack({ entry, baseConfig }) {
     compiler.run((err, stats) => {
       if (err || stats.hasErrors()) {
         reject(err || stats)
-        // eslint-disable-next-line
         console.log(
           stats.toString({
             chunks: false,

@@ -14,9 +14,9 @@ async function getHtmlPlugins({ baseConfig, entry, getExtraOpts, render, renderP
     throw Error('opt render should be function')
   }
 
-  const plugins = renderPaths.map(path => {
-    const rendered = renderApp(createApp(path))
-    const filename = getFilename(path)
+  const plugins = renderPaths.map(pathname => {
+    const rendered = renderApp(createApp({ pathname }))
+    const filename = getFilename(pathname)
     return new HtmlWebpackPlugin({
       filename,
       ...getExtraOpts(rendered),

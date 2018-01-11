@@ -8,6 +8,7 @@
     "global-require": "off",
     "no-mixed-operators": "off",
     "react/prop-types": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "no-console": "off"
   }
 }

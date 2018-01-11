@@ -1,6 +1,6 @@
 import { readFile } from 'fs'
-import { playfair, cipherString, originalString } from '../cipher/playfair'
-import { isPlainFile } from '../util'
+import { playfair, cipherString, originalString } from '../core/cipher/playfair'
+import { isPlainFile } from '../core/util'
 
 const getResults = (secret, plaintext, decodeMode) => {
   const { diff, square } = playfair(secret, plaintext, decodeMode === 'true')

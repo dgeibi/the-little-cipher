@@ -1,4 +1,4 @@
 import createServer from './createServer'
-import createHotMiddleware from '../webpack/createHotMiddleware'
+import createHotMiddleware from './createHotMiddleware'
 
 createHotMiddleware().then(createServer)

@@ -9,12 +9,12 @@ const env = {
     outputPath: resolve('dist/server'),
   },
   client: {
-    entry: ['./src/client/polyfill.js', './src/client/index.js'],
+    entry: './src/client/index.js',
     outputPath: resolve('dist/static'),
   },
   prerender: {
-    render: './src/render/render.js',
-    entry: './src/render/createApp.js',
+    render: './src/ssr/render.js',
+    entry: './src/createApp.js',
     renderPaths: ['/', '/caser/', '/playfair/', '/hill/'],
     baseConfig: './config/webpack.prerender.js',
     getExtraOpts: ({ bodyContent, helmet }) => ({ ...env.html, bodyContent, helmet }),
