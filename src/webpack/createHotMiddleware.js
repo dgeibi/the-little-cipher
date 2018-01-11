@@ -23,7 +23,7 @@ export default async () => {
         next(err)
         return
       }
-      res.set('content-type', 'text/html')
+      res.set('Content-Type', 'text/html')
       res.send(result)
       res.end()
     })

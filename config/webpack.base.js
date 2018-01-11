@@ -15,6 +15,11 @@ module.exports = (webpackEnv = {}) => {
       'process.env.NODE_ENV': nodeEnv,
       'process.env.SSR': isSSR,
     }),
+    {
+      output: {
+        publicPath: '/',
+      },
+    },
     isSSR ||
       css({
         rule: {
