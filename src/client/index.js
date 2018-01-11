@@ -7,6 +7,7 @@ import playfair from '../common/models/playfair'
 import hill from '../common/models/hill'
 
 import router from './router'
+import hot from '../dva-hot'
 
 import './index.css'
 
@@ -17,14 +18,16 @@ const app = dva({
   history: (HISTORY_API ? createBrowserHistory : createHashHistory)(),
 })
 
+const container = '#root'
+hot.app(app, container)
+
 app.model(caser)
 app.model(playfair)
 app.model(hill)
-
 app.router(router)
 
 if (module.hot) {
-  app.start('#root')
+  app.start(container)
 } else {
-  ReactDOM.hydrate(app.start()(), document.querySelector('#root'))
+  ReactDOM.hydrate(app.start()(), document.querySelector(container))
 }

@@ -1,7 +1,8 @@
 import save from '../utils/dva-reducer-save'
 import file2Text from '../utils/dva-effect-file2Text'
+import hot from '../../dva-hot'
 
-export default {
+export default hot.model(module)({
   namespace: 'caser',
 
   state: {
@@ -16,4 +17,4 @@ export default {
   reducers: {
     save,
   },
-}
+})

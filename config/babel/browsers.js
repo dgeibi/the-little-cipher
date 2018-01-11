@@ -42,10 +42,6 @@ module.exports = env => {
     ],
   }
 
-  if (env === 'development') {
-    config.plugins.push('dva-hmr')
-  }
-
   const { generateScopedName } = require('../helper/getStyleName')
   config.plugins.push([
     'react-css-modules',

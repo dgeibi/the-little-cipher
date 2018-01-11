@@ -1,7 +1,7 @@
 import { postData, readPlainText } from '../services/playfair'
 import save from '../utils/dva-reducer-save'
-
 import delay from '../utils/delay'
+import hot from '../../dva-hot'
 
 const getInit = () => ({
   secretInput: '',
@@ -13,7 +13,8 @@ const getInit = () => ({
   square: null,
 })
 const takeLatest = { type: 'takeLatest' }
-export default {
+
+export default hot.model(module)({
   namespace: 'playfair',
 
   state: getInit(),
@@ -52,4 +53,4 @@ export default {
       return { ...getInit(), ...action.payload }
     },
   },
-}
+})

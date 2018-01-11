@@ -30,7 +30,6 @@
     "@babel/register": "^7.0.0-beta.37",
     "babel-eslint": "^8.2.1",
     "babel-jest": "^22.0.4",
-    "babel-plugin-dva-hmr": "^0.4.1",
     "eslint": "^4.14.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-dgeibi": "^4.0.0",
@@ -45,7 +44,7 @@
     "prettier": "^1.9.2",
     "redbox-react": "^1.5.0",
     "webpack-bundle-analyzer": "^2.9.1",
-    "webpack-dev-middleware": "^1.12.2",
+    "webpack-dev-middleware": "^2.0.4",
     "webpack-hot-middleware": "^2.21.0"
   },
   "dependencies": {
