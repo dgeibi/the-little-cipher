@@ -1,6 +1,6 @@
 import dva from 'dva'
 import createLoading from 'dva-loading'
-import hot from './dva-hot'
+import hot from 'dva-hot'
 import createHistory from './createHistory'
 
 function createApp({ pathname, staticContext, container } = {}) {
@@ -16,7 +16,6 @@ function createApp({ pathname, staticContext, container } = {}) {
     return model
   }
 
-  hot.app(app, container)
   app.model(wrapModel(require('./models/caser').default))
   app.model(wrapModel(require('./models/hill').default))
   app.model(wrapModel(require('./models/playfair').default))
@@ -32,7 +31,7 @@ function createApp({ pathname, staticContext, container } = {}) {
   }
 
   if (process.env.NODE_ENV === 'development' && module.hot) {
-    app.start(container)
+    hot.patch(app).start(container)
   } else {
     const { hydrate } = require('react-dom')
     const { createElement } = require('react')

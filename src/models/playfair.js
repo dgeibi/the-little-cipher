@@ -1,7 +1,7 @@
+import hot from 'dva-hot'
 import { postData, readPlainText } from '../services/playfair'
 import save from '../utils/dva-reducer-save'
 import delay from '../utils/delay'
-import hot from '../dva-hot'
 
 const getInit = () => ({
   secretInput: '',
