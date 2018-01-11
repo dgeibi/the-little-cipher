@@ -13,7 +13,7 @@ function shouldReload() {
 
 const hot = {
   app(inst, container) {
-    if (module.hot) {
+    if (process.env.NODE_ENV !== 'production' && module.hot) {
       if (!inst) {
         throw Error('symtax: hot.app(app, "#root")')
       }
