@@ -4,6 +4,7 @@
     "experimentalDecorators": true,
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
+    "module": "commonjs",
   },
   "include": [
     "src/**/*"
