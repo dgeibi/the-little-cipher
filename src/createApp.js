@@ -3,11 +3,13 @@ import createLoading from 'dva-loading'
 import hot from 'dva-hot'
 import createHistory from './createHistory'
 
-function createApp({ pathname, staticContext, container } = {}) {
+function createApp({ pathname, staticContext } = {}) {
   const app = dva({
     ...createLoading(),
     history: createHistory(pathname),
   })
+
+  hot.patch(app)
 
   const wrapModel = model => {
     if (process.env.SSR) {
@@ -26,19 +28,7 @@ function createApp({ pathname, staticContext, container } = {}) {
     app.router(require('./client/router').default)
   }
 
-  if (process.env.SSR) {
-    return app.start()
-  }
-
-  if (process.env.NODE_ENV === 'development' && module.hot) {
-    hot.patch(app).start(container)
-  } else {
-    const { hydrate } = require('react-dom')
-    const { createElement } = require('react')
-    hydrate(createElement(app.start()), document.querySelector(container))
-  }
-
-  return null
+  return app.start()
 }
 
 export default createApp
