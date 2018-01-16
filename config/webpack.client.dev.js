@@ -7,7 +7,7 @@ module.exports = merge([
   require('./webpack.client'),
   require('./helper/outputName')(),
   {
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'cheap-module-source-map',
     entry: {
       client: require('./helper/prependEntry')(
         env.client.entry,
