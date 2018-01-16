@@ -2,10 +2,9 @@ import webpack from 'webpack'
 import { join } from 'path'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import configPromise from '../../config/webpack.client.dev'
 
-export default async () => {
-  const webpackConfig = await configPromise
+export default async config => {
+  const webpackConfig = await normalizeConfig(config)
   const compiler = webpack(webpackConfig)
 
   function historyApiFallback(req, res, next) {
@@ -37,4 +36,9 @@ export default async () => {
     webpackHotMiddleware(compiler),
     historyApiFallback,
   ]
+}
+
+async function normalizeConfig(anyConfig) {
+  if (typeof func === 'function') return anyConfig()
+  return anyConfig
 }

@@ -1,4 +1,5 @@
 import createServer from './createServer'
 import createHotMiddleware from './createHotMiddleware'
+import config from '../../config/webpack.client.dev'
 
-createHotMiddleware().then(createServer)
+createHotMiddleware(config).then(createServer)
