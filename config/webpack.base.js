@@ -1,6 +1,6 @@
 const path = require('path')
 const merge = require('webpack-merge')
-const css = require('./helper/css')
+const css = require('./presets/css')
 const env = require('./env')
 
 module.exports = (webpackEnv = {}) => {
@@ -10,8 +10,8 @@ module.exports = (webpackEnv = {}) => {
   const babelEnv = isSSR ? 'ssr' : nodeEnv
 
   return merge([
-    require('./helper/alias')(env.alias),
-    require('./helper/define')({
+    require('./helper/WPC').alias(env.alias),
+    require('./presets/define')({
       'process.env.NODE_ENV': nodeEnv,
       'process.env.SSR': isSSR,
     }),
@@ -49,7 +49,7 @@ module.exports = (webpackEnv = {}) => {
               minimize: true,
               importLoaders: 1,
               modules: true,
-              getLocalIdent: require('./helper/getStyleName').getLocalIdent,
+              getLocalIdent: require('./cssModules/getLocalIdent'),
               sourceMap: !isProduction,
             },
           },
@@ -64,7 +64,7 @@ module.exports = (webpackEnv = {}) => {
       extract: isProduction,
       extractOptions: 'main.[contenthash:8].css',
     }),
-    require('./helper/babelRule')({
+    require('./presets/babel')({
       include: env.srcDir,
       options: require('./babel/browsers')(babelEnv),
     }),

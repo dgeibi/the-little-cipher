@@ -1,5 +1,6 @@
-const { resolve } = require('path')
+const { join } = require('path')
 
+const resolve = join.bind(null, __dirname, '../')
 const srcDir = resolve('src')
 
 const env = {

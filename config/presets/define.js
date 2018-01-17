@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const WPC = require('../helper/WPC')
 
 module.exports = (opts = {}) => {
   const keys = Object.keys(opts)
@@ -10,7 +11,5 @@ module.exports = (opts = {}) => {
     definitions[key] = value
   })
 
-  return {
-    plugins: [new webpack.DefinePlugin(definitions)],
-  }
+  return WPC.plugin(new webpack.DefinePlugin(definitions))
 }

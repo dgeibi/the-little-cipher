@@ -1,4 +1,4 @@
-const buildRule = require('./rule')
+const WPC = require('../helper/WPC')
 
 module.exports = ({ ssr, rule, extractOptions, extract }) => {
   if (!rule || !(rule.use || rule.loader)) {
@@ -31,7 +31,7 @@ module.exports = ({ ssr, rule, extractOptions, extract }) => {
 
   if (ssr === true) {
     mRule.use[0].loader = 'css-loader/locals'
-    return buildRule(mRule)
+    return WPC.rule(mRule)
   }
 
   if (extract && extractOptions) {
@@ -45,5 +45,5 @@ module.exports = ({ ssr, rule, extractOptions, extract }) => {
   }
 
   mRule.use.unshift('style-loader')
-  return buildRule(mRule)
+  return WPC.rule(mRule)
 }

@@ -1,3 +1,4 @@
+require('./register')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const requireWithWebpack = require('./requireWithWebpack')
 const getFilename = require('./getFilename')
@@ -9,7 +10,7 @@ async function getHtmlPlugins({ baseConfig, entry, getExtraOpts, render, renderP
     await requireWithWebpack({ baseConfig: rerequire(baseConfig), entry })
   )
 
-  const renderApp = rerequire(render)
+  const renderApp = interopDefault(rerequire(render))
   if (typeof renderApp !== 'function') {
     throw Error('opt render should be function')
   }

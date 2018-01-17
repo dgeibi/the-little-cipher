@@ -1,7 +1,8 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const WPC = require('../helper/WPC')
 
-module.exports = options => ({
-  plugins: [
+module.exports = options =>
+  WPC.plugin(
     new UglifyJsPlugin(
       Object.assign(
         {
@@ -17,6 +18,5 @@ module.exports = options => ({
         },
         options
       )
-    ),
-  ],
-})
+    )
+  )

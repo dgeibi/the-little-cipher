@@ -5,8 +5,8 @@ const env = require('./env')
 module.exports = merge([
   require('./webpack.client')({ production: true }),
   require('./prerender-html-plugin')(env.prerender),
-  require('./helper/outputName')({ chunkhash: true }),
-  require('./helper/uglifyJS')(),
+  require('./presets/outputName')({ chunkhash: true }),
+  require('./presets/uglifyJS')(),
   {
     entry: {
       client: env.client.entry,

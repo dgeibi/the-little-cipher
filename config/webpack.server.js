@@ -3,10 +3,10 @@ const merge = require('./helper/merge')
 const env = require('./env')
 
 module.exports = merge([
-  require('./helper/node')(),
-  require('./helper/outputName')(),
-  require('./helper/alias')(env.alias),
-  require('./helper/babelRule')({
+  require('./presets/node')(),
+  require('./presets/outputName')(),
+  require('./helper/WPC').alias(env.alias),
+  require('./presets/babel')({
     include: env.srcDir,
   }),
   {

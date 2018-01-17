@@ -1,11 +1,11 @@
-const { Helmet } = require('react-helmet')
-const { renderToString } = require('react-dom/server')
-const { createElement } = require('react')
+import { Helmet } from 'react-helmet'
+import { renderToString } from 'react-dom/server'
+import React from 'react'
 
 const render = App => {
-  const bodyContent = renderToString(createElement(App))
+  const bodyContent = renderToString(<App />)
   const helmet = Helmet.renderStatic()
   return { bodyContent, helmet }
 }
 
-module.exports = render
+export default render

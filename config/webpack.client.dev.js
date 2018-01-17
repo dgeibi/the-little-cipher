@@ -5,7 +5,7 @@ const env = require('./env')
 
 module.exports = merge([
   require('./webpack.client'),
-  require('./helper/outputName')(),
+  require('./presets/outputName')(),
   {
     devtool: 'cheap-module-source-map',
     entry: {

@@ -27,7 +27,6 @@
     ]
   },
   "devDependencies": {
-    "@babel/register": "^7.0.0-beta.37",
     "babel-eslint": "^8.2.1",
     "babel-jest": "^22.0.4",
     "eslint": "^4.14.0",
@@ -48,6 +47,7 @@
     "webpack-hot-middleware": "^2.21.0"
   },
   "dependencies": {
+    "@babel/register": "^7.0.0-beta.37",
     "@babel/core": "^7.0.0-beta.37",
     "@babel/polyfill": "^7.0.0-beta.37",
     "@babel/preset-env": "^7.0.0-beta.37",

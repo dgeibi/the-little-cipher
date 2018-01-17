@@ -42,12 +42,11 @@ module.exports = env => {
     ],
   }
 
-  const { generateScopedName } = require('../helper/getStyleName')
   config.plugins.push([
     'react-css-modules',
     {
       webpackHotModuleReloading: env === 'development',
-      generateScopedName,
+      generateScopedName: require('../cssModules/generateScopedName'),
       filetypes: {
         '.css': {
           plugins: ['postcss-nesting'],

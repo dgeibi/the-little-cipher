@@ -2,7 +2,7 @@ const MemoryFS = require('memory-fs')
 const webpack = require('webpack')
 const path = require('path')
 const vm = require('vm')
-const node = require('../helper/node')
+const node = require('../presets/node')
 const merge = require('../helper/merge')
 const validateBaseConfig = require('./validateBaseConfig')
 
