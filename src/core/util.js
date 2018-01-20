@@ -46,7 +46,7 @@ export function modInverse(a, n) {
   // a 和 n 不互质 无逆元
   if (r !== 1) return NaN
   if (t < 0) {
-    t = t + n
+    t += n
   }
 
   return t

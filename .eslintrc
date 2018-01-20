@@ -2,7 +2,7 @@
   "env": {
     "jest": true
   },
-  "extends": ["dgeibi/react", "prettier"],
+  "extends": ["dgeibi/react"],
   "rules": {
     "import/no-extraneous-dependencies": "off",
     "global-require": "off",
