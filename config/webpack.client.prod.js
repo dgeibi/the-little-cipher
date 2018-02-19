@@ -2,6 +2,8 @@ const webpack = require('webpack')
 const merge = require('./helper/merge')
 const env = require('./env')
 
+process.env.NODE_ENV = 'production'
+
 module.exports = merge([
   require('./webpack.client')({ production: true }),
   require('./prerender-html-plugin')(env.prerender),
