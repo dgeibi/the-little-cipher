@@ -13,13 +13,6 @@ const env = {
     entry: './src/client/index.js',
     outputPath: resolve('dist/static'),
   },
-  prerender: {
-    render: './src/ssr/render.js',
-    entry: './src/createApp.js',
-    renderPaths: ['/', '/caser/', '/playfair/', '/hill/'],
-    baseConfig: './config/webpack.prerender.js',
-    getExtraOpts: ({ bodyContent, helmet }) => ({ ...env.html, bodyContent, helmet }),
-  },
   html: {
     template: './src/client/index.ejs',
     title: 'The Little Cipher',

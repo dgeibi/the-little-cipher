@@ -14,7 +14,13 @@ module.exports = merge([
       client: env.client.entry,
     },
     plugins: [
-      new Prerender(env.prerender),
+      new Prerender({
+        render: './src/ssr/render.js',
+        entry: './src/createApp.js',
+        renderPaths: ['/', '/caser/', '/playfair/', '/hill/'],
+        baseConfig: './config/webpack.prerender.js',
+        getExtraOpts: ({ bodyContent, helmet }) => ({ ...env.html, bodyContent, helmet }),
+      }),
       new webpack.HashedModuleIdsPlugin(),
       new webpack.optimize.ModuleConcatenationPlugin(),
       new webpack.optimize.CommonsChunkPlugin({
