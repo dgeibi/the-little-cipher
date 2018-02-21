@@ -1,12 +1,12 @@
 const webpack = require('webpack')
 const merge = require('./helper/merge')
 const env = require('./env')
+const Prerender = require('./prerender-html-plugin')
 
 process.env.NODE_ENV = 'production'
 
 module.exports = merge([
   require('./webpack.client')({ production: true }),
-  require('./prerender-html-plugin')(env.prerender),
   require('./presets/outputName')({ chunkhash: true }),
   require('./presets/uglifyJS')(),
   {
@@ -14,6 +14,7 @@ module.exports = merge([
       client: env.client.entry,
     },
     plugins: [
+      new Prerender(env.prerender),
       new webpack.HashedModuleIdsPlugin(),
       new webpack.optimize.ModuleConcatenationPlugin(),
       new webpack.optimize.CommonsChunkPlugin({
@@ -22,8 +23,8 @@ module.exports = merge([
       }),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'antd',
-        chunks: ['vendor'],
-        minChunks: module => module.context && /antd|rc-/.test(module.context),
+        minChunks: module =>
+          module.context && /node_modules[/\\]antd|rc-/.test(module.context),
       }),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'manifest',
