@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 const merge = require('./helper/merge')
 const env = require('./env')
-const Prerender = require('./prerender-html-plugin')
+const SimplePrerender = require('simple-prerender-webpack-plugin')
 
 process.env.NODE_ENV = 'production'
 
@@ -14,12 +14,15 @@ module.exports = merge([
       client: env.client.entry,
     },
     plugins: [
-      new Prerender({
-        render: './src/ssr/render.js',
-        entry: './src/createApp.js',
-        renderPaths: ['/', '/caser/', '/playfair/', '/hill/'],
-        baseConfig: './config/webpack.prerender.js',
-        getExtraOpts: ({ bodyContent, helmet }) => ({ ...env.html, bodyContent, helmet }),
+      new SimplePrerender({
+        entry: './src/ssr/render.js',
+        routes: ['/', '/caser/', '/playfair/', '/hill/'],
+        config: './config/webpack.prerender.js',
+        getHtmlWebpackPluginOpts: ({ bodyContent, helmet }) => ({
+          ...env.html,
+          bodyContent,
+          helmet,
+        }),
       }),
       new webpack.HashedModuleIdsPlugin(),
       new webpack.optimize.ModuleConcatenationPlugin(),
