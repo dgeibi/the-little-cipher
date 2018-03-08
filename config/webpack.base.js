@@ -6,20 +6,19 @@ const env = require('./env')
 module.exports = (webpackEnv = {}) => {
   const isProduction = webpackEnv.production === true
   const isSSR = webpackEnv.ssr === true
-  const nodeEnv = isProduction ? 'production' : 'development'
-  const babelEnv = isSSR ? 'ssr' : nodeEnv
+  const mode = isProduction ? 'production' : 'development'
 
   return merge([
-    require('./helper/WPC').alias(env.alias),
-    require('./presets/define')({
-      'process.env.NODE_ENV': nodeEnv,
-      'process.env.SSR': isSSR,
-    }),
     {
+      mode,
       output: {
         publicPath: '/',
       },
     },
+    require('./helper/WPC').alias(env.alias),
+    require('./presets/define')({
+      'process.env.SSR': isSSR,
+    }),
     isSSR ||
       css({
         rule: {
@@ -66,7 +65,7 @@ module.exports = (webpackEnv = {}) => {
     }),
     require('./presets/babel')({
       include: env.srcDir,
-      options: require('./babel/browsers')(babelEnv),
+      options: require('./babel/browsers')(isSSR ? 'ssr' : mode),
     }),
   ])
 }

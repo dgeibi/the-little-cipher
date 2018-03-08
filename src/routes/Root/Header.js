@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import { Menu, Popover, Icon } from 'antd'
 import { Link } from 'dva/router'
-import { Media } from 'react-fns'
+import { Media as M } from 'react-fns'
 import { getMatchKey } from '..'
 import './Header.css'
+
+const Media = M.default || M
+const MenuItem = Menu.Item
 
 class Header extends Component {
   state = {
@@ -42,9 +45,9 @@ class Header extends Component {
         {routes.map(
           ({ component: { title, skipMenu }, path }) =>
             skipMenu ? null : (
-              <Menu.Item key={path}>
+              <MenuItem key={path}>
                 <Link to={path}>{title}</Link>
-              </Menu.Item>
+              </MenuItem>
             )
         )}
       </Menu>

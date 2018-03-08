@@ -1,5 +1,6 @@
 module.exports = env => {
   const config = {
+    cacheDirectory: true,
     babelrc: false,
     presets: [
       [

@@ -7,6 +7,9 @@ module.exports = merge([
   require('./webpack.client'),
   require('./presets/outputName')(),
   {
+    output: {
+      globalObject: 'this', // https://github.com/webpack/webpack/issues/6642
+    },
     devtool: 'cheap-module-source-map',
     entry: {
       client: require('./helper/prependEntry')(

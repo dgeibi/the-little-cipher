@@ -10,6 +10,7 @@ module.exports = merge([
     include: env.srcDir,
   }),
   {
+    mode: 'production',
     entry: {
       index: env.server.entry,
     },
