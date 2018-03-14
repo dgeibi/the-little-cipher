@@ -25,23 +25,11 @@ class Header extends Component {
     })
   }
 
-  onMenuClick = ({ key, domEvent }) => {
-    if (domEvent.target.nodeName === 'LI') {
-      const { history } = this.props
-      history.push(key)
-    }
-  }
-
   renderMenu(mode) {
     const { currentPath, routes } = this.props
 
     return (
-      <Menu
-        onClick={this.onMenuClick}
-        mode={mode}
-        defaultSelectedKeys={[getMatchKey(currentPath)]}
-        styleName="menu"
-      >
+      <Menu mode={mode} defaultSelectedKeys={[getMatchKey(currentPath)]} styleName="menu">
         {routes.map(
           ({ component: { title, skipMenu }, path }) =>
             skipMenu ? null : (
@@ -52,6 +40,12 @@ class Header extends Component {
         )}
       </Menu>
     )
+  }
+
+  handleKeyDown = e => {
+    if (e.keyCode === 13) {
+      e.target.click()
+    }
   }
 
   render() {
@@ -71,7 +65,13 @@ class Header extends Component {
                   arrowPointAtCenter
                   onVisibleChange={this.onMenuVisibleChange}
                 >
-                  <Icon styleName="nav-icon" type="menu" onClick={this.handleShowMenu} />
+                  <Icon
+                    styleName="nav-icon"
+                    type="menu"
+                    onClick={this.handleShowMenu}
+                    onKeyDown={this.handleKeyDown}
+                    tabIndex="0"
+                  />
                 </Popover>
               )
             }
@@ -84,3 +84,7 @@ class Header extends Component {
 }
 
 export default Header
+
+/*
+
+*/

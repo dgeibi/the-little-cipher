@@ -1,12 +1,17 @@
 .header {
   background-color: #ffffff;
-  line-height: 46px;
   margin-bottom: 25px;
   padding-left: 25px;
+  height: 46px;
 }
 
 :global(.ant-menu-horizontal) {
-  border-bottom: 0px;
+  border-bottom: 0 none;
+}
+
+:global(.ant-menu-horizontal) :global(.ant-menu-item) > a:before {
+  height: auto;
+  bottom: -2px;
 }
 
 @media screen and (max-width: 599px) {
@@ -27,18 +32,25 @@
 
 .nav-icon {
   position: relative;
-  top: 10px;
-  width: 20px;
-  height: 22px;
+  width: 40px;
+  height: 100%;
   cursor: pointer;
+  vertical-align: top;
+}
+
+.nav-icon:focus {
+  outline: 0;
+  color: #40a9ff;
 }
 
 .nav-icon:before {
   content: '';
   position: absolute;
   border-radius: 2px;
+  top: 35%;
+  left: 10px;
   width: 20px;
-  height: 2px;
-  background: #777;
-  box-shadow: 0 6px 0 0 #777, 0 12px 0 0 #777;
+  height: 1.9px;
+  background: currentColor;
+  box-shadow: 0 6px 0 0, 0 12px 0 0;
 }
