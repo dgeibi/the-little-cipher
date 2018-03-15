@@ -29,7 +29,7 @@ class Header extends Component {
     const { currentPath, routes } = this.props
 
     return (
-      <Menu mode={mode} defaultSelectedKeys={[getMatchKey(currentPath)]} styleName="menu">
+      <Menu mode={mode} selectedKeys={[getMatchKey(currentPath)]} styleName="menu">
         {routes.map(
           ({ component: { title, skipMenu }, path }) =>
             skipMenu ? null : (
@@ -84,7 +84,3 @@ class Header extends Component {
 }
 
 export default Header
-
-/*
-
-*/
