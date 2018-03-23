@@ -1,4 +1,4 @@
-const { NamedModulesPlugin, HotModuleReplacementPlugin } = require('webpack')
+const { HotModuleReplacementPlugin } = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const merge = require('./helper/merge')
 const env = require('./env')
@@ -17,10 +17,6 @@ module.exports = merge([
         'webpack-hot-middleware/client?reload=true'
       ),
     },
-    plugins: [
-      new NamedModulesPlugin(),
-      new HotModuleReplacementPlugin(),
-      new HtmlWebpackPlugin(env.html || {}),
-    ],
+    plugins: [new HotModuleReplacementPlugin(), new HtmlWebpackPlugin(env.html || {})],
   },
 ])

@@ -1,7 +1,6 @@
 const merge = require('./helper/merge')
 const env = require('./env')
 const SimplePrerender = require('simple-prerender-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const webpack = require('webpack')
 
 process.env.NODE_ENV = 'production'
@@ -15,19 +14,6 @@ module.exports = merge([
       splitChunks: {
         chunks: 'all',
       },
-      minimizer: [
-        new UglifyJsPlugin({
-          uglifyOptions: {
-            ie8: false,
-            ecma: 8,
-            output: {
-              comments: false,
-              beautify: false,
-            },
-            warnings: false,
-          },
-        }),
-      ],
     },
     entry: {
       client: env.client.entry,
