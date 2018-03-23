@@ -5,6 +5,19 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 
 export default async config => {
   const webpackConfig = await normalizeConfig(config)
+  webpackConfig.plugins = webpackConfig.plugins || []
+  let started = false
+  const untilStarted = new Promise(resolve => {
+    webpackConfig.plugins.push({
+      apply: c => {
+        c.hooks.done.tap('firstBuildDone', () => {
+          if (started) return
+          started = true
+          resolve()
+        })
+      },
+    })
+  })
   const compiler = webpack(webpackConfig)
 
   function historyApiFallback(req, res, next) {
@@ -23,12 +36,10 @@ export default async config => {
         return
       }
       res.set('Content-Type', 'text/html')
-      res.send(result)
-      res.end()
+      res.end(result)
     })
   }
-
-  return [
+  const middleware = [
     webpackDevMiddleware(compiler, {
       noInfo: true,
       publicPath: webpackConfig.output.publicPath,
@@ -36,6 +47,8 @@ export default async config => {
     webpackHotMiddleware(compiler),
     historyApiFallback,
   ]
+  await untilStarted
+  return middleware
 }
 
 async function normalizeConfig(anyConfig) {
