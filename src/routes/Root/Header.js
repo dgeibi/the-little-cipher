@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { Menu, Popover, Icon } from 'antd'
 import { Link } from 'dva/router'
-import { Media as M } from 'react-fns'
+import Media from 'react-media'
 import { getMatchKey } from '..'
 import './Header.css'
 
-const Media = M.default || M
 const MenuItem = Menu.Item
 
 class Header extends Component {
