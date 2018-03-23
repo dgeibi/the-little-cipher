@@ -1,23 +1,27 @@
 import { readFile } from 'fs'
 import { playfair, cipherString, originalString } from '../core/cipher/playfair'
-import { isPlainFile } from '../core/util'
+
+const uniqDiff = diff => {
+  const origins = new Set()
+  return diff.filter(({ origin }) => {
+    if (origins.has(origin)) return false
+    origins.add(origin)
+    return true
+  })
+}
 
 const getResults = (secret, plaintext, decodeMode) => {
   const { diff, square } = playfair(secret, plaintext, decodeMode === 'true')
-
-  const cipherText = cipherString(diff)
-  const plainText = originalString(diff)
-
   return {
-    diff,
     square,
-    cipherText,
-    plainText,
+    diff: uniqDiff(diff),
+    cipherText: cipherString(diff),
+    plainText: originalString(diff),
   }
 }
 
 const playfairMiddleware = (req, res) => {
-  if (req.file && isPlainFile(req.file)) {
+  if (req.file) {
     readFile(req.file.path, (err, buffer) => {
       if (err) {
         console.log(err)

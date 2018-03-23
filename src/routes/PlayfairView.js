@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'dva'
-import { Input, message, Switch } from 'antd'
+import { Input, Switch } from 'antd'
 import Table from 'rc-table'
 import { findType } from '../core/cipher/playfair'
-import { isPlainFile } from '../core/util'
 import Section from '../components/Section'
 import MatrixOutput from '../components/MatrixOutput'
 import Output from '../components/Output'
@@ -64,15 +63,9 @@ class PlayfairView extends Component {
   readfiles(files) {
     const file = files && files[0]
     if (file) {
-      if (isPlainFile(file)) {
-        this.fetch({
-          file,
-        })
-      } else if (file.type) {
-        message.error(`不支持 ${file.type}`)
-      } else {
-        message.error('文件格式未知')
-      }
+      this.fetch({
+        file,
+      })
     }
   }
 
