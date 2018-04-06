@@ -9,11 +9,6 @@
   border-bottom: 0 none;
 }
 
-:global(.ant-menu-horizontal) :global(.ant-menu-item) > a:before {
-  height: auto;
-  bottom: -2px;
-}
-
 @media screen and (max-width: 599px) {
   :global(.ant-popover-inner-content) {
     padding: 0;

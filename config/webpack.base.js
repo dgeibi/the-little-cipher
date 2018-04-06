@@ -1,12 +1,19 @@
 const path = require('path')
 const merge = require('webpack-merge')
-const css = require('./presets/css')
 const env = require('./env')
+const WPC = require('./helper/WPC')
+const filter = require('./helper/filter')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = (webpackEnv = {}) => {
   const isProduction = webpackEnv.production === true
   const isSSR = webpackEnv.ssr === true
   const mode = isProduction ? 'production' : 'development'
+  const CSS_LOADER = isSSR ? 'css-loader/locals' : 'css-loader'
+  // eslint-disable-next-line
+  const CSS_RES_LOADER = isSSR
+    ? null
+    : isProduction ? MiniCssExtractPlugin.loader : 'style-loader'
 
   return merge([
     {
@@ -15,53 +22,52 @@ module.exports = (webpackEnv = {}) => {
         publicPath: '/',
       },
     },
-    require('./helper/WPC').alias(env.alias),
+    WPC.alias(env.alias),
     require('./presets/define')({
       'process.env.SSR': isSSR,
     }),
-    isSSR ||
-      css({
-        rule: {
-          test: /\.css$/,
-          include: path.resolve('node_modules/antd/'),
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                minimize: true,
-              },
-            },
-          ],
+    !isSSR &&
+      isProduction &&
+      WPC.plugin(
+        new MiniCssExtractPlugin({
+          filename: '[name].[contenthash:8].css',
+        })
+      ),
+    WPC.rule({
+      test: /\.css$/,
+      include: path.resolve('node_modules/antd/'),
+      use: filter([
+        CSS_RES_LOADER,
+        {
+          loader: CSS_LOADER,
+          options: {
+            minimize: true,
+          },
         },
-        extract: true,
-        extractOptions: 'antd.[contenthash:8].css',
-      }),
-    css({
-      ssr: isSSR,
-      rule: {
-        test: /\.css$/,
-        include: env.srcDir,
-        use: [
-          {
-            loader: 'css-loader',
-            options: {
-              minimize: true,
-              importLoaders: 1,
-              modules: true,
-              getLocalIdent: require('./cssModules/getLocalIdent'),
-              sourceMap: !isProduction,
-            },
+      ]),
+    }),
+    WPC.rule({
+      test: /\.css$/,
+      include: env.srcDir,
+      use: filter([
+        CSS_RES_LOADER,
+        {
+          loader: CSS_LOADER,
+          options: {
+            minimize: true,
+            importLoaders: 1,
+            modules: true,
+            getLocalIdent: require('./cssModules/getLocalIdent'),
+            sourceMap: !isProduction,
           },
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: !isProduction,
-            },
+        },
+        {
+          loader: 'postcss-loader',
+          options: {
+            sourceMap: !isProduction,
           },
-        ],
-      },
-      extract: isProduction,
-      extractOptions: 'main.[contenthash:8].css',
+        },
+      ]),
     }),
     require('./presets/babel')({
       include: env.srcDir,
