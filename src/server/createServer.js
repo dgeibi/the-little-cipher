@@ -19,9 +19,14 @@ export default function createServer(staticMiddleware) {
   // handle Not Found
   app.use(notFound)
 
-  const server = app.listen(process.env.PORT || 3000, () => {
-    console.log(`Serving on http://localhost:${server.address().port}`)
-  })
+  const server = app.listen(
+    process.env.PORT || 3000,
+    process.env.HOST || 'localhost',
+    () => {
+      const { port, address } = server.address()
+      console.log(`Serving on http://${address}:${port}`)
+    }
+  )
 
   return server
 }
