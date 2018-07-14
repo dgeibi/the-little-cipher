@@ -2,8 +2,6 @@
 
 古典密码加密
 
-[在线预览](https://the-little-cipher.herokuapp.com/)
-
 ## 构建
 
 安装 [Node](https://nodejs.org/)
